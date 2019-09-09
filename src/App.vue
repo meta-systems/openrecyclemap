@@ -2,7 +2,7 @@
     <v-app id="inspire">
         <v-navigation-drawer v-model="drawer" fixed app>
             <v-list dense>
-                <v-list-tile :to="{path: '/list'}">
+                <v-list-tile :to="{path: '/about'}">
                     <v-list-tile-action><v-icon>home</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>О проекте</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
@@ -40,8 +40,8 @@
         mixins: [fetchMixin],
         methods: {
             processParams: function (route) {
-                if(route.name === 'list') {
-                    this.title = 'List';
+                if(route.name === 'about') {
+                    //this.title = 'OSM Recycling';
                 }
                 else {
                     this.title = 'OSM Recycling';

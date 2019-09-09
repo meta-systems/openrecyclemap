@@ -1,7 +1,7 @@
 import moment from 'moment'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import listComponent from '../components/List'
+import aboutComponent from '../components/About'
 import mapComponent from '../components/Map'
 
 moment.locale('ru');
@@ -13,13 +13,13 @@ const routes = [
         name: 'root',
         path: '/',
         redirect: to => {
-            return { name: 'list' };
+            return { name: 'about' };
         }
     },
     {
-        name: 'list',
-        path: '/list',
-        component: listComponent
+        name: 'about',
+        path: '/about',
+        component: aboutComponent
     },
     {
         name: 'map',
