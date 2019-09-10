@@ -6,6 +6,10 @@
                     <v-list-tile-action><v-icon>home</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>О проекте</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
+                <v-list-tile :to="{path: '/login'}">
+                    <v-list-tile-action><v-icon>account-box</v-icon></v-list-tile-action>
+                    <v-list-tile-content><v-list-tile-title>Пользователь</v-list-tile-title></v-list-tile-content>
+                </v-list-tile>
                 <v-list-tile :to="{path: '/map'}">
                     <v-list-tile-action><v-icon>map</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>Карта</v-list-tile-title></v-list-tile-content>
@@ -50,16 +54,6 @@
         },
         created() {
             this.processParams(this.$route);
-
-            /*
-            this.fetch('index', [], function (result) {
-                if(result.status && result.inserted) {
-                    console.log(result.inserted);
-                }
-                else if(!result.status) {
-                    console.log(result.message);
-                }
-            })*/
         },
         watch: {
             '$route' (to, from) {
@@ -68,3 +62,9 @@
         }
     }
 </script>
+
+<style>
+    .v-navigation-drawer--is-mobile {
+        z-index: 1111 !important;
+    }
+</style>

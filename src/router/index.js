@@ -3,6 +3,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import aboutComponent from '../components/About'
 import mapComponent from '../components/Map'
+import loginComponent from '../components/Login'
 
 moment.locale('ru');
 
@@ -25,6 +26,11 @@ const routes = [
         name: 'map',
         path: '/map',
         component: mapComponent
+    },
+    {
+        name: 'login',
+        path: '/login',
+        component: loginComponent
     }
 ];
 
