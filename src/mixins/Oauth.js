@@ -56,20 +56,30 @@ export default {
                 '</changeset></osm>'
         },
         addNode: function (latlon, tags) {
-            var component = this;
-            this.auth.xhr({
+            var auth = this.auth;
+            auth.xhr({
                 method: 'PUT',
                 path: '/api/0.6/changeset/create',
-                content: this.createChangesetXml()
+                content: this.createChangesetXml(),
+                options: {
+                    header: {
+                        'Content-Type': 'text/xml'
+                    }
+                }
             }, function(err, changeset_id) {
                 if(changeset_id) {
-                    this.auth.xhr({
+                    auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: this.addNodeXml(latlon, tags, changeset_id)
+                        content: this.addNodeXml(latlon, tags, changeset_id),
+                        options: {
+                            header: {
+                                'Content-Type': 'text/xml'
+                            }
+                        }
                     }, function(err, node_id) {
                         if(node_id) {
-                            this.auth.xhr({
+                            auth.xhr({
                                 method: 'PUT',
                                 path: '/api/0.6/changeset/'+changeset_id+'/close'
                             }, function (err, closed_id) {
