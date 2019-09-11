@@ -56,6 +56,7 @@ export default {
                 '</changeset></osm>'
         },
         addNode: function (latlon, tags) {
+            var component = this;
             var auth = this.auth;
             auth.xhr({
                 method: 'PUT',
@@ -71,7 +72,7 @@ export default {
                     auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: this.addNodeXml(latlon, tags, changeset_id),
+                        content: component.addNodeXml(latlon, tags, changeset_id),
                         options: {
                             header: {
                                 'Content-Type': 'text/xml'
