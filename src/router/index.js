@@ -24,7 +24,7 @@ const routes = [
     },
     {
         name: 'map',
-        path: '/map',
+        path: '/map/:action?',
         component: mapComponent
     },
     {

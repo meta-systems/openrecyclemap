@@ -1,5 +1,18 @@
 <template>
-    <div id="map_container"></div>
+    <div id="map_parent" class="text-center">
+        <div id="map_container" style="z-index: 0;"></div>
+        <v-snackbar v-model="snackbar">
+            Укажите точку на карте
+            <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
+        </v-snackbar>
+        <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
+            <v-sheet class="text-center" height="200px">
+                <div>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</div>
+                <v-btn class="mt-6" color="primary">Сохранить</v-btn>
+                <v-btn class="mt-6" flat color="pink" @click="sheet = !sheet">Отмена</v-btn>
+            </v-sheet>
+        </v-bottom-sheet>
+    </div>
 </template>
 
 <script>
@@ -8,7 +21,11 @@
     export default {
         data: function () {
             return {
-                map: null
+                map: null,
+                snackbar: false,
+                adding: false,
+                marker: null,
+                sheet: false
             };
         },
         mixins: [overpassMixin],
@@ -52,17 +69,51 @@
                             }
                         }).addTo(map);
                     });
+            },
+            enableAddMode: function () {
+                let mapElem = this.map.getContainer();
+                mapElem.style.cursor = 'crosshair';
+                this.snackbar = true;
+                this.adding = true;
+            },
+            disableAddMode: function () {
+                let mapElem = this.map.getContainer();
+                this.snackbar = false;
+                this.adding = false;
+                mapElem.style.cursor = 'default';
             }
         },
         mounted() {
             this.setupMap();
             this.loadData();
+            if(this.$route.params.action === 'add') {
+                this.enableAddMode();
+            }
+            let component = this;
+            this.map.on('click', function(e) {
+                if(component.adding) {
+                    component.disableAddMode();
+                    component.marker = L.marker(e.latlng).addTo(component.map);
+                    component.sheet = true;
+                    component.map.setView(e.latlng, 18);
+                }
+            });
+        },
+        watch: {
+            '$route'(to, from) {
+                if(to.params.action === 'add') {
+                    this.enableAddMode();
+                }
+                else {
+                    this.disableAddMode();
+                }
+            }
         }
     }
 </script>
 
 <style>
-    #map_container {
+    #map_parent, #map_container {
         height: 100%;
     }
 </style>
