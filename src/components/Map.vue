@@ -6,10 +6,16 @@
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
         <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
-            <v-sheet class="text-center" height="200px">
-                <div>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</div>
-                <v-btn class="mt-6" color="primary">Сохранить</v-btn>
-                <v-btn class="mt-6" flat color="pink" @click="sheet = !sheet">Отмена</v-btn>
+            <v-sheet class="text-center" height="50%">
+                <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
+                <v-checkbox v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details row></v-checkbox>
+                <v-checkbox v-model="waste.plastic" label="Пластик" color="success" hide-details row></v-checkbox>
+                <v-checkbox v-model="waste.paper" label="Бумага" color="success" hide-details row></v-checkbox>
+                <v-checkbox v-model="waste.glass" label="Стекло" color="success" hide-details row></v-checkbox>
+                <v-checkbox v-model="waste.batteries" label="Батарейки" color="success" hide-details row></v-checkbox>
+                <v-checkbox v-model="waste.low_energy_bulbs" label="Ртутные лампы" color="success" hide-details row></v-checkbox>
+                <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
+                <v-btn class="mt-6" flat color="pink" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
         </v-bottom-sheet>
     </div>
@@ -17,6 +23,7 @@
 
 <script>
     import overpassMixin from '../mixins/Overpass'
+    import oauthMixin from '../mixins/Oauth'
 
     export default {
         data: function () {
@@ -25,10 +32,18 @@
                 snackbar: false,
                 adding: false,
                 marker: null,
-                sheet: false
+                sheet: false,
+                waste: {
+                    waste_disposal: false,
+                    plastic: false,
+                    paper: false,
+                    glass: false,
+                    batteries: false,
+                    low_energy_bulbs: false
+                }
             };
         },
-        mixins: [overpassMixin],
+        mixins: [overpassMixin, oauthMixin],
         methods: {
             setupMap: function () {
                 this.map = L.map('map_container').setView([57.82, 28.37], 13);
@@ -71,6 +86,9 @@
                     });
             },
             enableAddMode: function () {
+                if(!this.authenticated) {
+                    this.$router.replace({path: '/login'});
+                }
                 let mapElem = this.map.getContainer();
                 mapElem.style.cursor = 'crosshair';
                 this.snackbar = true;
@@ -81,9 +99,29 @@
                 this.snackbar = false;
                 this.adding = false;
                 mapElem.style.cursor = 'default';
+                this.$router.replace({path: '/map'});
+            },
+            cancelAddMode: function () {
+                this.sheet = false;
+                if(this.marker) {
+                    this.map.removeLayer(this.marker);
+                    this.marker = null;
+                }
+            },
+            saveData: function () {
+                if(!this.waste.waste_disposal && !this.waste.plastic && !this.waste.paper
+                        && !this.waste.glass && !this.waste.batteries && !this.waste.low_energy_bulbs) {
+                    return;
+                }
+                this.sheet = false;
+                if(this.marker) {
+                    this.addNode(this.marker.getLatLng(), this.waste);
+                }
             }
         },
         mounted() {
+            this.authInit();
+            console.log(this.authenticated);
             this.setupMap();
             this.loadData();
             if(this.$route.params.action === 'add') {
