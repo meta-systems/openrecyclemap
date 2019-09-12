@@ -8,12 +8,12 @@
         <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <v-checkbox v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details row></v-checkbox>
-                <v-checkbox v-model="waste.plastic" label="Пластик" color="success" hide-details row></v-checkbox>
-                <v-checkbox v-model="waste.paper" label="Бумага" color="success" hide-details row></v-checkbox>
-                <v-checkbox v-model="waste.glass" label="Стекло" color="success" hide-details row></v-checkbox>
-                <v-checkbox v-model="waste.batteries" label="Батарейки" color="success" hide-details row></v-checkbox>
-                <v-checkbox v-model="waste.low_energy_bulbs" label="Ртутные лампы" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.low_energy_bulbs" label="Ртутные лампы" color="success" hide-details row></v-checkbox>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
                 <v-btn class="mt-6" flat color="pink" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
@@ -123,6 +123,16 @@
                     };
                     this.addNode(this.marker.getLatLng(), this.waste);
                 }
+            },
+            clearRecycling: function () {
+                this.waste.plastic = false;
+                this.waste.paper = false;
+                this.waste.glass = false;
+                this.waste.batteries = false;
+                this.waste.low_energy_bulbs = false;
+            },
+            clearWaste: function () {
+                this.waste.waste_disposal = false;
             }
         },
         mounted() {
