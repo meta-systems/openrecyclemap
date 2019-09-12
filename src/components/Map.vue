@@ -2,7 +2,7 @@
     <div id="map_parent" class="text-center">
         <div id="map_container" style="z-index: 0;"></div>
         <v-snackbar v-model="snackbar">
-            Укажите точку на карте
+            {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
         <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
@@ -29,6 +29,7 @@
         data: function () {
             return {
                 map: null,
+                snackbar_text: null,
                 snackbar: false,
                 adding: false,
                 marker: null,
@@ -87,6 +88,7 @@
                 }
                 let mapElem = this.map.getContainer();
                 mapElem.style.cursor = 'crosshair';
+                this.snackbar_text = 'Укажите точку на карте';
                 this.snackbar = true;
                 this.adding = true;
             },
@@ -111,6 +113,14 @@
                 }
                 this.sheet = false;
                 if(this.marker) {
+                    this.addNodeSuccess = function () {
+                        this.snackbar_text = 'Информация успешно добавлена.';
+                        this.snackbar = true;
+                    };
+                    this.addNodeFail = function () {
+                        this.snackbar_text = 'Ошибка! Попробуйте позже.';
+                        this.snackbar = true;
+                    };
                     this.addNode(this.marker.getLatLng(), this.waste);
                 }
             }
@@ -127,6 +137,9 @@
             this.map.on('click', function(e) {
                 if(component.adding) {
                     component.disableAddMode();
+                    if(component.marker) {
+                        component.map.removeLayer(component.marker);
+                    }
                     component.marker = L.marker(e.latlng).addTo(component.map);
                     component.sheet = true;
                     component.map.setView(e.latlng, 18);

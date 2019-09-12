@@ -55,6 +55,8 @@ export default {
                 '<tag k="comment" v="Adding a recycling container (in a test mode)"/>' +
                 '</changeset></osm>'
         },
+        addNodeSuccess: function () {},
+        addNodeFail: function () {},
         addNode: function (latlon, tags) {
             var component = this;
             var auth = this.auth;
@@ -86,6 +88,10 @@ export default {
                             }, function (err, closed_id) {
                                 console.log('Changeset #'+closed_id+' has just been closed.')
                             });
+                            component.addNodeSuccess();
+                        }
+                        else {
+                            component.addNodeFail();
                         }
                     });
                 }
