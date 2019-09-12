@@ -19,7 +19,7 @@ export default {
                 'out skel qt;';
         },
         fetchAmenity: function (callback) {
-            fetch('https://lz4.overpass-api.de/api/interpreter', {
+            fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
                 body: 'data='+this.buildQuery()
             })

@@ -36,7 +36,6 @@
 
 <script>
     import moment from 'moment'
-    import fetchMixin from './mixins/Fetch'
 
     export default {
         data: function () {
@@ -45,7 +44,6 @@
                 drawer: null
             }
         },
-        mixins: [fetchMixin],
         methods: {
             processParams: function (route) {
                 if(route.name === 'about') {

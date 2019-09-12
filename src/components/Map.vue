@@ -127,7 +127,6 @@
         },
         mounted() {
             this.authInit();
-            console.log(this.authenticated);
             this.setupMap();
             this.loadData();
             if(this.$route.params.action === 'add') {
