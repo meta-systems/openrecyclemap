@@ -14,17 +14,17 @@ export default {
             this.authenticated = false;
         },
         details: function () {
-            var component = this;
+            let component = this;
             this.auth.xhr({
                 method: 'GET',
                 path: '/api/0.6/user/details'
             }, function(err, details) {
-                var userTag = details.getElementsByTagName('user')[0];
+                let userTag = details.getElementsByTagName('user')[0];
                 component.username = userTag.attributes["display_name"].value;
             });
         },
         addNodeXml: function (latlon, tags, changeset_id) {
-            var xml = '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">';
+            let xml = '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">';
             if (tags.waste_disposal) {
                 xml += '<tag k="amenity" v="waste_disposal"/>';
             }
@@ -58,8 +58,8 @@ export default {
         addNodeSuccess: function () {},
         addNodeFail: function () {},
         addNode: function (latlon, tags) {
-            var component = this;
-            var auth = this.auth;
+            let component = this;
+            let auth = this.auth;
             auth.xhr({
                 method: 'PUT',
                 path: '/api/0.6/changeset/create',
@@ -98,7 +98,7 @@ export default {
             });
         },
         authenticate: function () {
-            var component = this;
+            let component = this;
             this.auth.authenticate(function (err, oauth) {
                 component.authenticated = oauth.authenticated();
                 if(component.authenticated) {
@@ -110,9 +110,9 @@ export default {
             this.auth = osmAuth({
                 oauth_consumer_key: 'MN6LW9gpyK9RKMHxZ2AQ2BHvdDL1ZGVEebLuZ8fo',
                 oauth_secret: 'FujOIM84AK1J6JtHoBBdENS2MIWz3xOpL2TqBpxa',
-                auto: true
-                //singlepage: true,
-                //landing: 'auth'
+                auto: true,
+                singlepage: true,
+                landing: 'land'
             });
             this.authenticated = this.auth.authenticated();
             if(this.authenticated) {
