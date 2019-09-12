@@ -3,11 +3,11 @@
         <v-navigation-drawer v-model="drawer" fixed app>
             <v-list dense>
                 <v-list-tile :to="{path: '/about'}">
-                    <v-list-tile-action><v-icon>home</v-icon></v-list-tile-action>
+                    <v-list-tile-action><v-icon>info</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>О проекте</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :to="{path: '/login'}">
-                    <v-list-tile-action><v-icon>account-box</v-icon></v-list-tile-action>
+                    <v-list-tile-action><v-icon>account_circle</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>Пользователь</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :to="{path: '/map'}">
@@ -15,7 +15,7 @@
                     <v-list-tile-content><v-list-tile-title>Карта</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
                 <v-list-tile :to="{path: '/map/add'}">
-                    <v-list-tile-action><v-icon>plus-circle</v-icon></v-list-tile-action>
+                    <v-list-tile-action><v-icon>add_circle</v-icon></v-list-tile-action>
                     <v-list-tile-content><v-list-tile-title>Добавить</v-list-tile-title></v-list-tile-content>
                 </v-list-tile>
             </v-list>
@@ -24,8 +24,8 @@
             <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon @click="">
-                <v-icon>info</v-icon>
+            <v-btn icon :to="{path: '/map/add'}">
+                <v-icon>add</v-icon>
             </v-btn>
         </v-toolbar>
         <v-content>
@@ -41,7 +41,7 @@
     export default {
         data: function () {
             return {
-                title: 'OSM Recycling',
+                title: 'OpenRecycleMap',
                 drawer: null
             }
         },
@@ -49,10 +49,6 @@
         methods: {
             processParams: function (route) {
                 if(route.name === 'about') {
-                    //this.title = 'OSM Recycling';
-                }
-                else {
-                    this.title = 'OSM Recycling';
                 }
             }
         },

@@ -1,6 +1,6 @@
 {
-  "short_name": "Recycling",
-  "name": "OSM Recycling",
+  "short_name": "Open Recycle",
+  "name": "Open Recycle Map",
   "icons": [
     {
       "src": "/res/mipmap-mdpi/ic_launcher.png",
