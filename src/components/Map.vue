@@ -46,44 +46,40 @@
         mixins: [overpassMixin, oauthMixin],
         methods: {
             setupMap: function () {
-                this.map = L.map('map_container').setView([57.82, 28.37], 13);
+                this.map = L.map('map_container').setView([57.82, 28.35], 13);
                 L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}', {
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 18,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
             },
             loadData: function () {
-                var map = this.map;
-                fetch('https://lz4.overpass-api.de/api/interpreter', {
-                    method: 'POST',
-                    body: 'data='+this.queryWasteDisposal()
-                })
-                    .then(function (response) {
-                        console.log(response);
-                        if(!response.ok) {
-                            throw new Error(response.status);
-                        }
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        var ovData = osmtogeojson(data);
-                        L.geoJson(ovData, {
-                            style: {
+                let map = this.map;
+                this.fetchAmenity(function (data) {
+                    let ovData = osmtogeojson(data);
+                    L.geoJson(ovData, {
+                        style: function (feature) {
+                            let color = feature.properties.tags.amenity === 'recycling'
+                                ? '#2E7D32'
+                                : '#8D6E63';
+                            return  {
                                 weight: 2,
-                                opacity: 0.6,
-                                color: '#3245ad',
+                                opacity: 0.7,
+                                color: color,
                                 fillOpacity: 0.2
-                            },
-                            onEachFeature: function (feature, layer) {
-
-                            },
-                            pointToLayer: function(geoJsonPoint, latlng) {
-                                return new L.CircleMarker(latlng);
-                            }
-                        }).addTo(map);
-                    });
+                            };
+                        },
+                        onEachFeature: function (feature, layer) {
+                            layer.on('click', function () {
+                                console.log(feature.properties.tags);
+                            })
+                        },
+                        pointToLayer: function(geoJsonPoint, latlng) {
+                            return new L.CircleMarker(latlng);
+                        }
+                    }).addTo(map);
+                });
             },
             enableAddMode: function () {
                 if(!this.authenticated) {

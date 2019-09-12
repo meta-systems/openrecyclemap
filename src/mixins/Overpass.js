@@ -7,25 +7,29 @@ export default {
         defaultBbox: function () {
             return '57.776714401669885,28.20671081542969,57.86320114565444,28.533382415771488';
         },
-        queryRecycling: function (bounds) {
+        buildQuery: function (bounds) {
             var bbox = bounds ? this.bboxToString(bounds) : this.defaultBbox();
             return '[out:json][timeout:25];\n' +
                 '(\n' +
-                '  node["recycling:plastic"]('+bbox+');\n' +
-                ');\n' +
-                'out body;'+
-                '>;\n' +
-                'out skel qt;';
-        },
-        queryWasteDisposal: function (bounds) {
-            var bbox = bounds ? this.bboxToString(bounds) : this.defaultBbox();
-            return '[out:json][timeout:25];\n' +
-                '(\n' +
+                '  node["amenity"="recycling"]('+bbox+');\n' +
                 '  node["amenity"="waste_disposal"]('+bbox+');\n' +
                 ');\n' +
                 'out body;'+
                 '>;\n' +
                 'out skel qt;';
+        },
+        fetchAmenity: function (callback) {
+            fetch('https://lz4.overpass-api.de/api/interpreter', {
+                method: 'POST',
+                body: 'data='+this.buildQuery()
+            })
+                .then(function (response) {
+                    if(!response.ok) {
+                        throw new Error(response.status);
+                    }
+                    return response.json();
+                })
+                .then(callback);
         }
     }
 }
