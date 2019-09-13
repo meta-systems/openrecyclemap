@@ -188,6 +188,6 @@
         z-index: 0;
     }
     .map_container_behind {
-        height: calc(100% - 336px) !important;
+        height: calc(100% - 468px) !important;
     }
 </style>
