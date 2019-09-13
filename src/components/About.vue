@@ -27,10 +27,17 @@
 </script>
 
 <style>
+    .v-content__wrap {
+        background:#eee;
+    }
     .main_box {
         display:flex;
     }
+    .box_item:hover {
+        box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);
+    }
     .box_item {
+        background:white;
         display:flex;
         height:90px;
         width:110px;
