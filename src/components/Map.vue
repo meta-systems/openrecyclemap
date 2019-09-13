@@ -49,6 +49,8 @@
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
     import L from 'leaflet'
+    import 'font-awesome/css/font-awesome.min.css'
+    import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
     import 'leaflet.locatecontrol';
 
     export default {
