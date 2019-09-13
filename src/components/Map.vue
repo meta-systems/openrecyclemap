@@ -16,6 +16,7 @@
                 <v-checkbox @click="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details row></v-checkbox>
                 <v-checkbox @click="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details row></v-checkbox>
                 <v-checkbox @click="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details row></v-checkbox>
+                <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details row></v-checkbox>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
                 <v-btn class="mt-6" flat color="pink" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
@@ -130,6 +131,7 @@
             clearRecycling: function () {
                 this.waste.plastic = false;
                 this.waste.plastic_bags = false;
+                this.waste.plastic_bottles = false;
                 this.waste.paper = false;
                 this.waste.glass = false;
                 this.waste.batteries = false;
