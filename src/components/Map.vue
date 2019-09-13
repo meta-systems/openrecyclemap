@@ -8,15 +8,35 @@
         <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <v-checkbox @click="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.metal" label="Металл" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details row></v-checkbox>
-                <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details row></v-checkbox>
+                <v-layout row wrap>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.metal" label="Металл" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
+                    </v-flex>
+                </v-layout>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
                 <v-btn class="mt-6" flat color="pink" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
@@ -46,7 +66,9 @@
                     glass: false,
                     metal: false,
                     batteries: false,
-                    low_energy_bulbs: false
+                    low_energy_bulbs: false,
+                    plastic_bags: false,
+                    plastic_bottles: false
                 }
             };
         },
@@ -56,7 +78,7 @@
                 this.map = L.map('map_container').setView([57.82, 28.35], 13);
                 L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 18,
+                    maxZoom: 19,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
@@ -135,6 +157,7 @@
                 this.waste.plastic_bags = false;
                 this.waste.plastic_bottles = false;
                 this.waste.paper = false;
+                this.waste.metal = false;
                 this.waste.glass = false;
                 this.waste.batteries = false;
                 this.waste.low_energy_bulbs = false;
@@ -188,6 +211,6 @@
         z-index: 0;
     }
     .map_container_behind {
-        height: calc(100% - 468px) !important;
+        height: calc(100% - 204px) !important;
     }
 </style>
