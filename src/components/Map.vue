@@ -1,6 +1,6 @@
 <template>
     <div id="map_parent" class="text-center">
-        <div id="map_container" :class="{map_container_behind: sheet}"></div>
+        <div id="map_container"></div>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -11,6 +11,9 @@
                 <v-layout row wrap>
                     <v-flex xs6 sm4>
                         <v-checkbox @click="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
+                    </v-flex>
+                    <v-flex xs6 sm4>
+                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
                         <v-checkbox @click="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
@@ -32,9 +35,6 @@
                     </v-flex>
                     <v-flex xs6 sm4>
                         <v-checkbox @click="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
-                    </v-flex>
-                    <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
                     </v-flex>
                 </v-layout>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
@@ -195,7 +195,14 @@
                     this.disableAddMode();
                 }
             },
-            sheet() {
+            sheet(val) {
+                let mapEl = this.map.getContainer();
+                if(val) {
+                    mapEl.classList.add('map_container_behind');
+                }
+                else {
+                    mapEl.classList.remove('map_container_behind');
+                }
                 setTimeout(() => this.map.invalidateSize(), 10);
             }
         }
