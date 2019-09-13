@@ -49,6 +49,7 @@
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
     import L from 'leaflet'
+    import 'leaflet.locatecontrol';
 
     export default {
         data: function () {
@@ -82,6 +83,7 @@
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
+                L.control.locate().addTo(this.map);
             },
             loadData: function () {
                 let map = this.map;
