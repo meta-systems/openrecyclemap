@@ -3,9 +3,16 @@ import Vue from 'vue'
 import Vuetify from 'vuetify'
 import App from './App.vue'
 import router from './router'
+import colors from 'vuetify/lib/util/colors'
 
 Vue.use(Vuetify, {
-    iconfont: 'md'
+    iconfont: 'md',
+    theme: {
+        primary: colors.green.darken4,
+        secondary: colors.grey.darken1,
+        accent: colors.shades.black,
+        error: colors.red.accent3
+    }
 });
 
 Vue.config.productionTip = false;

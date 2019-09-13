@@ -38,7 +38,7 @@
                     </v-flex>
                 </v-layout>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
-                <v-btn class="mt-6" flat color="pink" @click="cancelAddMode">Отмена</v-btn>
+                <v-btn class="mt-6" flat color="primary" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
         </v-bottom-sheet>
     </div>
