@@ -1,5 +1,6 @@
 <template>
     <div id="map_parent" class="text-center">
+        <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
         <div id="map_container"></div>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
@@ -73,7 +74,7 @@
                 }).setView([57.82, 28.35], 13);
                 L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 19,
+                    maxZoom: 20,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
@@ -86,14 +87,6 @@
             },
             loadData: function () {
                 let map = this.map;
-                var geojsonMarkerOptions = {
-                    radius: 4,
-                    weight: 0,
-                    opacity: 1,
-                    fillOpacity: 1,
-                    border:false,
-                    width:0
-                };
                 this.fetchAmenity(function (data) {
                     let ovData = osmtogeojson(data);
                     L.geoJson(ovData, {
@@ -104,19 +97,22 @@
                             return  {
                                 weight: 2,
                                 opacity: 1,
-                                color: color,
-                                fillOpacity: 1
+                                fillOpacity: 1,
+                                color: 'white',
+                                fillColor: color,
+                                weight: 1,
+                                radius: 8
                             };
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
-                                //console.log(feature.properties);
+                                console.log(feature.properties);
                                 //feature.bindPopup("<b>Hello world!</b><br>I am a popup.")
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
 
-                            var plastic = '', metall = '', paper = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='';   
+                            var plastic = '', metall = '', paper = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='', waste_disposal='';   
 
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic')){ plastic = 'Пластик';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:metall')){ metall = 'Металл';}
@@ -126,12 +122,15 @@
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:low_energy_bulbs')){ low_energy_bulbs = 'Лампочки';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bags')){ plastic_bags = 'Пакеты';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bottles')){ plastic_bottles = 'Пластиковые бутылки';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bottles')){ plastic_bottles = 'Пластиковые бутылки';}
+                            if(
+                                geoJsonPoint.properties.hasOwnProperty('amenity') &&
+                                geoJsonPoint.properties.amenity == 'waste_disposal'
+                            ){ 
+                                waste_disposal = 'Мусорный контейнер';
+                            }
 
-
-                    //waste_disposal: false,
-
-
-                            return new L.CircleMarker(latlng, geojsonMarkerOptions).bindPopup(plastic+" "+ metall + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles );
+                            return new L.CircleMarker(latlng).bindPopup(plastic+" "+ metall + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles+ " "+waste_disposal+ '<br/><a target="_blank" href="https://openstreetmap.org/'+geoJsonPoint.properties.id+'">node</a>' );
                         }
                     }).addTo(map);
                 });
@@ -262,7 +261,7 @@
         height: calc(100% - 204px) !important;
     }
     .add-sheet { /* not working */
-    padding:10px;
+        padding:10px;
     }
     .v-bottom-sheet .v-sheet{
     padding:10px;
@@ -273,5 +272,11 @@
     .leaflet-top.leaflet-right {
         top:50%;
         transform: translateY(-50%);
+    }
+    .orm_logo_map {
+        position:absolute;
+        top:15px;
+        left:15px;
+        z-index: 1;
     }
 </style>
