@@ -49,6 +49,8 @@
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
     import L from 'leaflet'
+    import 'font-awesome/css/font-awesome.min.css'
+    import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
     import 'leaflet.locatecontrol';
 
     export default {
@@ -60,17 +62,7 @@
                 adding: false,
                 marker: null,
                 sheet: false,
-                waste: {
-                    waste_disposal: false,
-                    plastic: false,
-                    paper: false,
-                    glass: false,
-                    metal: false,
-                    batteries: false,
-                    low_energy_bulbs: false,
-                    plastic_bags: false,
-                    plastic_bottles: false
-                }
+                waste: {}
             };
         },
         mixins: [overpassMixin, oauthMixin],
@@ -166,9 +158,23 @@
             },
             clearWaste: function () {
                 this.waste.waste_disposal = false;
+            },
+            initWaste: function () {
+                this.waste = {
+                    waste_disposal: false,
+                    plastic: false,
+                    paper: false,
+                    glass: false,
+                    metal: false,
+                    batteries: false,
+                    low_energy_bulbs: false,
+                    plastic_bags: false,
+                    plastic_bottles: false
+                };
             }
         },
         mounted() {
+            this.initWaste();
             this.authInit();
             this.setupMap();
             this.loadData();
@@ -183,6 +189,7 @@
                         component.map.removeLayer(component.marker);
                     }
                     component.marker = L.marker(e.latlng).addTo(component.map);
+                    component.initWaste();
                     component.sheet = true;
                     component.map.setView(e.latlng, 18, {animate: false});
                 }
