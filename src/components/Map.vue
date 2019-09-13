@@ -5,10 +5,10 @@
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
-        <v-bottom-sheet v-model="sheet" class="add-sheet" persistent>
+        <v-bottom-sheet v-model="sheet" add-sheet persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <v-layout row wrap>
+                <v-layout row wrap fractions-list>
                     <v-flex xs6 sm4>
                         <v-checkbox @change="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
                     </v-flex>
@@ -68,17 +68,32 @@
         mixins: [overpassMixin, oauthMixin],
         methods: {
             setupMap: function () {
-                this.map = L.map('map_container').setView([57.82, 28.35], 13);
+                this.map = L.map('map_container',{
+                    zoomControl: false
+                }).setView([57.82, 28.35], 13);
                 L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 19,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
-                L.control.locate().addTo(this.map);
+                L.control.locate({
+                     position:'bottomright'
+                }).addTo(this.map);
+                L.control.zoom({
+                     position:'topright'
+                }).addTo(this.map);
             },
             loadData: function () {
                 let map = this.map;
+                var geojsonMarkerOptions = {
+                    radius: 4,
+                    weight: 0,
+                    opacity: 1,
+                    fillOpacity: 1,
+                    border:false,
+                    width:0
+                };
                 this.fetchAmenity(function (data) {
                     let ovData = osmtogeojson(data);
                     L.geoJson(ovData, {
@@ -88,18 +103,35 @@
                                 : '#8D6E63';
                             return  {
                                 weight: 2,
-                                opacity: 0.7,
+                                opacity: 1,
                                 color: color,
-                                fillOpacity: 0.2
+                                fillOpacity: 1
                             };
                         },
                         onEachFeature: function (feature, layer) {
-                            layer.on('click', function () {
-                                console.log(feature.properties);
+                            layer.on('click', function (ev) {
+                                //console.log(feature.properties);
+                                //feature.bindPopup("<b>Hello world!</b><br>I am a popup.")
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
-                            return new L.CircleMarker(latlng);
+
+                            var plastic = '', metall = '', paper = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='';   
+
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic')){ plastic = 'Пластик';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:metall')){ metall = 'Металл';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:paper')){ paper = 'Бумага';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:glass')){ glass = 'Стекло';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:batteries')){ batteries = 'Батарейки';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:low_energy_bulbs')){ low_energy_bulbs = 'Лампочки';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bags')){ plastic_bags = 'Пакеты';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bottles')){ plastic_bottles = 'Пластиковые бутылки';}
+
+
+                    //waste_disposal: false,
+
+
+                            return new L.CircleMarker(latlng, geojsonMarkerOptions).bindPopup(plastic+" "+ metall + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles );
                         }
                     }).addTo(map);
                 });
@@ -228,5 +260,18 @@
     }
     .map_container_behind {
         height: calc(100% - 204px) !important;
+    }
+    .add-sheet { /* not working */
+    padding:10px;
+    }
+    .v-bottom-sheet .v-sheet{
+    padding:10px;
+    }
+    .fractions-list {
+    margin-bottom:10px;
+    }
+    .leaflet-top.leaflet-right {
+        top:50%;
+        transform: translateY(-50%);
     }
 </style>

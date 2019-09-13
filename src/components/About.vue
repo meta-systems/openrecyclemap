@@ -1,7 +1,7 @@
 <template>
     <div class="about-container">
         <p><b>OpenRecycleMap</b> - приложение для просмотра и добавления информации о пунктах приема отходов,
-            которые будут отправлены на утилизацию.</p>
+            которые будут отправлены на переработку.</p>
         <div class="main_box">
             <router-link class="box_item" to="/map">Карта</router-link>
             <router-link class="box_item" to="/login">Аккаунт</router-link>
