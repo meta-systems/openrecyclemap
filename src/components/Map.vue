@@ -10,31 +10,31 @@
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
                 <v-layout row wrap>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
+                        <v-checkbox @change="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.metal" label="Металл" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.metal" label="Металл" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @click="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
                     </v-flex>
                 </v-layout>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
