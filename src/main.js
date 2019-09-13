@@ -10,6 +10,7 @@ Vue.use(Vuetify, {
 
 Vue.config.productionTip = false;
 
+import 'leaflet/dist/leaflet.css'
 import 'vuetify/dist/vuetify.min.css'
 
 new Vue({

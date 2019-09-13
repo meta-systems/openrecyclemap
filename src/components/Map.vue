@@ -22,8 +22,10 @@
 </template>
 
 <script>
+    import osmtogeojson from 'osmtogeojson'
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
+    import L from 'leaflet'
 
     export default {
         data: function () {
@@ -61,7 +63,7 @@
                     let ovData = osmtogeojson(data);
                     L.geoJson(ovData, {
                         style: function (feature) {
-                            let color = feature.properties.tags.amenity === 'recycling'
+                            let color = feature.properties.amenity === 'recycling'
                                 ? '#2E7D32'
                                 : '#8D6E63';
                             return  {
@@ -73,7 +75,7 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function () {
-                                console.log(feature.properties.tags);
+                                console.log(feature.properties);
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
