@@ -1,6 +1,6 @@
 <template>
     <div id="map_parent" class="text-center">
-        <div id="map_container" style="z-index: 0;"></div>
+        <div id="map_container" :class="{map_container_behind: sheet}"></div>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -151,7 +151,7 @@
                     }
                     component.marker = L.marker(e.latlng).addTo(component.map);
                     component.sheet = true;
-                    component.map.setView(e.latlng, 18);
+                    component.map.setView(e.latlng, 18, {animate: false});
                 }
             });
         },
@@ -163,6 +163,9 @@
                 else {
                     this.disableAddMode();
                 }
+            },
+            sheet() {
+                setTimeout(() => this.map.invalidateSize(), 10);
             }
         }
     }
@@ -171,5 +174,12 @@
 <style>
     #map_parent, #map_container {
         height: 100%;
+        overflow: hidden;
+    }
+    #map_container {
+        z-index: 0;
+    }
+    .map_container_behind {
+        height: calc(100% - 336px) !important;
     }
 </style>
