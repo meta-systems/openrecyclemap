@@ -1,6 +1,7 @@
 <template>
     <div id="map_parent" class="text-center">
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
+        <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
@@ -278,5 +279,20 @@
         top:15px;
         left:15px;
         z-index: 1;
+    }
+    .orm_map_add {
+        position:absolute;
+        top:20px;
+        right:20px;
+        background:white;
+        border-radius:30px;
+        width:40px;
+        height:40px;
+        z-index: 1;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        /*background-size:contain;*/
+        background-position: center;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
     }
 </style>
