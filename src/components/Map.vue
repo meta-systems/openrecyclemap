@@ -113,11 +113,11 @@
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
 
-                            var plastic = '', metall = '', paper = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='', waste_disposal='';   
+                            var plastic = '', paper = '', metal = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='', waste_disposal='';   
 
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic')){ plastic = 'Пластик';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:metall')){ metall = 'Металл';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:paper')){ paper = 'Бумага';}
+                            if(geoJsonPoint.properties.hasOwnProperty('recycling:metal')){ metal = 'Металл';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:glass')){ glass = 'Стекло';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:batteries')){ batteries = 'Батарейки';}
                             if(geoJsonPoint.properties.hasOwnProperty('recycling:low_energy_bulbs')){ low_energy_bulbs = 'Лампочки';}
@@ -131,7 +131,7 @@
                                 waste_disposal = 'Мусорный контейнер';
                             }
 
-                            return new L.CircleMarker(latlng).bindPopup(plastic+" "+ metall + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles+ " "+waste_disposal+ '<br/><a target="_blank" href="https://openstreetmap.org/'+geoJsonPoint.properties.id+'">node</a>' );
+                            return new L.CircleMarker(latlng).bindPopup(plastic+" "+ metal + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles+ " "+waste_disposal+ '<br/><a target="_blank" href="https://openstreetmap.org/'+geoJsonPoint.properties.id+'">node</a>' );
                         }
                     }).addTo(map);
                 });
@@ -161,8 +161,15 @@
                 }
             },
             saveData: function () {
-                if(!this.waste.waste_disposal && !this.waste.plastic && !this.waste.paper
-                        && !this.waste.glass && !this.waste.batteries && !this.waste.low_energy_bulbs) {
+                if(
+                    !this.waste.waste_disposal && 
+                    !this.waste.plastic && 
+                    !this.waste.paper && 
+                    !this.waste.metal && 
+                    !this.waste.glass && 
+                    !this.waste.batteries && 
+                    !this.waste.low_energy_bulbs
+                ) {
                     return;
                 }
                 this.sheet = false;
@@ -196,8 +203,8 @@
                     waste_disposal: false,
                     plastic: false,
                     paper: false,
-                    glass: false,
                     metal: false,
+                    glass: false,
                     batteries: false,
                     low_energy_bulbs: false,
                     plastic_bags: false,
