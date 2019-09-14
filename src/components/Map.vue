@@ -88,8 +88,8 @@
 
 
                 var baseLayers = {
-                    "Grayscale": mapbox,
-                    "Streets": mapnik
+                    "Mapbox": mapbox,
+                    "Mapnik": mapnik
                 };
 
                 L.control.layers(baseLayers).addTo(this.map);
