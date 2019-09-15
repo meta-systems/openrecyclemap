@@ -4,11 +4,22 @@
         <p><b>OpenRecycleMap</b> - приложение для просмотра и добавления информации о пунктах приема отходов,
             которые будут отправлены на переработку.</p>
         <div class="main_box">
-            <router-link class="box_item" to="/map">Карта</router-link>
             <router-link class="box_item" to="/login">Аккаунт</router-link>
             <router-link class="box_item" to="/map/add">Добавить</router-link>
+            <router-link class="box_item" to="/map">Карта</router-link>
             
         </div>
+
+        Какими тегами обозначаются контейнеры для раздельного сбора мусора:
+        <table>
+            <tr><td>Пластик</td><td>recycling:plastic=yes</td></tr>
+            <tr><td>Пластиковые бутылки</td><td>recycling:plastic_bottles=yes</td></tr>
+            <tr><td>Пакеты</td><td>recycling:plastic_bags=yes</td></tr>
+            <tr><td>Металл</td><td>recycling:metal=yes</td></tr>
+            <tr><td>Стекло</td><td>recycling:glass=yes</td></tr>
+        </table>
+
+        Все возможные значения тега recycling см в вики: <a href="https://wiki.openstreetmap.org/wiki/RU:Tag:amenity%3Drecycling" target="_blank">amenity=recycling</a>
     </div>
 </template>
 
@@ -28,11 +39,24 @@
 </script>
 
 <style>
+    table {
+        border-collapse: collapse;
+        margin:30px 0;
+    }
+    tr:hover {
+        background:#fff;
+    }
+    td {
+        padding:8px 10px;
+        border-bottom:1px solid #ccc;
+        border-top:1px solid #ccc;
+    }
     .v-content__wrap {
         background:#eee;
     }
     .main_box {
         display:flex;
+        margin-bottom:30px;
     }
     .box_item:hover {
         box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.25);

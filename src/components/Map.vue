@@ -75,13 +75,13 @@
                 }).setView([57.82, 28.35], 13);
                 var mapbox = L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    maxZoom: 20,
+                    maxZoom: 21,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
 
                 var mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                    maxZoom: 19,
+                    maxZoom: 21,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
 
@@ -94,9 +94,13 @@
 
                 L.control.layers(baseLayers).addTo(this.map);
 
+                //map.removeLayer(grayscale);
+                //map.addLayer(streets);
+
                 L.control.locate({
                      position:'bottomright'
                 }).addTo(this.map);
+
                 L.control.zoom({
                      position:'topright'
                 }).addTo(this.map);
