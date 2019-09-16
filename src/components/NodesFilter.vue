@@ -30,20 +30,9 @@
 <script>
     export default {
         name: "nodes-filter",
+        props: ['filter'],
         data: function () {
-            return {
-                filter: {
-                    plastic: true,
-                    paper: true,
-                    cans: true,
-                    glass_bottles: true,
-                    batteries: true,
-                    low_energy_bulbs: true,
-                    plastic_bags: true,
-                    //plastic_bottles: true,
-                    waste_disposal: false
-                }
-            }
+            return {}
         },
         watch: {
             filter: {

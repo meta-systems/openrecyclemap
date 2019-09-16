@@ -3,7 +3,7 @@
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
-        <nodes-filter v-on:filter-nodes="filterNodes"></nodes-filter>
+        <nodes-filter v-on:filter-nodes="filterNodes" :filter="filter"></nodes-filter>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -74,6 +74,17 @@
                     low_energy_bulbs: false,
                     plastic_bags: false,
                     plastic_bottles: false
+                },
+                filter: {
+                    plastic: true,
+                    paper: true,
+                    cans: true,
+                    glass_bottles: true,
+                    batteries: true,
+                    low_energy_bulbs: true,
+                    plastic_bags: true,
+                    //plastic_bottles: true,
+                    waste_disposal: false
                 },
                 labels: {
                     recycling: {
@@ -260,15 +271,15 @@
                 this.clearWaste();
                 this.clearRecycling();
             },
-            filterNodes: function (filter) {
-                this.loadData(filter);
+            filterNodes: function () {
+                this.loadData(this.filter);
             }
         },
         mounted() {
             this.initWaste();
             this.authInit();
             this.setupMap();
-            this.loadData();
+            this.loadData(this.filter);
             if(this.$route.params.action === 'add') {
                 this.enableAddMode();
             }
