@@ -40,7 +40,7 @@
                     batteries: true,
                     low_energy_bulbs: true,
                     plastic_bags: true,
-                    plastic_bottles: true,
+                    //plastic_bottles: true,
                     waste_disposal: false
                 }
             }
@@ -48,7 +48,7 @@
         watch: {
             filter: {
                 handler(val) {
-                    console.log(this.filter);
+                    this.$emit('filter-nodes', val);
                 },
                 deep: true
             }

@@ -3,7 +3,7 @@
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
-        <nodes-filter></nodes-filter>
+        <nodes-filter v-on:filter-nodes="filterNodes"></nodes-filter>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -63,6 +63,7 @@
                 adding: false,
                 marker: null,
                 sheet: false,
+                layer: null,
                 waste: {
                     waste_disposal: false,
                     plastic: false,
@@ -130,12 +131,15 @@
                      position:'topright'
                 }).addTo(this.map);
             },
-            loadData: function () {
+            loadData: function (filter) {
                 let map = this.map;
                 let component = this;
+                if(this.layer) {
+                    map.removeLayer(this.layer);
+                }
                 this.fetchAmenity(function (data) {
                     let ovData = osmtogeojson(data);
-                    L.geoJson(ovData, {
+                    component.layer = L.geoJson(ovData, {
                         style: function (feature) {
                             let color = feature.properties.amenity === 'recycling'
                                 ? '#2E7D32'
@@ -148,6 +152,26 @@
                                 weight: 1,
                                 radius: 8
                             };
+                        },
+                        filter: function (feature) {
+                            let geoJsonProps = feature.properties;
+                            if(!filter) {
+                                return true;
+                            }
+                            if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+                                return filter.waste_disposal;
+                            }
+                            else {
+                                for (let key in filter) {
+                                    if(!filter[key] || key === 'waste_disposal') {
+                                        continue;
+                                    }
+                                    if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
+                                        return true;
+                                    }
+                                }
+                            }
+                            return false;
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
@@ -162,7 +186,7 @@
                             }
                             else {
                                 for (let key in component.labels.recycling) {
-                                    if(geoJsonProps.hasOwnProperty('recycling:'+key)) {
+                                    if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
                                         nodeTypes.push(component.labels.recycling[key]);
                                     }
                                 }
@@ -235,6 +259,9 @@
             initWaste: function () {
                 this.clearWaste();
                 this.clearRecycling();
+            },
+            filterNodes: function (filter) {
+                this.loadData(filter);
             }
         },
         mounted() {
