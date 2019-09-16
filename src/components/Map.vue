@@ -3,16 +3,7 @@
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
-        <div class="map_filters">
-            <div class="map_filter filter_active"><span>Пластик</span></div>
-            <div class="map_filter"><span>Стекло</span></div>
-            <div class="map_filter filter_active"><span>Бумага</span></div>
-            <div class="map_filter"><span>Алюминий</span></div>
-            <div class="map_filter"><span>Лампочки</span></div>
-            <div class="map_filter"><span>Батарейки</span></div>
-            <div class="map_filter"><span>Пакеты</span></div>
-            <div class="map_filter"><span>Несортируемые</span></div>
-        </div>
+        <nodes-filter></nodes-filter>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -57,6 +48,7 @@
     import osmtogeojson from 'osmtogeojson'
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
+    import NodesFilter from './NodesFilter'
     import L from 'leaflet'
     import 'font-awesome/css/font-awesome.min.css'
     import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
@@ -96,6 +88,9 @@
                     waste_disposal: 'Мусорный контейнер'
                 }
             };
+        },
+        components: {
+            NodesFilter
         },
         mixins: [overpassMixin, oauthMixin],
         methods: {
@@ -332,22 +327,5 @@
         /*background-size:contain;*/
         background-position: center;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
-    }
-    .map_filters {
-        background:white;
-        height:10%;
-        display:flex;
-        overflow-x: auto;
-    }
-    .map_filter:hover {
-        background:#eee;
-    }
-    .filter_active span {
-        box-shadow: #d5afff 0 -4px 0 0 inset;
-    }
-    .map_filter {
-        margin:10px;
-        padding:5px;
-        cursor:pointer;
     }
 </style>
