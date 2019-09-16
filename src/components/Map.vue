@@ -25,7 +25,7 @@
                         <v-checkbox @change="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @change="clearWaste" v-model="waste.plastic_bottles" label="Пластиковые бутылки" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.glass_bottles" label="Стеклянные бутылки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
                         <v-checkbox @change="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
@@ -34,10 +34,7 @@
                         <v-checkbox @change="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
-                        <v-checkbox @change="clearWaste" v-model="waste.glass" label="Стекло" color="success" hide-details></v-checkbox>
-                    </v-flex>
-                    <v-flex xs6 sm4>
-                        <v-checkbox @change="clearWaste" v-model="waste.metal" label="Металл" color="success" hide-details></v-checkbox>
+                        <v-checkbox @change="clearWaste" v-model="waste.cans" label="Алюминиевые банки" color="success" hide-details></v-checkbox>
                     </v-flex>
                     <v-flex xs6 sm4>
                         <v-checkbox @change="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
@@ -74,13 +71,23 @@
                 adding: false,
                 marker: null,
                 sheet: false,
-                waste: {},
+                waste: {
+                    waste_disposal: false,
+                    plastic: false,
+                    paper: false,
+                    cans: false,
+                    glass_bottles: false,
+                    batteries: false,
+                    low_energy_bulbs: false,
+                    plastic_bags: false,
+                    plastic_bottles: false
+                },
                 labels: {
                     recycling: {
                         plastic: 'Пластик',
                         paper: 'Бумага',
-                        metal: 'Металл',
-                        glass: 'Стекло',
+                        cans: 'Алюминиевые банки',
+                        glass_bottles: 'Стеклянные бутылки',
                         batteries: 'Батарейки',
                         low_energy_bulbs: 'Лампочки',
                         plastic_bags: 'Пакеты',
@@ -221,8 +228,10 @@
                 }
             },
             clearRecycling: function () {
-                for (let key in this.labels.recycling) {
-                    this.waste[key] = false;
+                for (let key in this.waste) {
+                    if(key !== 'waste_disposal') {
+                        this.waste[key] = false;
+                    }
                 }
             },
             clearWaste: function () {

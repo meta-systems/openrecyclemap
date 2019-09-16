@@ -30,20 +30,10 @@ export default {
             }
             else {
                 xml += '<tag k="amenity" v="recycling"/>';
-                if (tags.plastic) {
-                    xml += '<tag k="recycling:plastic" v="yes"/>';
-                }
-                if (tags.paper) {
-                    xml += '<tag k="recycling:paper" v="yes"/>';
-                }
-                if (tags.glass) {
-                    xml += '<tag k="recycling:glass" v="yes"/>';
-                }
-                if (tags.batteries) {
-                    xml += '<tag k="recycling:batteries" v="yes"/>';
-                }
-                if (tags.low_energy_bulbs) {
-                    xml += '<tag k="recycling:low_energy_bulbs" v="yes"/>';
+                for (let key in tags) {
+                    if(tags.hasOwnProperty(key) && tags[key]) {
+                        xml += '<tag k="recycling:'+key+'" v="yes"/>';
+                    }
                 }
             }
             xml += '</node></osm>';
