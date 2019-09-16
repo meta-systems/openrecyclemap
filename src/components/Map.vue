@@ -74,7 +74,20 @@
                 adding: false,
                 marker: null,
                 sheet: false,
-                waste: {}
+                waste: {},
+                labels: {
+                    recycling: {
+                        plastic: 'Пластик',
+                        paper: 'Бумага',
+                        metal: 'Металл',
+                        glass: 'Стекло',
+                        batteries: 'Батарейки',
+                        low_energy_bulbs: 'Лампочки',
+                        plastic_bags: 'Пакеты',
+                        plastic_bottles: 'Пластиковые бутылки'
+                    },
+                    waste_disposal: 'Мусорный контейнер'
+                }
             };
         },
         mixins: [overpassMixin, oauthMixin],
@@ -117,6 +130,7 @@
             },
             loadData: function () {
                 let map = this.map;
+                let component = this;
                 this.fetchAmenity(function (data) {
                     let ovData = osmtogeojson(data);
                     L.geoJson(ovData, {
@@ -125,7 +139,6 @@
                                 ? '#2E7D32'
                                 : '#8D6E63';
                             return  {
-                                weight: 2,
                                 opacity: 1,
                                 fillOpacity: 1,
                                 color: 'white',
@@ -137,30 +150,23 @@
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
                                 console.log(feature.properties);
-                                //feature.bindPopup("<b>Hello world!</b><br>I am a popup.")
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
-
-                            var plastic = '', paper = '', metal = '', glass = '', batteries = '', plastic_bags='', plastic_bottles='', low_energy_bulbs='', waste_disposal='';   
-
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic')){ plastic = 'Пластик';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:paper')){ paper = 'Бумага';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:metal')){ metal = 'Металл';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:glass')){ glass = 'Стекло';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:batteries')){ batteries = 'Батарейки';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:low_energy_bulbs')){ low_energy_bulbs = 'Лампочки';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bags')){ plastic_bags = 'Пакеты';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bottles')){ plastic_bottles = 'Пластиковые бутылки';}
-                            if(geoJsonPoint.properties.hasOwnProperty('recycling:plastic_bottles')){ plastic_bottles = 'Пластиковые бутылки';}
-                            if(
-                                geoJsonPoint.properties.hasOwnProperty('amenity') &&
-                                geoJsonPoint.properties.amenity == 'waste_disposal'
-                            ){ 
-                                waste_disposal = 'Мусорный контейнер';
+                            let nodeTypes = [];
+                            let geoJsonProps = geoJsonPoint.properties;
+                            if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+                                nodeTypes.push(component.labels.waste_disposal);
                             }
-
-                            return new L.CircleMarker(latlng).bindPopup(plastic+" "+ metal + " "+ paper + " " + glass + " "+ batteries+ " "+ low_energy_bulbs+ " "+ plastic_bags+ " "+ plastic_bottles+ " "+waste_disposal+ '<br/><a target="_blank" href="https://openstreetmap.org/'+geoJsonPoint.properties.id+'">node</a>' );
+                            else {
+                                for (let key in component.labels.recycling) {
+                                    if(geoJsonProps.hasOwnProperty('recycling:'+key)) {
+                                        nodeTypes.push(component.labels.recycling[key]);
+                                    }
+                                }
+                            }
+                            let osmLink = '<a target="_blank" href="https://openstreetmap.org/'+geoJsonProps.id+'">node</a>';
+                            return new L.CircleMarker(latlng).bindPopup(nodeTypes.join(', ') + '<br/>' + osmLink);
                         }
                     }).addTo(map);
                 });
@@ -189,16 +195,16 @@
                     this.marker = null;
                 }
             },
+            hasData: function () {
+                for (let key in this.waste) {
+                    if(this.waste.hasOwnProperty(key) && this.waste[key]) {
+                        return true;
+                    }
+                }
+                return false;
+            },
             saveData: function () {
-                if(
-                    !this.waste.waste_disposal && 
-                    !this.waste.plastic && 
-                    !this.waste.paper && 
-                    !this.waste.metal && 
-                    !this.waste.glass && 
-                    !this.waste.batteries && 
-                    !this.waste.low_energy_bulbs
-                ) {
+                if(!this.hasData()) {
                     return;
                 }
                 this.sheet = false;
@@ -215,30 +221,16 @@
                 }
             },
             clearRecycling: function () {
-                this.waste.plastic = false;
-                this.waste.plastic_bags = false;
-                this.waste.plastic_bottles = false;
-                this.waste.paper = false;
-                this.waste.metal = false;
-                this.waste.glass = false;
-                this.waste.batteries = false;
-                this.waste.low_energy_bulbs = false;
+                for (let key in this.labels.recycling) {
+                    this.waste[key] = false;
+                }
             },
             clearWaste: function () {
                 this.waste.waste_disposal = false;
             },
             initWaste: function () {
-                this.waste = {
-                    waste_disposal: false,
-                    plastic: false,
-                    paper: false,
-                    metal: false,
-                    glass: false,
-                    batteries: false,
-                    low_energy_bulbs: false,
-                    plastic_bags: false,
-                    plastic_bottles: false
-                };
+                this.clearWaste();
+                this.clearRecycling();
             }
         },
         mounted() {

@@ -52,7 +52,7 @@ export default {
         createChangesetXml: function () {
             return '<osm><changeset>' +
                 '<tag k="created_by" v="OpenRecycleMap"/>' +
-                '<tag k="comment" v="Adding a recycling container (in a test mode)"/>' +
+                '<tag k="comment" v="Adding a recycling container"/>' +
                 '</changeset></osm>'
         },
         addNodeSuccess: function () {},
