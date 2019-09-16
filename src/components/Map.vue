@@ -1,6 +1,7 @@
 <template>
     <div id="map_parent" class="text-center">
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
+        <div class="orm_layers" @click="changeLayers"></div>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
         <nodes-filter v-on:filter-nodes="filterNodes" :filter="filter"></nodes-filter>
@@ -131,8 +132,7 @@
 
                 L.control.layers(baseLayers).addTo(this.map);
 
-                //map.removeLayer(grayscale);
-                //map.addLayer(streets);
+                
 
                 L.control.locate({
                      position:'bottomright'
@@ -267,6 +267,11 @@
             clearWaste: function () {
                 this.waste.waste_disposal = false;
             },
+            changeLayers: function () {
+                // FIXME: mapbox is not defined
+                this.map.removeLayer(mapbox);
+                this.map.addLayer(mapnik);
+            },
             initWaste: function () {
                 this.clearWaste();
                 this.clearRecycling();
@@ -342,7 +347,7 @@
     margin-bottom:10px;
     }
     .leaflet-top.leaflet-right {
-        /*top:50%;*/
+        top:10%;
         /*transform: translateY(-50%);*/
     }
     .orm_logo_map {
@@ -350,6 +355,24 @@
         top:15px;
         left:15px;
         z-index: 1;
+    }
+
+    .orm_layers {
+        position:absolute;
+        top:21px;
+        right:20px;
+        background:white;
+        border-radius:30px;
+        width:40px;
+        height:40px;
+        z-index: 1;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.47 21.38L9.23 27.52C8 28.09 8 29 9.23 29.58l13.24 6.13c1.23.57 3.22.57 4.45 0l13.24-6.13c1.23-.57 1.23-1.5 0-2.06l-13.24-6.14a6.02 6.02 0 0 0-4.45 0z' fill='%23B3B3B3'/%3E%3Cpath d='M22.47 13.03L9.23 19.16c-1.23.57-1.23 1.5 0 2.06l13.24 6.14c1.23.56 3.22.56 4.45 0l13.24-6.14c1.23-.57 1.23-1.49 0-2.06l-13.24-6.13a6.02 6.02 0 0 0-4.45 0z' fill='%239C9C9C' fill-opacity='.55'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        /*background-size:contain;*/
+        background-position: center;
+        background-size:contain;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+        cursor:pointer;
     }
     .orm_map_add {
         position:absolute;
