@@ -16,11 +16,10 @@
         <table>
             <tr class="thead"><td>Вид мусора</td><td>Тэг</td><td><a href="https://taginfo.openstreetmap.org/tags/amenity=recycling#combinations" target="_blank">Taginfo</a></td></tr>
             <tr><td>Пластик</td><td>recycling:plastic=yes</td><td>10%</td></tr>
-            <tr><td>Пластиковые бутылки</td><td>recycling:plastic_bottles=yes</td><td>5%</td></tr>
-            <tr><td>Пластиковая упаковка</td><td>recycling:plastic_packaging=yes</td><td>4%</td></tr>
+            <!-- <tr><td>Пластиковые бутылки</td><td>recycling:plastic_bottles=yes</td><td>5%</td></tr> -->
             <tr><td>Пакеты</td><td>recycling:plastic_bags=yes</td><td>нет в taginfo</td></tr>
             <tr><td>Бумага</td><td>recycling:paper=yes</td><td>25%</td></tr>
-            <tr><td>Стекло (стеклянные бутылки)</td><td>recycling:glass_bottles=yes</td><td>23%</td></tr>
+            <tr><td>Стеклянные бутылки</td><td>recycling:glass_bottles=yes</td><td>23%</td></tr>
             <tr><td>Алюминиевые банки</td><td>recycling:cans=yes</td><td>13%</td></tr>
             <tr><td>Батарейки</td><td>recycling:batteries=yes</td><td>4%</td></tr>
             <tr><td>Лампочки (люменесцентные лампы)</td><td>recycling:low_energy_bulbs=yes</td><td>нет в taginfo</td></tr>
