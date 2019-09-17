@@ -186,6 +186,7 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
+                                
                                 console.log(feature.properties);
                             })
                         },
@@ -202,7 +203,7 @@
                                     }
                                 }
                             }
-                            let osmLink = '<a target="_blank" href="https://openstreetmap.org/'+geoJsonProps.id+'">node</a>';
+                            let osmLink = '<a target="_blank" href="https://openstreetmap.org/'+geoJsonProps.id+'">node</a> <a target="_blank" href="http://127.0.0.1:8111/load_object?objects=n'+geoJsonProps.id.replace("node/", "")+'">josm</a>';
                             return new L.CircleMarker(latlng).bindPopup(nodeTypes.join(', ') + '<br/>' + osmLink);
                         }
                     }).addTo(map);
