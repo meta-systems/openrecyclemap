@@ -4,6 +4,7 @@
         <div class="orm_layers" @click="changeLayers"></div>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
+        <div class="node_info">Пластик, бумага, ртуть <a target="_blank" href="https://openstreetmap.org/node/4024281389">node</a>  <a target="_blank" href="http://127.0.0.1:8111/load_object?objects=n4024281389">josm</a></div>
         <nodes-filter v-on:filter-nodes="filterNodes" :filter="filter"></nodes-filter>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
@@ -186,8 +187,9 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
-                                
-                                console.log(feature.properties);
+                                document.querySelectorAll('.node_info')[0].classList.add("node_info_visible");
+                                document.querySelectorAll('.map_filters')[0].classList.add("map_filters_hidden");
+                                // console.log(feature.properties);
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
@@ -389,5 +391,14 @@
         /*background-size:contain;*/
         background-position: center;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
+    .node_info {
+        display:none;
+    }
+    .node_info_visible {
+        display:block;
+    }
+    .map_filters_hidden {
+        display:none !important;
     }
 </style>
