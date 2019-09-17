@@ -48,7 +48,8 @@
             this.baseLayers = {
                 "Mapbox": mapbox,
                 "Mapnik": this.mapnikLayer(),
-                "Спутник": this.hereLayer()
+                "HERE sat": this.hereSat(),
+                "Mapbox sat": this.mapboxSat()
             };
             //L.control.layers(this.baseLayers).addTo(this.map);
 

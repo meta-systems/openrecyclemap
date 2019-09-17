@@ -14,7 +14,7 @@ export default {
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
         },
-        hereLayer: function () {
+        hereSat: function () {
             return L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}'
                     + '?app_id={app_id}&app_code={app_code}&lg={language}', {
                 attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
@@ -30,6 +30,15 @@ export default {
                 format: 'png8',
                 size: '256',
                 url: 'here'
+            });
+        },
+        mapboxSat: function () {
+            return L.tileLayer('//api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
+                maxZoom: 19,
+                url: 'MapboxSat',
+                attribution: 'Тайлы <a href="http://mapbox.com/about/maps/">MapBox</a>',
+                subdomains: 'abcd',
+                accessToken: process.env.VUE_APP_MAPBOX_TOKEN
             });
         }
     }
