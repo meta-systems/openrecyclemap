@@ -96,7 +96,7 @@
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 21,
                     id: 'mapbox.streets',
-                    accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
+                    accessToken: process.env.VUE_APP_MAPBOX_TOKEN
                 }).addTo(this.map);
 
                 let mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -110,8 +110,8 @@
                     base: 'aerial',
                     type: 'maptile',
                     scheme: 'satellite.day',
-                    app_id: 'Mp5X0y9PyG3auiPk0tXJ', 
-                    app_code: 'b-R0mPrBmIy6ma8ImLkUXQ',
+                    app_id: process.env.VUE_APP_HERE_ID,
+                    app_code: process.env.VUE_APP_HERE_APPCODE,
                     mapID: 'newest',
                     maxZoom: 20,
                     language: 'eng',
