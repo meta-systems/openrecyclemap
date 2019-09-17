@@ -1,6 +1,7 @@
 <template>
     <div class="map_parent">
         <div class="orm_control orm_layers" @click="changeLayers"></div>
+        <div class="orm_control orm_position" @click="showPosition"></div>
         <div class="orm_control orm_zoom">
             <div class="zoom_btn" @click="zoom_plus">+</div>
             <div class="zoom_btn" @click="zoom_minus">−</div>
@@ -48,6 +49,13 @@
             zoom_minus: function () {
                 this.map.zoomOut(); 
             },
+            showPosition: function () {
+                // create control and add to map
+                let lc = L.control.locate().addTo(this.map);
+
+                // request location update and set location
+                lc.start();
+            },
         },
         mounted() {
             this.map = L.map('map_container', {
@@ -63,9 +71,9 @@
             };
             //L.control.layers(this.baseLayers).addTo(this.map);
 
-            L.control.locate({
-                position:'bottomright'
-            }).addTo(this.map);
+            // L.control.locate({
+            //     position:'bottomleft'
+            // }).addTo(this.map);
 
             // L.control.zoom({
             //     position:'topright'
@@ -103,6 +111,9 @@
     }
 
 
+    .orm_control:hover {
+        opacity:1;
+    }
     .orm_control {
         background-repeat: no-repeat;
         background-size:contain;
@@ -127,14 +138,17 @@
         right:20px;
         height:80px;
     }
-    .zoom_btn:hover {
-        /*background:#eee !important;*/
-    }
     .zoom_btn {
         line-height:40px;
         text-align:center;
         font-size:30px;
         height:40px;
         border-radius:30px;
+    }
+    .orm_position {
+        bottom:15%;
+        right:20px;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24.64' cy='25.08' r='9.53' stroke='%23000' stroke-width='2.38'/%3E%3Cpath fill='%23000' d='M23.45 9.6h2.38v5.95h-2.38zM23.45 34.61h2.38v5.95h-2.38zM40.12 23.88v2.38h-5.95v-2.38zM15.12 23.9v2.37H9.17V23.9z'/%3E%3Ccircle cx='24.64' cy='25.08' r='4.76' fill='%23000'/%3E%3C/svg%3E");
+
     }
 </style>
