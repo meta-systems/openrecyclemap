@@ -146,7 +146,7 @@
                 if(this.layer) {
                     map.removeLayer(this.layer);
                 }
-                this.fetchAmenity(function (data) {
+                this.fetchAmenity(map.getCenter(), function (data) {
                     let ovData = osmtogeojson(data);
                     component.layer = L.geoJson(ovData, {
                         style: function (feature) {
@@ -311,6 +311,9 @@
                     component.sheet = true;
                     component.map.setView(e.latlng, 18, {animate: false});
                 }
+            });
+            this.map.on('locationfound', function (e) {
+                component.loadData(component.filter);
             });
         },
         watch: {

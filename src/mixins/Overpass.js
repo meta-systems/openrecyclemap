@@ -4,11 +4,21 @@ export default {
             return bounds._southWest.lat + ',' + bounds._southWest.lng + ','
                 + bounds._northEast.lat + ',' + bounds._northEast.lng;
         },
-        defaultBbox: function () {
-            return '57.776714401669885,28.20671081542969,57.86320114565444,28.533382415771488';
+        bboxFromCenter: function (latlon) {
+            let bounds = {
+                _southWest: {
+                    lat: latlon.lat - 0.05,
+                    lng: latlon.lng - 0.1
+                },
+                _northEast: {
+                    lat: latlon.lat + 0.05,
+                    lng: latlon.lng + 0.1
+                }
+            };
+            return this.bboxToString(bounds);
         },
-        buildQuery: function (bounds) {
-            var bbox = bounds ? this.bboxToString(bounds) : this.defaultBbox();
+        buildQuery: function (center) {
+            var bbox = this.bboxFromCenter(center);
             return '[out:json][timeout:25];\n' +
                 '(\n' +
                 '  node["amenity"="recycling"]('+bbox+');\n' +
@@ -18,10 +28,10 @@ export default {
                 '>;\n' +
                 'out skel qt;';
         },
-        fetchAmenity: function (callback) {
+        fetchAmenity: function (center, callback) {
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
-                body: 'data='+this.buildQuery()
+                body: 'data='+this.buildQuery(center)
             })
                 .then(function (response) {
                     if(!response.ok) {
