@@ -1,8 +1,13 @@
 <template>
     <div id="map_parent" class="text-center">
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
-        <div class="orm_layers" @click="changeLayers"></div>
-        <router-link class="orm_map_add" to="/map/add"></router-link>
+        <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
+        <div class="orm_control orm_layers" @click="changeLayers"></div>
+        <div class="orm_control orm_zoom">
+            <div class="zoom_btn" @click="zoom_plus">+</div>
+            <div class="zoom_btn" @click="zoom_minus">−</div>
+        </div>
+
         <div id="map_container"></div>
         <div class="node_info" v-if="selectedLayer">
             {{ selected.info }}
@@ -109,7 +114,6 @@
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
 
-                // not working on mobile
                 let here = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}', {
                     attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
                     subdomains: '1234',
@@ -137,8 +141,8 @@
                 this.baseLayers = {
                     "Mapbox": mapbox,
                     "Mapnik": mapnik,
-                    "HERE sat": here,
-                    "Mapbox sat": mapboxSat
+                    "Mapbox sat": mapboxSat,
+                    "HERE sat": here, // not working on mobile
                 };
                 //L.control.layers(this.baseLayers).addTo(this.map);
 
@@ -278,6 +282,9 @@
                     this.addNode(this.marker.getLatLng(), this.waste);
                 }
             },
+            zoom_plus: function () {
+                
+            },
             changeLayers: function () {
                 let nextkey = Object.keys(this.baseLayers)[0];
                 let removed = false;
@@ -374,37 +381,43 @@
         left:15px;
         z-index: 1;
     }
-
-    .orm_layers {
+    .orm_control {
+        background-repeat: no-repeat;
+        background-size:contain;
+        z-index: 1;
         position:absolute;
+        background-position: center;
+        background-color:white;
+        border-radius:30px;
+        height:40px;
+        width:40px;
+        opacity:0.7;
+        cursor:pointer;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
+    .orm_layers {
         top:21px;
         right:20px;
-        background:white;
-        border-radius:30px;
-        width:40px;
-        height:40px;
-        z-index: 1;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.47 21.38L9.23 27.52C8 28.09 8 29 9.23 29.58l13.24 6.13c1.23.57 3.22.57 4.45 0l13.24-6.13c1.23-.57 1.23-1.5 0-2.06l-13.24-6.14a6.02 6.02 0 0 0-4.45 0z' fill='%23B3B3B3'/%3E%3Cpath d='M22.47 13.03L9.23 19.16c-1.23.57-1.23 1.5 0 2.06l13.24 6.14c1.23.56 3.22.56 4.45 0l13.24-6.14c1.23-.57 1.23-1.49 0-2.06l-13.24-6.13a6.02 6.02 0 0 0-4.45 0z' fill='%239C9C9C' fill-opacity='.55'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        /*background-size:contain;*/
-        background-position: center;
-        background-size:contain;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
-        cursor:pointer;
     }
     .orm_map_add {
-        position:absolute;
         bottom:21%;
         right:20px;
-        background:white;
-        border-radius:30px;
-        width:40px;
-        height:40px;
-        z-index: 1;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        /*background-size:contain;*/
-        background-position: center;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
     }
+    .orm_zoom {
+        top:45%;
+        right:20px;
+        height:80px;
+    }
+    .zoom_btn:hover {
+        background:#eee !important;
+    }
+    .zoom_btn {
+        text-align:center;
+        font-size:30px;
+        height:40px;
+        border-radius:30px;
+    }
+    
 </style>
