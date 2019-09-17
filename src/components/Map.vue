@@ -98,13 +98,32 @@
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
+
                 let mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 21,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
+
+                let here = L.tileLayer('http://{s}.{base}.maps.cit.api.here.com/maptile/2.1/{type}/{mapID}/{scheme}/{z}/{x}/{y}/{size}/{format}?app_id={app_id}&app_code={app_code}&lg={language}', {
+                    attribution: 'Map &copy; 2016 <a href="http://developer.here.com">HERE</a>',
+                    subdomains: '1234',
+                    base: 'aerial',
+                    type: 'maptile',
+                    scheme: 'satellite.day',
+                    app_id: 'Mp5X0y9PyG3auiPk0tXJ', 
+                    app_code: 'b-R0mPrBmIy6ma8ImLkUXQ',
+                    mapID: 'newest',
+                    maxZoom: 20,
+                    language: 'eng',
+                    format: 'png8',
+                    size: '256',
+                    url: 'here'
+                });
+
                 this.baseLayers = {
                     "Mapbox": mapbox,
-                    "Mapnik": mapnik
+                    "Mapnik": mapnik,
+                    "Спутник": here
                 };
                 //L.control.layers(this.baseLayers).addTo(this.map);
 
