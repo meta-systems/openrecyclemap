@@ -10,7 +10,7 @@
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
-        <v-bottom-sheet v-model="sheet" add-sheet persistent>
+        <v-bottom-sheet v-model="sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
                 <fractions-list :waste="waste" :sheet="sheet"></fractions-list>
@@ -178,8 +178,6 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
-                                document.querySelectorAll('.node_info')[0].classList.add("node_info_visible");
-                                document.querySelectorAll('.map_filters')[0].classList.add("map_filters_hidden");
                                 // console.log(feature.properties);
                             })
                         },
@@ -325,9 +323,6 @@
     .map_container_behind {
         height: calc(100% - 204px) !important;
     }
-    .add-sheet { /* not working */
-        padding:10px;
-    }
     .v-bottom-sheet .v-sheet{
     padding:10px;
     }
@@ -376,11 +371,5 @@
     }
     .node_info {
         display:none;
-    }
-    .node_info_visible {
-        display:block;
-    }
-    .map_filters_hidden {
-        display:none !important;
     }
 </style>
