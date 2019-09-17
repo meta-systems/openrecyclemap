@@ -36,6 +36,7 @@
         data: function () {
             return {
                 map: null,
+                baseLayers: [],
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -86,31 +87,25 @@
         mixins: [overpassMixin, oauthMixin],
         methods: {
             setupMap: function () {
-                this.map = L.map('map_container',{
+                this.map = L.map('map_container', {
                     zoomControl: false
                 }).setView([57.82, 28.35], 13);
-                var mapbox = L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
+
+                let mapbox = L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                     maxZoom: 21,
                     id: 'mapbox.streets',
                     accessToken: 'pk.eyJ1IjoicGV0cm92bm4iLCJhIjoibVlfV3c0OCJ9.9me_07zQBJKqR7LEEEY_Rg'
                 }).addTo(this.map);
-
-                var mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                let mapnik = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                     maxZoom: 21,
                     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 });
-
-
-
-                var baseLayers = {
+                this.baseLayers = {
                     "Mapbox": mapbox,
                     "Mapnik": mapnik
                 };
-
-                L.control.layers(baseLayers).addTo(this.map);
-
-                
+                //L.control.layers(this.baseLayers).addTo(this.map);
 
                 L.control.locate({
                      position:'bottomright'
@@ -238,9 +233,19 @@
                 }
             },
             changeLayers: function () {
-                // FIXME: mapbox is not defined
-                this.map.removeLayer(mapbox);
-                this.map.addLayer(mapnik);
+                let nextkey = Object.keys(this.baseLayers)[0];
+                let removed = false;
+                for (let key in this.baseLayers) {
+                    if(removed) {
+                        nextkey = key;
+                        break;
+                    }
+                    if(this.map.hasLayer(this.baseLayers[key])) {
+                        this.map.removeLayer(this.baseLayers[key]);
+                        removed = true;
+                    }
+                }
+                this.map.addLayer(this.baseLayers[nextkey]);
             },
             filterNodes: function () {
                 this.loadData(this.filter);
