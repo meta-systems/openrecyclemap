@@ -1,8 +1,7 @@
 <template>
     <div class="map_root text-center">
         <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
-
-        <router-link class="orm_map_add" to="/map/add"></router-link>
+        <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
@@ -285,11 +284,6 @@
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
     }
-    .orm_zoom {
-        top:45%;
-        right:20px;
-        height:80px;
-    }
     .zoom_btn:hover {
         background:#eee !important;
     }
@@ -299,5 +293,18 @@
         height:40px;
         border-radius:30px;
     }
-    
+    .orm_control {
+        background-repeat: no-repeat;
+        background-size:contain;
+        z-index: 1;
+        position:absolute;
+        background-position: center;
+        background-color:white;
+        border-radius:30px;
+        height:40px;
+        width:40px;
+        opacity:0.7;
+        cursor:pointer;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
 </style>
