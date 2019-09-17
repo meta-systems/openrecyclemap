@@ -37,6 +37,7 @@
             return {
                 map: null,
                 baseLayers: [],
+                selectedLayer: null,
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -159,6 +160,15 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
+                                if(component.selectedLayer) {
+                                    component.selectedLayer.setStyle({
+                                        weight: 1
+                                    });
+                                }
+                                component.selectedLayer = layer;
+                                layer.setStyle({
+                                    weight: 5
+                                });
                                 // console.log(feature.properties);
                             })
                         },
@@ -258,6 +268,12 @@
             }
             let component = this;
             this.map.on('click', function(e) {
+                if(component.selectedLayer) {
+                    component.selectedLayer.setStyle({
+                        weight: 1
+                    });
+                    component.selectedLayer = null;
+                }
                 if(component.adding) {
                     component.disableAddMode();
                     if(component.marker) {
