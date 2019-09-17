@@ -4,8 +4,12 @@
         <div class="orm_layers" @click="changeLayers"></div>
         <router-link class="orm_map_add" to="/map/add"></router-link>
         <div id="map_container"></div>
-        <div class="node_info">Пластик, бумага, ртуть <a target="_blank" href="https://openstreetmap.org/node/4024281389">node</a>  <a target="_blank" href="http://127.0.0.1:8111/load_object?objects=n4024281389">josm</a></div>
-        <nodes-filter v-on:filter-nodes="filterNodes" :filter="filter"></nodes-filter>
+        <div class="node_info" v-if="selectedLayer">
+            {{ selected.info }}
+            <a target="_blank" :href="selected.osmLink">node</a>
+            <a target="_blank" :href="selected.josmLink">josm</a>
+        </div>
+        <nodes-filter v-on:filter-nodes="filterNodes" :filter="filter" v-if="!selectedLayer"></nodes-filter>
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -38,6 +42,7 @@
                 map: null,
                 baseLayers: [],
                 selectedLayer: null,
+                selected: {},
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -179,33 +184,37 @@
                         },
                         onEachFeature: function (feature, layer) {
                             layer.on('click', function (ev) {
+                                L.DomEvent.stopPropagation(ev);
                                 if(component.selectedLayer) {
                                     component.selectedLayer.setStyle({
                                         weight: 1
                                     });
                                 }
+                                let nodeTypes = [];
+                                let geoJsonProps = feature.properties;
+                                if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+                                    nodeTypes.push(component.labels.waste_disposal);
+                                }
+                                else {
+                                    for (let key in component.labels.recycling) {
+                                        if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
+                                            nodeTypes.push(component.labels.recycling[key]);
+                                        }
+                                    }
+                                }
                                 component.selectedLayer = layer;
+                                component.selected = {
+                                    info: nodeTypes.join(', '),
+                                    osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
+                                    josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + geoJsonProps.id.replace('node/', '')
+                                };
                                 layer.setStyle({
                                     weight: 5
                                 });
-                                // console.log(feature.properties);
                             })
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
-                            let nodeTypes = [];
-                            let geoJsonProps = geoJsonPoint.properties;
-                            if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                                nodeTypes.push(component.labels.waste_disposal);
-                            }
-                            else {
-                                for (let key in component.labels.recycling) {
-                                    if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                        nodeTypes.push(component.labels.recycling[key]);
-                                    }
-                                }
-                            }
-                            let osmLink = '<a target="_blank" href="https://openstreetmap.org/'+geoJsonProps.id+'">node</a> <a target="_blank" href="http://127.0.0.1:8111/load_object?objects=n'+geoJsonProps.id.replace("node/", "")+'">josm</a>';
-                            return new L.CircleMarker(latlng).bindPopup(nodeTypes.join(', ') + '<br/>' + osmLink);
+                            return new L.CircleMarker(latlng);
                         }
                     }).addTo(map);
                 });
@@ -384,8 +393,5 @@
         /*background-size:contain;*/
         background-position: center;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
-    }
-    .node_info {
-        display:none;
     }
 </style>
