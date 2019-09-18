@@ -14,7 +14,7 @@
         amenity=recycling<br/>
         recycling_type=container
         <table>
-            <tr class="thead"><td>Вид мусора</td><td>Тэг</td><td><a href="https://taginfo.openstreetmap.org/tags/amenity=recycling#combinations" target="_blank">Taginfo</a></td></tr>
+            <tr class="thead"><td>Вид мусора</td><td>Тэг</td><td><a rel="noopener" href="https://taginfo.openstreetmap.org/tags/amenity=recycling#combinations" target="_blank">Taginfo</a></td></tr>
             <tr><td>Пластик</td><td>recycling:plastic=yes</td><td>10%</td></tr>
             <!-- <tr><td>Пластиковые бутылки</td><td>recycling:plastic_bottles=yes</td><td>5%</td></tr> -->
             <tr><td>Пакеты</td><td>recycling:plastic_bags=yes</td><td>нет в taginfo</td></tr>
@@ -25,7 +25,7 @@
             <tr><td>Лампочки (люменесцентные лампы)</td><td>recycling:low_energy_bulbs=yes</td><td>нет в taginfo</td></tr>
         </table>
 
-        Все возможные значения тега recycling см в вики: <a href="https://wiki.openstreetmap.org/wiki/RU:Tag:amenity%3Drecycling" target="_blank">amenity=recycling</a>
+        Все возможные значения тега recycling см в вики: <a rel="noopener" href="https://wiki.openstreetmap.org/wiki/RU:Tag:amenity%3Drecycling" target="_blank">amenity=recycling</a>
     </div>
 </template>
 
