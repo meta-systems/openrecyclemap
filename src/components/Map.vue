@@ -235,10 +235,10 @@
                     this.disableAddMode();
                     if(this.marker) {
                         this.map.removeLayer(this.marker);
-                        this.marker = L.marker(e.latlng).addTo(this.map);
-                        this.sheet = true;
-                        this.map.setView(e.latlng, 18, {animate: false});
                     }
+                    this.marker = L.marker(e.latlng).addTo(this.map);
+                    this.sheet = true;
+                    this.map.setView(e.latlng, 18, {animate: false});
                 }
             }
         },
@@ -284,15 +284,6 @@
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
     }
-    .zoom_btn:hover {
-        background:#eee !important;
-    }
-    .zoom_btn {
-        text-align:center;
-        font-size:30px;
-        height:40px;
-        border-radius:30px;
-    }
     .orm_control {
         background-repeat: no-repeat;
         background-size:contain;
@@ -306,5 +297,8 @@
         opacity:0.7;
         cursor:pointer;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
+    .leaflet-control-locate {
+        display: none;
     }
 </style>
