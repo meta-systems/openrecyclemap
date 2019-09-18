@@ -1,6 +1,6 @@
 <template>
     <div class="map_root text-center">
-        <router-link class="orm_logo orm_logo_map" to="/about"></router-link>
+        <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" :sheet="sheet"></leaflet-map>
 

@@ -1,6 +1,6 @@
 <template>
     <div class="about-container">
-        <router-link class="orm_logo" to="/map"></router-link>
+        <router-link class="orm_logo" aria-label="Map" to="/map"></router-link>
         <p><b>OpenRecycleMap</b> - приложение для просмотра и добавления информации о пунктах приема отходов,
             которые будут отправлены на переработку.</p>
         <div class="main_box">
