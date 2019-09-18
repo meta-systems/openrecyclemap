@@ -100,7 +100,7 @@
         z-index: 0;
     }
     .map_container_behind {
-        height: calc(100% - 204px) !important;
+        height: calc(100% - 165px) !important;
     }
 
     .orm_control:hover {
