@@ -21,10 +21,10 @@
             </v-list>
         </v-navigation-drawer>
         <v-toolbar color="primary" dark fixed app>
-            <v-toolbar-side-icon @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+            <v-toolbar-side-icon @click.stop="drawer = !drawer" aria-label="Menu"></v-toolbar-side-icon>
             <v-toolbar-title>{{ title }}</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn icon :to="{path: '/map/add'}">
+            <v-btn icon :to="{path: '/map/add'}" aria-label="Add">
                 <v-icon>add</v-icon>
             </v-btn>
         </v-toolbar>
