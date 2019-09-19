@@ -277,6 +277,20 @@
 </script>
 
 <style>
+    .node_info {
+        background:white;
+        border-radius:15px;
+        padding:20px;
+        position:absolute;
+        top:10px;
+        left:10px;
+        padding-top:80px;   
+    }
+    @media screen and (max-width: 500px) {
+        .node_info {
+            position:static;
+        }
+    }
     .map_root {
         height: 100%;
         overflow: hidden;
