@@ -1,5 +1,7 @@
 <template>
     <div class="map_root text-center">
+        <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
+
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
@@ -36,6 +38,7 @@
     import FractionsList from './FractionsList'
     import LeafletMap from './LeafletMap'
     import L from 'leaflet'
+    import 'leaflet.snogylop'
 
     export default {
         data: function () {
@@ -44,6 +47,8 @@
                 zoomMessage: false,
                 selectedLayer: null,
                 selected: {},
+                rectangle: null,
+                loading: false,
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -94,7 +99,6 @@
         },
         mixins: [overpassMixin, oauthMixin],
         methods: {
-
             initMap: function (map) {
                 this.map = map;
                 this.loadData();
@@ -103,10 +107,18 @@
                 let filter = this.filter;
                 let map = this.map;
                 let component = this;
-                if(this.layer) {
-                    map.removeLayer(this.layer);
-                }
+                this.loading = true;
                 this.fetchAmenity(map.getCenter(), function (data) {
+                    if(component.layer) {
+                        map.removeLayer(component.layer);
+                    }
+                    if(component.rectangle) {
+                        component.map.removeLayer(component.rectangle);
+                    }
+                    component.loading = false;
+                    component.rectangle = L.geoJson(component.boundsToGeojson(), {
+                        invert: true, color: "#424242", weight: 0
+                    }).addTo(map);
                     let ovData = osmtogeojson(data);
                     component.layer = L.geoJson(ovData, {
                         style: function (feature) {
@@ -290,6 +302,11 @@
         .node_info {
             position:static;
         }
+    }
+    .main_loading {
+        position: fixed !important;
+        bottom: 60px;
+        z-index: 9;
     }
     .map_root {
         height: 100%;
