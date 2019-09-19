@@ -5,6 +5,23 @@ export default {
         }
     },
     methods: {
+        boundsToGeojson: function () {
+            if(!this.bounds) {
+                return {};
+            }
+            let sw = this.bounds._southWest;
+            let ne = this.bounds._northEast;
+            return {
+                type: 'Feature',
+                geometry: {
+                    type: 'Polygon',
+                    coordinates: [[
+                        [sw.lng, sw.lat], [ne.lng, sw.lat],
+                        [ne.lng, ne.lat], [sw.lng, ne.lat]
+                    ]]
+                }
+            };
+        },
         bboxToString: function (bounds) {
             return bounds._southWest.lat + ',' + bounds._southWest.lng + ','
                 + bounds._northEast.lat + ',' + bounds._northEast.lng;
@@ -24,7 +41,7 @@ export default {
             return this.bboxToString(bounds);
         },
         buildQuery: function (center) {
-            var bbox = this.bboxFromCenter(center);
+            let bbox = this.bboxFromCenter(center);
             return '[out:json][timeout:25];\n' +
                 '(\n' +
                 '  node["amenity"="recycling"]('+bbox+');\n' +

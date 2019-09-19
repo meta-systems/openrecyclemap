@@ -36,6 +36,7 @@
     import FractionsList from './FractionsList'
     import LeafletMap from './LeafletMap'
     import L from 'leaflet'
+    import 'leaflet.snogylop'
 
     export default {
         data: function () {
@@ -44,6 +45,7 @@
                 zoomMessage: false,
                 selectedLayer: null,
                 selected: {},
+                rectangle: null,
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -94,7 +96,6 @@
         },
         mixins: [overpassMixin, oauthMixin],
         methods: {
-
             initMap: function (map) {
                 this.map = map;
                 this.loadData();
@@ -103,10 +104,16 @@
                 let filter = this.filter;
                 let map = this.map;
                 let component = this;
-                if(this.layer) {
-                    map.removeLayer(this.layer);
-                }
                 this.fetchAmenity(map.getCenter(), function (data) {
+                    if(component.layer) {
+                        map.removeLayer(component.layer);
+                    }
+                    if(component.rectangle) {
+                        component.map.removeLayer(component.rectangle);
+                    }
+                    component.rectangle = L.geoJson(component.boundsToGeojson(), {
+                        invert: true, color: "#424242", weight: 0
+                    }).addTo(map);
                     let ovData = osmtogeojson(data);
                     component.layer = L.geoJson(ovData, {
                         style: function (feature) {
