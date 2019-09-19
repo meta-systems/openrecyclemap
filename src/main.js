@@ -17,7 +17,7 @@ Vue.use(Vuetify, {
 });
 
 Vue.use(VueAnalytics, {
-    id: 'G-Q93XCW3E1M',
+    id: 'UA-122809-35',
     router
 });
 
