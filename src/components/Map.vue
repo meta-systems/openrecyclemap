@@ -2,7 +2,7 @@
     <div class="map_root text-center">
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" :sheet="sheet"></leaflet-map>
+        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
             {{ selected.info }}
@@ -13,6 +13,9 @@
         <v-snackbar v-model="snackbar">
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
+        </v-snackbar>
+        <v-snackbar v-model="zoomInvalid" :timeout="0">
+            Для загрузки данных приблизьте карту
         </v-snackbar>
         <v-bottom-sheet v-model="sheet" persistent>
             <v-sheet class="text-center" height="50%">
@@ -38,6 +41,7 @@
         data: function () {
             return {
                 map: null,
+                zoomInvalid: false,
                 selectedLayer: null,
                 selected: {},
                 snackbar_text: null,
@@ -222,6 +226,17 @@
                         this.snackbar = true;
                     };
                     this.addNode(this.marker.getLatLng(), this.waste);
+                }
+            },
+            onMapChange: function (e) {
+                this.zoomInvalid = this.map.getZoom() < 13;
+                if(this.zoomInvalid) {
+                    return;
+                }
+                let fit = this.bounds.contains(this.map.getCenter());
+                if(!fit) {
+                    console.log('!fit');
+                    this.loadData();
                 }
             },
             onMapClick: function (e) {

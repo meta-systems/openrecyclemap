@@ -1,20 +1,26 @@
 export default {
+    data: function () {
+        return {
+            bounds: null
+        }
+    },
     methods: {
         bboxToString: function (bounds) {
             return bounds._southWest.lat + ',' + bounds._southWest.lng + ','
                 + bounds._northEast.lat + ',' + bounds._northEast.lng;
         },
         bboxFromCenter: function (latlon) {
-            let bounds = {
-                _southWest: {
-                    lat: latlon.lat - 0.05,
-                    lng: latlon.lng - 0.1
-                },
-                _northEast: {
-                    lat: latlon.lat + 0.05,
-                    lng: latlon.lng + 0.1
-                }
-            };
+            let bounds = L.latLngBounds([
+                [
+                    latlon.lat - 0.05,
+                    latlon.lng - 0.1
+                ],
+                [
+                    latlon.lat + 0.05,
+                    latlon.lng + 0.1
+                ]
+            ]);
+            this.bounds = bounds;
             return this.bboxToString(bounds);
         },
         buildQuery: function (center) {

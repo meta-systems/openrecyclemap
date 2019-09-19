@@ -73,6 +73,8 @@
             }).addTo(this.map);
 
             this.map.on('click', (e) => this.$emit('map-click', e));
+            this.map.on('moveend', (e) => this.$emit('map-change', e));
+            this.map.on('zoomend', (e) => this.$emit('map-change', e));
             this.map.on('locationfound', (e) => this.$emit('location-found', e));
             this.$emit('map-init', this.map);
         },
