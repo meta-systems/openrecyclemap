@@ -1,5 +1,7 @@
 <template>
     <div class="map_root text-center">
+        <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
+
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
@@ -46,6 +48,7 @@
                 selectedLayer: null,
                 selected: {},
                 rectangle: null,
+                loading: false,
                 snackbar_text: null,
                 snackbar: false,
                 adding: false,
@@ -104,6 +107,7 @@
                 let filter = this.filter;
                 let map = this.map;
                 let component = this;
+                this.loading = true;
                 this.fetchAmenity(map.getCenter(), function (data) {
                     if(component.layer) {
                         map.removeLayer(component.layer);
@@ -111,6 +115,7 @@
                     if(component.rectangle) {
                         component.map.removeLayer(component.rectangle);
                     }
+                    component.loading = false;
                     component.rectangle = L.geoJson(component.boundsToGeojson(), {
                         invert: true, color: "#424242", weight: 0
                     }).addTo(map);
@@ -284,6 +289,11 @@
 </script>
 
 <style>
+    .main_loading {
+        position: fixed !important;
+        bottom: 60px;
+        z-index: 9;
+    }
     .map_root {
         height: 100%;
         overflow: hidden;
