@@ -14,7 +14,7 @@
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
-        <v-snackbar v-model="zoomInvalid" :timeout="0">
+        <v-snackbar v-model="zoomMessage" :timeout="0">
             Для загрузки данных приблизьте карту
         </v-snackbar>
         <v-bottom-sheet v-model="sheet" persistent>
@@ -41,7 +41,7 @@
         data: function () {
             return {
                 map: null,
-                zoomInvalid: false,
+                zoomMessage: false,
                 selectedLayer: null,
                 selected: {},
                 snackbar_text: null,
@@ -229,13 +229,13 @@
                 }
             },
             onMapChange: function (e) {
-                this.zoomInvalid = this.map.getZoom() < 13;
-                if(this.zoomInvalid) {
+                let zoomInvalid = this.map.getZoom() < 13;
+                let fit = this.bounds.contains(this.map.getCenter());
+                this.zoomMessage = zoomInvalid && !fit;
+                if(zoomInvalid) {
                     return;
                 }
-                let fit = this.bounds.contains(this.map.getCenter());
                 if(!fit) {
-                    console.log('!fit');
                     this.loadData();
                 }
             },
