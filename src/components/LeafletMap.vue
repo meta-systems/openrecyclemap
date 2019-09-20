@@ -3,8 +3,8 @@
         <div class="orm_control orm_layers" @click="changeLayers"></div>
         <div class="orm_control orm_position" @click="showPosition"></div>
         <div class="orm_control orm_zoom">
-            <div class="zoom_btn" @click="zoom_plus">+</div>
-            <div class="zoom_btn" @click="zoom_minus">−</div>
+            <div class="zoom_btn" @click="zoomPlus">+</div>
+            <div class="zoom_btn" @click="zoomMinus">−</div>
         </div>
         <div id="map_container"></div>
     </div>
@@ -44,21 +44,31 @@
                 }
                 this.map.addLayer(this.baseLayers[nextkey]);
             },
-            zoom_plus: function () {
+            zoomPlus: function () {
                 this.map.zoomIn();
             },
-            zoom_minus: function () {
+            zoomMinus: function () {
                 this.map.zoomOut(); 
             },
             showPosition: function () {
                 // request location update and set location
                 this.locateControl.start();
             },
+            savePosition: function () {
+                let position = this.map.getCenter();
+                localStorage.setItem('lat', position.lat);
+                localStorage.setItem('lng', position.lng);
+                localStorage.setItem('zoom', this.map.getZoom());
+            }
         },
         mounted() {
+            let lat = localStorage.getItem('lat') || 57.82;
+            let lng = localStorage.getItem('lng') || 28.35;
+            let zoom = localStorage.getItem('zoom') || 13;
+
             this.map = L.map('map_container', {
                 zoomControl: false
-            }).setView([57.82, 28.35], 13);
+            }).setView([lat, lng], zoom);
 
             let mapbox = this.mapboxLayer().addTo(this.map);
             this.baseLayers = {
@@ -76,6 +86,9 @@
             this.map.on('moveend', (e) => this.$emit('map-change', e));
             this.map.on('zoomend', (e) => this.$emit('map-change', e));
             this.map.on('locationfound', (e) => this.$emit('location-found', e));
+            this.map.on('moveend', this.savePosition);
+            this.map.on('zoomend', this.savePosition);
+
             this.$emit('map-init', this.map);
         },
         watch: {
