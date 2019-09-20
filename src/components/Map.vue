@@ -101,9 +101,14 @@
         methods: {
             initMap: function (map) {
                 this.map = map;
-                this.loadData();
+                if(this.$route.name === 'node') {
+                    this.loadNode(this.$route.params.node);
+                }
+                else {
+                    this.loadData();
+                }
             },
-            loadData: function () {
+            loadData: function (node_id) {
                 let filter = this.filter;
                 let map = this.map;
                 let component = this;
@@ -174,16 +179,21 @@
                                         }
                                     }
                                 }
+                                let node_id = geoJsonProps.id.replace('node/', '');
                                 component.selectedLayer = layer;
                                 component.selected = {
                                     info: nodeTypes.join(', '),
                                     osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
-                                    josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + geoJsonProps.id.replace('node/', '')
+                                    josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id
                                 };
                                 layer.setStyle({
                                     weight: 5
                                 });
-                            })
+                                component.$router.push({name: 'node', params: {node: node_id}});
+                            });
+                            if(feature.properties.id === 'node/'+node_id) {
+                                layer.fire('click');
+                            }
                         },
                         pointToLayer: function(geoJsonPoint, latlng) {
                             return new L.CircleMarker(latlng);
@@ -241,6 +251,9 @@
                 }
             },
             onMapChange: function (e) {
+                if(!this.bounds) {
+                    return;
+                }
                 let zoomInvalid = this.map.getZoom() < 13;
                 let fit = this.bounds.contains(this.map.getCenter());
                 this.zoomMessage = zoomInvalid && !fit;
@@ -257,6 +270,7 @@
                         weight: 1
                     });
                     this.selectedLayer = null;
+                    this.$router.push({name: 'map'});
                 }
                 if(this.adding) {
                     this.disableAddMode();
@@ -267,6 +281,16 @@
                     this.sheet = true;
                     this.map.setView(e.latlng, 18, {animate: false});
                 }
+            },
+            loadNode: function (node_id) {
+                let component = this;
+                this.fetchNode(node_id, function (data) {
+                    if(data.elements.length > 0) {
+                        let node = data.elements[0];
+                        component.map.setView([node.lat, node.lon], 17, {animate: false});
+                        component.loadData(node_id);
+                    }
+                });
             }
         },
         mounted() {
@@ -277,11 +301,16 @@
         },
         watch: {
             '$route'(to, from) {
-                if(to.params.action === 'add') {
-                    this.enableAddMode();
+                if(to.name === 'node') {
+                    //this.loadNode(to.params.node);
                 }
                 else {
-                    this.disableAddMode();
+                    if (to.params.action === 'add') {
+                        this.enableAddMode();
+                    }
+                    else {
+                        this.disableAddMode();
+                    }
                 }
             }
         }

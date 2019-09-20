@@ -51,10 +51,32 @@ export default {
                 '>;\n' +
                 'out skel qt;';
         },
+        nodeQuery: function (node) {
+            return '[out:json][timeout:25];\n' +
+                '(\n' +
+                '  node('+node+');\n' +
+                ');\n' +
+                'out body;'+
+                '>;\n' +
+                'out skel qt;';
+        },
         fetchAmenity: function (center, callback) {
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
                 body: 'data='+this.buildQuery(center)
+            })
+                .then(function (response) {
+                    if(!response.ok) {
+                        throw new Error(response.status);
+                    }
+                    return response.json();
+                })
+                .then(callback);
+        },
+        fetchNode: function (node, callback) {
+            fetch(process.env.VUE_APP_OVERPASS_URL, {
+                method: 'POST',
+                body: 'data='+this.nodeQuery(node)
             })
                 .then(function (response) {
                     if(!response.ok) {

@@ -24,6 +24,11 @@ const routes = [
         component: aboutComponent
     },
     {
+        name: 'node',
+        path: '/r/:node',
+        component: mapComponent
+    },
+    {
         name: 'map',
         path: '/map/:action?',
         component: mapComponent
