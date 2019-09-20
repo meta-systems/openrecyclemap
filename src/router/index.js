@@ -29,6 +29,11 @@ const routes = [
         component: mapComponent
     },
     {
+        name: 'position',
+        path: '/map/:zoom/:lat/:lon',
+        component: mapComponent
+    },
+    {
         name: 'map',
         path: '/map/:action?',
         component: mapComponent

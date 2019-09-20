@@ -62,9 +62,9 @@
             }
         },
         mounted() {
-            let lat = localStorage.getItem('lat') || 57.82;
-            let lng = localStorage.getItem('lng') || 28.35;
-            let zoom = localStorage.getItem('zoom') || 13;
+            let lat = this.$route.params.lat || localStorage.getItem('lat') || 57.82;
+            let lng = this.$route.params.lon || localStorage.getItem('lng') || 28.35;
+            let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
 
             this.map = L.map('map_container', {
                 zoomControl: false

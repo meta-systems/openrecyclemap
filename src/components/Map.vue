@@ -216,7 +216,6 @@
                 this.snackbar = false;
                 this.adding = false;
                 mapElem.style.cursor = 'default';
-                this.$router.replace({path: '/map'});
             },
             cancelAddMode: function () {
                 this.sheet = false;
@@ -250,7 +249,17 @@
                     this.addNode(this.marker.getLatLng(), this.waste);
                 }
             },
+            pushPosition: function () {
+                let position = this.map.getCenter();
+                let zoom = this.map.getZoom();
+                let lat = position.lat.toFixed(5);
+                let lon = position.lng.toFixed(5);
+                if(this.$route.params.lat !== lat || this.$route.params.lon !== lon || this.$route.params.zoom != zoom) {
+                    this.$router.push({name: 'position', params: {lat: lat, lon: lon, zoom: zoom}});
+                }
+            },
             onMapChange: function (e) {
+                this.pushPosition();
                 if(!this.bounds) {
                     return;
                 }
