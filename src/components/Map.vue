@@ -343,7 +343,8 @@
     }
     .main_loading {
         position: fixed !important;
-        bottom: 60px;
+        bottom: 140px;
+        left:20px;
         z-index: 9;
     }
     .map_root {
@@ -364,7 +365,7 @@
         z-index: 1;
     }
     .orm_map_add {
-        bottom:25%;
+        bottom:185px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
     }
