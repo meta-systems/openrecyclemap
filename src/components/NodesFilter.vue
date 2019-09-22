@@ -46,11 +46,29 @@
 </script>
 
 <style scoped>
+    
     .map_filters {
         background:white;
         height:115px;
         display:flex;
         overflow-x: auto;
+        position:absolute;
+        left:20px;
+        bottom:20px;
+        border-radius:8px;
+        right:20px;
+        overflow-y:hidden;
+    }
+    @media screen and (max-width: 700px) {
+        .map_filters {
+            bottom:70px;
+            right:20px;
+        }
+    }
+    @media screen and (min-width: 700px) {
+        .map_filters {
+            right:auto;
+        }
     }
     .map_filter:hover {
         background-color:#eee;

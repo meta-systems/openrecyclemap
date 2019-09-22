@@ -9,24 +9,17 @@
             <router-link class="box_item" to="/map">Карта</router-link>
             
         </div>
+     Работа над названиями фракций и их тегами ведется в этом <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">гугл документе</a>
 
-        <p>Какими тегами обозначаются контейнеры для раздельного сбора мусора:</p>
-        amenity=recycling<br/>
-        recycling_type=container
-        <table>
-            <tr class="thead"><td>Вид мусора</td><td>Тэг</td><td><a rel="noopener" href="https://taginfo.openstreetmap.org/tags/amenity=recycling#combinations" target="_blank">Taginfo</a></td></tr>
-            <tr><td>Пластик</td><td>recycling:plastic=yes</td><td>10%</td></tr>
-            <!-- <tr><td>Пластиковые бутылки</td><td>recycling:plastic_bottles=yes</td><td>5%</td></tr> -->
-            <tr><td>Пакеты</td><td>recycling:plastic_bags=yes</td><td>нет в taginfo</td></tr>
-            <tr><td>Бумага</td><td>recycling:paper=yes</td><td>25%</td></tr>
-            <tr><td>Стеклянные бутылки</td><td>recycling:glass_bottles=yes</td><td>23%</td></tr>
-            <tr><td>Алюминиевые банки</td><td>recycling:cans=yes</td><td>13%</td></tr>
-            <tr><td>Батарейки</td><td>recycling:batteries=yes</td><td>4%</td></tr>
-            <tr><td>Лампочки (люменесцентные лампы)</td><td>recycling:low_energy_bulbs=yes</td><td>нет в taginfo</td></tr>
-        </table>
+     <h2>Данные</h2>
+         Данные для этой карты берутся из <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> - проекта свободной карты, составляемый тысячами добровольцев со всего мира.
+        <div class="dev_box">
+            Разработано в <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
+        </div>
 
-        Все возможные значения тега recycling см в вики: <a rel="noopener" href="https://wiki.openstreetmap.org/wiki/RU:Tag:amenity%3Drecycling" target="_blank">amenity=recycling</a>
     </div>
+    
+
 </template>
 
 <script>
@@ -45,6 +38,16 @@
 </script>
 
 <style>
+    .dev_box {
+        position:absolute;
+        bottom:20px;
+        right:20px;
+        margin-top:30px;
+    }
+    h2 {
+        margin-top:20px;
+        font-weight: normal;
+    }
     table {
         border-collapse: collapse;
         margin:30px 0;

@@ -109,6 +109,7 @@
 <style scoped>
     .map_parent {
         height: calc(100% - 115px);
+        height: 100%;
     }
     #map_container {
         height: 100%;
@@ -156,8 +157,13 @@
         background:#eee;
     }
     .orm_position {
-        bottom:125px;
+        bottom:30px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24.64' cy='25.08' r='9.53' stroke='%23000' stroke-width='2.38'/%3E%3Cpath fill='%23000' d='M23.45 9.6h2.38v5.95h-2.38zM23.45 34.61h2.38v5.95h-2.38zM40.12 23.88v2.38h-5.95v-2.38zM15.12 23.9v2.37H9.17V23.9z'/%3E%3Ccircle cx='24.64' cy='25.08' r='4.76' fill='%23000'/%3E%3C/svg%3E");
+    }
+    @media screen and (max-width: 900px) {
+        .orm_position {
+            bottom:200px;
+        }
     }
 </style>
