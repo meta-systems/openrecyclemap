@@ -233,7 +233,8 @@
                 return false;
             },
             saveData: function () {
-                // alert('sfk');
+
+
                 if(!this.hasData()) {
                     return;
                 }
@@ -248,6 +249,23 @@
                         this.snackbar = true;
                     };
                     this.addNode(this.marker.getLatLng(), this.waste);
+
+                    let recycle_type;
+                    if(this.waste.waste_disposal){
+                        recycle_type = 'waste_disposal';
+                    } else {
+                        recycle_type = 'recycling';
+                    }
+                    // console.log(recycle_type);
+                    // console.log(this.waste.waste_disposal);
+
+                    this.$ga.event({
+                      eventCategory: 'map',
+                      eventAction: 'add_point',
+                      eventLabel: recycle_type,
+                      eventValue: recycle_type
+                    })
+
                 }
             },
             pushPosition: function () {
