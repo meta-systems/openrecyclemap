@@ -70,9 +70,11 @@
             right:auto;
         }
     }
-    .map_filter:hover {
-        background-color:#eee;
-    }
+    @media screen and (min-width: 700px) {
+        .map_filter:hover {
+            background-color:#eee;
+        }
+    } 
     .filter_active:before {
         width:10px;
         height:10px;
