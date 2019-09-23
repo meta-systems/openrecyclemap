@@ -1,5 +1,7 @@
 AddDefaultCharset UTF-8
 
+AddType application/json .json
+
 RewriteEngine on
 
 # if a directory or a file exists, use it directly
