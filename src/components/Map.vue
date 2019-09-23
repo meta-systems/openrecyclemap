@@ -355,9 +355,6 @@
         left:10px;
         padding-top:80px;   
     }
-    @media screen and (max-width: 500px) {
-        
-    }
     .main_loading {
         position: fixed !important;
         bottom: 140px;
@@ -366,7 +363,13 @@
     }
     .map_root {
         height: 100%;
+        /*min-height: 100vh;*/
         overflow: hidden;
+    }
+    @media screen and (max-width: 500px) {
+        .map_root {
+            height: calc(100% - 56px);
+        }
     }
     .v-bottom-sheet .v-sheet{
         padding:10px;
