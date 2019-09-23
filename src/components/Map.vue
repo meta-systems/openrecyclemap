@@ -269,6 +269,9 @@
                 }
             },
             pushPosition: function () {
+                if(!this.sheet && this.$route.params.action === 'add') {
+                    return;
+                }
                 let position = this.map.getCenter();
                 let zoom = this.map.getZoom();
                 let lat = position.lat.toFixed(5);
