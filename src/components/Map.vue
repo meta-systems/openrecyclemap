@@ -7,7 +7,7 @@
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
-            <span v-for="item in selected.info" class="p_fraction">{{ item }}</span>
+            <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
             <a target="_blank" :href="selected.osmLink">node</a>
             <a target="_blank" :href="selected.josmLink">josm</a>
         </div>
@@ -78,16 +78,14 @@
                     waste_disposal: false
                 },
                 labels: {
-                    recycling: {
-                        plastic: 'Пластик',
-                        paper: 'Бумага',
-                        cans: 'Алюминиевые банки',
-                        glass_bottles: 'Стеклянные бутылки',
-                        batteries: 'Батарейки',
-                        low_energy_bulbs: 'Лампочки',
-                        plastic_bags: 'Пакеты',
-                        plastic_bottles: 'Пластиковые бутылки'
-                    },
+                    plastic: 'Пластик',
+                    paper: 'Бумага',
+                    cans: 'Алюминиевые банки',
+                    glass_bottles: 'Стеклянные бутылки',
+                    batteries: 'Батарейки',
+                    low_energy_bulbs: 'Лампочки',
+                    plastic_bags: 'Пакеты',
+                    plastic_bottles: 'Пластиковые бутылки',
                     waste_disposal: 'Мусорный контейнер'
                 }
             };
@@ -170,12 +168,12 @@
                                 let nodeTypes = [];
                                 let geoJsonProps = feature.properties;
                                 if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                                    nodeTypes.push(component.labels.waste_disposal);
+                                    nodeTypes.push('waste_disposal');
                                 }
                                 else {
-                                    for (let key in component.labels.recycling) {
+                                    for (let key in component.labels) {
                                         if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                            nodeTypes.push(component.labels.recycling[key]);
+                                            nodeTypes.push(key);
                                         }
                                     }
                                 }
