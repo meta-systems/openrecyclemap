@@ -7,7 +7,10 @@
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
-            {{ selected.info }}
+            <span v-for="item in selected.info">
+                {{ item }}
+
+            </span>
             <a target="_blank" :href="selected.osmLink">node</a>
             <a target="_blank" :href="selected.josmLink">josm</a>
         </div>
@@ -182,10 +185,11 @@
                                 let node_id = geoJsonProps.id.replace('node/', '');
                                 component.selectedLayer = layer;
                                 component.selected = {
-                                    info: nodeTypes.join(', '),
+                                    info: nodeTypes,
                                     osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
                                     josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id
                                 };
+                                console.log(component.selected);
                                 layer.setStyle({
                                     weight: 5
                                 });
@@ -384,7 +388,7 @@
         z-index: 1;
     }
     .orm_map_add {
-        bottom:90px;
+        bottom:150px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
     }
