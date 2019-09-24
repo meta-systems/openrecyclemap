@@ -52,4 +52,20 @@
 
 <style>
 
+    html, body {
+        /*@supports (-webkit-appearance:none) {
+            .os-android & {
+                min-height: calc(100vh - 56px) !important;
+            }
+        }*/
+        /*height: 100vh;*/
+        height: calc(var(--vh, 1vh) * 100) !important;
+        background:orange;
+    }
+    .application--wrap {
+
+        /*height: 100vh;*/
+        height: calc(var(--vh, 1vh) * 100) !important;
+        
+    }
 </style>
