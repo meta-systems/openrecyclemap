@@ -7,10 +7,7 @@
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
-            <span v-for="item in selected.info">
-                {{ item }}
-
-            </span>
+            <span v-for="item in selected.info" class="p_fraction">{{ item }}</span>
             <a target="_blank" :href="selected.osmLink">node</a>
             <a target="_blank" :href="selected.josmLink">josm</a>
         </div>
