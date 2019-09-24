@@ -54,14 +54,13 @@
         overflow-x: auto;
         position:absolute;
         left:20px;
-        bottom:20px;
+        bottom:70px;
         border-radius:8px;
         right:20px;
         overflow-y:hidden;
     }
     @media screen and (max-width: 700px) {
         .map_filters {
-            bottom:70px;
             right:20px;
         }
     }

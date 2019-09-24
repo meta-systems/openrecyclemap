@@ -12,11 +12,11 @@
             <a target="_blank" :href="selected.josmLink">josm</a>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer"></nodes-filter>
-        <v-snackbar v-model="snackbar">
+        <v-snackbar v-model="snackbar" top>
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
-        <v-snackbar v-model="zoomMessage" :timeout="0">
+        <v-snackbar v-model="zoomMessage" :timeout="0" top>
             Для загрузки данных приблизьте карту
         </v-snackbar>
         <v-bottom-sheet v-model="sheet" persistent>
@@ -368,11 +368,7 @@
         height: 100%;
         /*min-height: 100vh;*/
         overflow: hidden;
-    }
-    @media screen and (max-width: 500px) {
-        .map_root {
-            height: calc(100% - 56px);
-        }
+        height: calc(100% - 56px);
     }
     .v-bottom-sheet .v-sheet{
         padding:10px;
