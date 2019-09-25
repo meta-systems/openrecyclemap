@@ -57,13 +57,13 @@
             .os-android & {
             }
         }*/
-        height: 100vh;
+        /*height: 100vh;*/
         /*height: calc(var(--vh, 1vh) * 100) !important;*/
         min-height: calc(100vh - 56px) !important;
     }
     .application--wrap {
 
-        height: 100vh;
+        /*height: 100vh;*/
         /*height: calc(var(--vh, 1vh) * 100) !important;*/
         min-height: calc(100vh - 56px) !important;
         

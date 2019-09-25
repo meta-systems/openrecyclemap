@@ -7,6 +7,7 @@
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
+            <!-- <span class="p_close">×</span> -->
             <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
             <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
@@ -423,5 +424,21 @@
         color:#666;
         margin-top:10px;
         display:inline-block;
+    }
+    .p_close:hover {
+        background:#eee;
+    }
+    .p_close {
+        font-size:30px;
+        color:#999;
+        position:absolute;
+        top:10px;
+        right:10px;
+        cursor:pointer;
+        line-height:30px;
+        width:30px;
+        height:30px;
+        border-radius:15px;
+        text-align:center;
     }
 </style>
