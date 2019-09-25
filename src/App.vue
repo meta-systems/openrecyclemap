@@ -42,6 +42,12 @@
         created() {
             this.processParams(this.$route);
         },
+        mounted() {
+            let height = window.innerHeight
+|| document.documentElement.clientHeight
+|| document.body.clientHeight;
+            let app_wrap = document.getElementsByClassName('application--wrap')[0].setAttribute("style","width:"+height+"px");
+        },
         watch: {
             '$route' (to, from) {
                 this.processParams(to);
@@ -59,13 +65,13 @@
         }*/
         /*height: 100vh;*/
         /*height: calc(var(--vh, 1vh) * 100) !important;*/
-        min-height: calc(100vh - 56px) !important;
+        /*min-height: calc(100vh - 56px) !important;*/
     }
     .application--wrap {
 
         /*height: 100vh;*/
         /*height: calc(var(--vh, 1vh) * 100) !important;*/
-        min-height: calc(100vh - 56px) !important;
+        /*min-height: calc(100vh - 56px) !important;*/
         
     }
 </style>
