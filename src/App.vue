@@ -61,7 +61,4 @@
 
 <style>
 
-    html, body {
-        min-height: calc(100vh - 56px) !important;
-    }
 </style>
