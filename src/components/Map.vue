@@ -7,7 +7,7 @@
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div class="node_info" v-if="selectedLayer">
-            <!-- <span class="p_close">×</span> -->
+            <span class="p_close" @click="deselectLayer">×</span>
             <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
             <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
@@ -295,13 +295,16 @@
                     this.loadData();
                 }
             },
+            deselectLayer: function () {
+                this.selectedLayer.setStyle({
+                    weight: 1
+                });
+                this.selectedLayer = null;
+                this.$router.push({name: 'map'});
+            },
             onMapClick: function (e) {
                 if(this.selectedLayer) {
-                    this.selectedLayer.setStyle({
-                        weight: 1
-                    });
-                    this.selectedLayer = null;
-                    this.$router.push({name: 'map'});
+                    this.deselectLayer();
                 }
                 if(this.adding) {
                     this.disableAddMode();
