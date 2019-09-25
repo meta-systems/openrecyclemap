@@ -23,7 +23,7 @@
         <v-bottom-sheet v-model="sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <fractions-list :waste="waste" :sheet="sheet"></fractions-list>
+                <fractions-list :waste="waste" :sheet="sheet" :description="description"></fractions-list>
                 <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
                 <v-btn class="mt-6" flat color="primary" @click="cancelAddMode">Отмена</v-btn>
             </v-sheet>
@@ -56,6 +56,7 @@
                 marker: null,
                 sheet: false,
                 layer: null,
+                description: '',
                 waste: {
                     waste_disposal: false,
                     plastic: false,
@@ -260,7 +261,7 @@
                         this.snackbar_text = 'Ошибка! Попробуйте позже.';
                         this.snackbar = true;
                     };
-                    this.addNode(this.marker.getLatLng(), this.waste);
+                    this.addNode(this.marker.getLatLng(), this.waste, this.description);
 
                     let recycle_type;
                     if(this.waste.waste_disposal){

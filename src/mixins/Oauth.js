@@ -23,8 +23,11 @@ export default {
                 component.username = userTag.attributes["display_name"].value;
             });
         },
-        addNodeXml: function (latlon, tags, changeset_id) {
+        addNodeXml: function (latlon, tags, description, changeset_id) {
             let xml = '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">';
+            if (description) {
+                xml += '<tag k="description" v="'+description+'"/>';
+            }
             if (tags.waste_disposal) {
                 xml += '<tag k="amenity" v="waste_disposal"/>';
             }
@@ -47,7 +50,7 @@ export default {
         },
         addNodeSuccess: function () {},
         addNodeFail: function () {},
-        addNode: function (latlon, tags) {
+        addNode: function (latlon, tags, description) {
             let component = this;
             let auth = this.auth;
             auth.xhr({
@@ -64,7 +67,7 @@ export default {
                     auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: component.addNodeXml(latlon, tags, changeset_id),
+                        content: component.addNodeXml(latlon, tags, description, changeset_id),
                         options: {
                             header: {
                                 'Content-Type': 'text/xml'
