@@ -8,8 +8,8 @@
 
         <div class="node_info" v-if="selectedLayer">
             <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
-            <a target="_blank" :href="selected.osmLink">node</a>
-            <a target="_blank" :href="selected.josmLink">josm</a>
+            <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
+            <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer"></nodes-filter>
         <v-snackbar v-model="snackbar" top>
@@ -414,5 +414,13 @@
         background-size:contain;
         padding-left:30px;
         margin-bottom:5px;
+    }
+    .p_link {
+        color:black;
+        margin-right:5px;
+        text-decoration:none;
+        color:#666;
+        margin-top:10px;
+        display:inline-block;
     }
 </style>
