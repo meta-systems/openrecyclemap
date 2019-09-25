@@ -414,7 +414,7 @@
     .p_fraction {
         display:block;
         background-size:contain;
-        padding-left:30px;
+        padding-left:25px;
         margin-bottom:5px;
     }
     .p_link {
@@ -424,6 +424,7 @@
         color:#666;
         margin-top:10px;
         display:inline-block;
+        font-size:11px;
     }
     .p_close:hover {
         background:#eee;
