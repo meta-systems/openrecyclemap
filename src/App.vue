@@ -49,7 +49,7 @@
                 document.documentElement.clientHeight ||
                 document.body.clientHeight;
 
-            document.getElementsByClassName('application--wrap')[0].setAttribute("style","height:"+height+"px");
+            document.getElementsByClassName('application--wrap')[0].setAttribute("style","min-height:"+height+"px");
         },
         watch: {
             '$route' (to, from) {
@@ -62,11 +62,6 @@
 <style>
 
     html, body {
-    }
-    .application--wrap {
-
-        min-height: auto !important;
-        /*min-height: calc(100vh - 56px) !important;*/
-        
+        min-height: calc(100vh - 56px) !important;
     }
 </style>
