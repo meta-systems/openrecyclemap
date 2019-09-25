@@ -360,6 +360,7 @@
     .main_loading {
         position: fixed !important;
         bottom: 140px;
+        bottom: 200px;
         left:20px;
         z-index: 9;
     }
