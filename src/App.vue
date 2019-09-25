@@ -43,10 +43,13 @@
             this.processParams(this.$route);
         },
         mounted() {
-            let height = window.innerHeight
-|| document.documentElement.clientHeight
-|| document.body.clientHeight;
-            let app_wrap = document.getElementsByClassName('application--wrap')[0].setAttribute("style","width:"+height+"px");
+
+            let height = 
+                window.innerHeight ||
+                document.documentElement.clientHeight ||
+                document.body.clientHeight;
+
+            document.getElementsByClassName('application--wrap')[0].setAttribute("style","height:"+height+"px");
         },
         watch: {
             '$route' (to, from) {
@@ -59,18 +62,10 @@
 <style>
 
     html, body {
-        /*@supports (-webkit-appearance:none) {
-            .os-android & {
-            }
-        }*/
-        /*height: 100vh;*/
-        /*height: calc(var(--vh, 1vh) * 100) !important;*/
-        /*min-height: calc(100vh - 56px) !important;*/
     }
     .application--wrap {
 
-        /*height: 100vh;*/
-        /*height: calc(var(--vh, 1vh) * 100) !important;*/
+        min-height: auto !important;
         /*min-height: calc(100vh - 56px) !important;*/
         
     }
