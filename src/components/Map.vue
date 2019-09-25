@@ -409,4 +409,10 @@
     .leaflet-control-locate {
         display: none;
     }
+    .p_fraction {
+        display:block;
+        background-size:contain;
+        padding-left:30px;
+        margin-bottom:5px;
+    }
 </style>

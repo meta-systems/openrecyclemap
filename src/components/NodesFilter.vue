@@ -45,7 +45,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .map_filters {
         background:white;
         height:115px;
