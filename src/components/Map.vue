@@ -88,7 +88,8 @@
                     plastic_bags: 'Пакеты',
                     plastic_bottles: 'Пластиковые бутылки',
                     waste_disposal: 'Мусорный контейнер'
-                }
+                },
+                lastData: null
             };
         },
         components: {
@@ -107,104 +108,114 @@
                     this.loadData();
                 }
             },
-            loadData: function (node_id) {
-                let filter = this.filter;
-                let map = this.map;
+            displayData: function (data, filter, node_id) {
                 let component = this;
-                this.loading = true;
-                this.fetchAmenity(map.getCenter(), function (data) {
-                    if(component.layer) {
-                        map.removeLayer(component.layer);
-                    }
-                    if(component.rectangle) {
-                        component.map.removeLayer(component.rectangle);
-                    }
-                    component.loading = false;
-                    component.rectangle = L.geoJson(component.boundsToGeojson(), {
-                        invert: true, color: "#424242", weight: 0
-                    }).addTo(map);
-                    let ovData = osmtogeojson(data);
-                    component.layer = L.geoJson(ovData, {
-                        style: function (feature) {
-                            let color = feature.properties.amenity === 'recycling'
-                                ? '#2E7D32'
-                                : '#8D6E63';
-                            return  {
-                                opacity: 1,
-                                fillOpacity: 1,
-                                color: 'white',
-                                fillColor: color,
-                                weight: 1,
-                                radius: 8
-                            };
-                        },
-                        filter: function (feature) {
-                            let geoJsonProps = feature.properties;
-                            if(!filter) {
-                                return true;
+                let map = this.map;
+                this.lastData = data;
+                if(this.layer) {
+                    map.removeLayer(this.layer);
+                }
+                if(this.rectangle) {
+                    this.map.removeLayer(this.rectangle);
+                }
+                this.loading = false;
+                this.rectangle = L.geoJson(this.boundsToGeojson(), {
+                    invert: true, color: "#424242", weight: 0
+                }).addTo(map);
+                let ovData = osmtogeojson(data);
+                this.layer = L.geoJson(ovData, {
+                    style: function (feature) {
+                        let color = feature.properties.amenity === 'recycling'
+                            ? '#2E7D32'
+                            : '#8D6E63';
+                        return  {
+                            opacity: 1,
+                            fillOpacity: 1,
+                            color: 'white',
+                            fillColor: color,
+                            weight: 1,
+                            radius: 8
+                        };
+                    },
+                    filter: function (feature) {
+                        let geoJsonProps = feature.properties;
+                        if(!filter) {
+                            return true;
+                        }
+                        if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+                            return filter.waste_disposal;
+                        }
+                        else {
+                            for (let key in filter) {
+                                if(!filter[key] || key === 'waste_disposal') {
+                                    continue;
+                                }
+                                if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
+                                    return true;
+                                }
                             }
+                        }
+                        return false;
+                    },
+                    onEachFeature: function (feature, layer) {
+                        layer.on('click', function (ev) {
+                            L.DomEvent.stopPropagation(ev);
+                            if(component.selectedLayer) {
+                                component.selectedLayer.setStyle({
+                                    weight: 1
+                                });
+                            }
+                            let nodeTypes = [];
+                            let geoJsonProps = feature.properties;
                             if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                                return filter.waste_disposal;
+                                nodeTypes.push('waste_disposal');
                             }
                             else {
-                                for (let key in filter) {
-                                    if(!filter[key] || key === 'waste_disposal') {
-                                        continue;
-                                    }
+                                for (let key in component.labels) {
                                     if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                        return true;
+                                        nodeTypes.push(key);
                                     }
                                 }
                             }
-                            return false;
-                        },
-                        onEachFeature: function (feature, layer) {
-                            layer.on('click', function (ev) {
-                                L.DomEvent.stopPropagation(ev);
-                                if(component.selectedLayer) {
-                                    component.selectedLayer.setStyle({
-                                        weight: 1
-                                    });
-                                }
-                                let nodeTypes = [];
-                                let geoJsonProps = feature.properties;
-                                if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                                    nodeTypes.push('waste_disposal');
-                                }
-                                else {
-                                    for (let key in component.labels) {
-                                        if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                            nodeTypes.push(key);
-                                        }
-                                    }
-                                }
-                                let node_id = geoJsonProps.id.replace('node/', '');
-                                component.selectedLayer = layer;
-                                component.selected = {
-                                    info: nodeTypes,
-                                    osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
-                                    josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id
-                                };
-                                console.log(component.selected);
-                                layer.setStyle({
-                                    weight: 5
-                                });
-                                component.$router.push({name: 'node', params: {node: node_id}});
+                            let node_id = geoJsonProps.id.replace('node/', '');
+                            component.selectedLayer = layer;
+                            component.selected = {
+                                info: nodeTypes,
+                                osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
+                                josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id
+                            };
+                            console.log(component.selected);
+                            layer.setStyle({
+                                weight: 5
                             });
-                            if(feature.properties.id === 'node/'+node_id) {
-                                layer.fire('click');
-                            }
-                        },
-                        pointToLayer: function(geoJsonPoint, latlng) {
-                            return new L.CircleMarker(latlng);
+                            component.$router.push({name: 'node', params: {node: node_id}});
+                        });
+                        if(feature.properties.id === 'node/'+node_id) {
+                            layer.fire('click');
                         }
-                    }).addTo(map);
-                });
+                    },
+                    pointToLayer: function(geoJsonPoint, latlng) {
+                        return new L.CircleMarker(latlng);
+                    }
+                }).addTo(map);
+            },
+            loadData: function (node_id) {
+                this.loading = true;
+                this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, node_id));
             },
             enableAddMode: function () {
                 if(!this.authenticated) {
                     this.$router.replace({path: '/login'});
                 }
+                this.displayData(this.lastData, {
+                    plastic: true, paper: true,
+                    cans: true,
+                    glass_bottles: true,
+                    batteries: true,
+                    low_energy_bulbs: true,
+                    plastic_bags: true,
+                    waste_disposal: true
+                });
                 let mapElem = this.map.getContainer();
                 mapElem.style.cursor = 'crosshair';
                 this.snackbar_text = 'Укажите точку на карте';
@@ -212,6 +223,7 @@
                 this.adding = true;
             },
             disableAddMode: function () {
+                this.displayData(this.lastData, this.filter);
                 let mapElem = this.map.getContainer();
                 this.snackbar = false;
                 this.adding = false;
