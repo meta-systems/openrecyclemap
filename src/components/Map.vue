@@ -263,21 +263,23 @@
                     };
                     this.addNode(this.marker.getLatLng(), this.waste, this.description);
 
-                    let recycle_type;
+                    let recycle_type = '';
                     if(this.waste.waste_disposal){
                         recycle_type = 'waste_disposal';
                     } else {
                         recycle_type = 'recycling';
                     }
+
+                    // console.log(this.waste);
                     // console.log(recycle_type);
-                    // console.log(this.waste.waste_disposal);
 
                     this.$ga.event({
-                      eventCategory: 'map',
+                      eventCategory: 'map_interaction',
                       eventAction: 'add_point',
                       eventLabel: recycle_type,
-                      eventValue: recycle_type
-                    })
+                      eventValue: 1
+                    });
+
 
                 }
             },
