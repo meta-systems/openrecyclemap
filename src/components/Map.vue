@@ -6,7 +6,14 @@
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
-        <div class="node_info" v-if="selectedLayer">
+<!-- v-class="active: isActive" -->
+<!-- v-if="selectedLayer" -->
+        <div 
+            class="node_info node_edit"
+            
+             
+            
+            >
             <span class="p_close" @click="deselectLayer">×</span>
             
             <div class="f_list">
@@ -18,7 +25,11 @@
             
             <div class="edit_box">
                 
-                <span class="btn btn_green" @click="editMode">Редактировать</span>
+                btn
+                <!-- v-on="click: myFilter" -->
+                <span  class="btn btn_green" >Редактировать</span>
+                
+                <span  @click="activate(3)" :class=" { btn_green  : active_el == 3 }" >Редактировать</span>
 
                 <div class="add_fractions">
                     <div class="add_fractions_title">Добавить фракции</div>
@@ -57,8 +68,11 @@
     import 'leaflet.snogylop'
 
     export default {
+        el: '.node_info',
         data: function () {
             return {
+                isActive: false,
+                active_el:0,
                 map: null,
                 zoomMessage: false,
                 selectedLayer: null,
@@ -115,6 +129,14 @@
         },
         mixins: [overpassMixin, oauthMixin],
         methods: {
+            myFilter: function(){
+                this.isActive = !this.isActive;
+              // some code to filter users
+            },
+            activate:function(el){
+                this.active_el = el;
+                alert('activate');
+            },
             initMap: function (map) {
                 this.map = map;
                 if(this.$route.name === 'node') {
@@ -447,10 +469,10 @@
     .leaflet-control-locate {
         display: none;
     }
-    .p_fraction:after::hover {
+    .node_edit .f_list .p_fraction:after:hover {
         color:#ddd !important;
     }
-    .f_list .p_fraction:after {
+    .node_edit .f_list .p_fraction:after {
         position:absolute;
         content:'×';
         font-size:30px;
@@ -516,8 +538,12 @@
         background-color:#eee;
         cursor:pointer;
     }
+    .node_edit .add_fractions {
+        display:block;
+    }
     .add_fractions {
         margin-top:15px;
+        display:none;
     }
     .add_fractions_title {
         font-style: italic;
