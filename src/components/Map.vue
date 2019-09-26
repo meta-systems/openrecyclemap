@@ -41,9 +41,7 @@
         <v-bottom-sheet v-model="sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <fractions-list :waste="waste" :sheet="sheet" :tags="tags"></fractions-list>
-                <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
-                <v-btn class="mt-6" flat color="primary" @click="cancelAddMode">Отмена</v-btn>
+                <fractions-list :sheet="sheet" v-on:form-cancel="cancelAddMode" v-on:form-save="saveData"></fractions-list>
             </v-sheet>
         </v-bottom-sheet>
     </div>
@@ -60,7 +58,6 @@
     import 'leaflet.snogylop'
 
     export default {
-        // el: '.node_info',
         data: function () {
             return {
                 node_edit_status:false,
@@ -76,18 +73,6 @@
                 marker: null,
                 sheet: false,
                 layer: null,
-                tags: {},
-                waste: {
-                    waste_disposal: false,
-                    plastic: false,
-                    paper: false,
-                    cans: false,
-                    glass_bottles: false,
-                    batteries: false,
-                    low_energy_bulbs: false,
-                    plastic_bags: false,
-                    plastic_bottles: false
-                },
                 filter: {
                     plastic: true,
                     paper: true,
@@ -260,20 +245,7 @@
                     this.marker = null;
                 }
             },
-            hasData: function () {
-                for (let key in this.waste) {
-                    if(this.waste.hasOwnProperty(key) && this.waste[key]) {
-                        return true;
-                    }
-                }
-                return false;
-            },
-            saveData: function () {
-
-
-                if(!this.hasData()) {
-                    return;
-                }
+            saveData: function (event) {
                 this.sheet = false;
                 if(this.marker) {
                     this.addNodeSuccess = function () {
@@ -284,26 +256,15 @@
                         this.snackbar_text = 'Ошибка! Попробуйте позже.';
                         this.snackbar = true;
                     };
-                    this.addNode(this.marker.getLatLng(), this.waste, this.tags);
+                    this.addNode(this.marker.getLatLng(), event.waste, event.description);
 
-                    let recycle_type = '';
-                    if(this.waste.waste_disposal){
-                        recycle_type = 'waste_disposal';
-                    } else {
-                        recycle_type = 'recycling';
-                    }
-
-                    // console.log(this.waste);
-                    // console.log(recycle_type);
-
+                    let recycle_type = event.waste.waste_disposal ? 'waste_disposal' : 'recycling';
                     this.$ga.event({
-                      eventCategory: 'map_interaction',
-                      eventAction: 'add_point',
-                      eventLabel: recycle_type,
-                      eventValue: 1
+                        eventCategory: 'map_interaction',
+                        eventAction: 'add_point',
+                        eventLabel: recycle_type,
+                        eventValue: 1
                     });
-
-
                 }
             },
             pushPosition: function () {

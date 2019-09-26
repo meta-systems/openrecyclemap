@@ -26,14 +26,32 @@
                 <v-checkbox @change="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
             </v-flex>
         </v-layout>
-        <v-text-field label="Описание" box v-model="tags.description"></v-text-field>
+        <v-text-field label="Описание" box v-model="description"></v-text-field>
+        <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
+        <v-btn class="mt-6" flat color="primary" @click="cancelAddMode">Отмена</v-btn>
     </div>
 </template>
 
 <script>
     export default {
         name: "fractions-list",
-        props: ['waste', 'sheet', 'tags'],
+        props: ['sheet'],
+        data: function () {
+            return {
+                waste: {
+                    waste_disposal: false,
+                    plastic: false,
+                    paper: false,
+                    cans: false,
+                    glass_bottles: false,
+                    batteries: false,
+                    low_energy_bulbs: false,
+                    plastic_bags: false,
+                    plastic_bottles: false
+                },
+                description: ''
+            }
+        },
         methods: {
             clearRecycling: function () {
                 for (let key in this.waste) {
@@ -48,7 +66,24 @@
             initWaste: function () {
                 this.clearWaste();
                 this.clearRecycling();
-                this.tags.description = null;
+                this.description = null;
+            },
+            hasData: function () {
+                for (let key in this.waste) {
+                    if(this.waste.hasOwnProperty(key) && this.waste[key]) {
+                        return true;
+                    }
+                }
+                return false;
+            },
+            saveData: function () {
+                if(!this.hasData()) {
+                    return;
+                }
+                this.$emit('form-save', {waste: this.waste, description: this.description});
+            },
+            cancelAddMode: function () {
+                this.$emit('form-cancel');
             }
         },
         watch: {
