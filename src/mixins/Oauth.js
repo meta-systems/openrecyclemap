@@ -1,4 +1,5 @@
 import osmAuth from 'osm-auth'
+import convert from 'xml-js'
 
 export default {
     data: function () {
@@ -24,14 +25,15 @@ export default {
             });
         },
         addNodeXml: function (latlon, tags, changeset_id) {
-            let xml = '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">';
+            let xmlObj = {'elements': []};
             for (let key in tags) {
                 if(tags.hasOwnProperty(key)) {
-                    xml += '<tag k="'+key+'" v="'+tags[key]+'"/>';
+                    xmlObj.elements.push({'type': 'element', 'name': 'tag', 'attributes': {'k': key, 'v': tags[key]}});
                 }
             }
-            xml += '</node></osm>';
-            return xml;
+            return '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">'
+                + convert.js2xml(xmlObj)
+                + '</node></osm>';
         },
         createChangesetXml: function () {
             return '<osm><changeset>' +

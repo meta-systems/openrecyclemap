@@ -17,7 +17,8 @@
     "vue": "^2.6.6",
     "vue-analytics": "^5.17.2",
     "vue-router": "^3.0.1",
-    "vuetify": "^1.5.7"
+    "vuetify": "^1.5.7",
+    "xml-js": "^1.6.11"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^3.5.0",
