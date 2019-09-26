@@ -6,7 +6,7 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <!-- <router-link class="orm_control orm_map_add" to="/map/add"></router-link> -->
-        <div class="orm_control orm_map_add" @click="add_mode = true"></div>
+        <div class="orm_control orm_map_add" @click="add_mode = true; deselectLayer();"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div 
