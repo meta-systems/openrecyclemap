@@ -50,7 +50,7 @@ export default {
         },
         addNodeSuccess: function () {},
         addNodeFail: function () {},
-        addNode: function (latlon, tags, description) {
+        addNode: function (latlon, tags, add_tags) {
             let component = this;
             let auth = this.auth;
             auth.xhr({
@@ -67,7 +67,7 @@ export default {
                     auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: component.addNodeXml(latlon, tags, description, changeset_id),
+                        content: component.addNodeXml(latlon, tags, add_tags.description, changeset_id),
                         options: {
                             header: {
                                 'Content-Type': 'text/xml'
