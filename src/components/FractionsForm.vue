@@ -76,15 +76,30 @@
                 }
                 return false;
             },
+            buildTags: function () {
+                let tags = {
+                    amenity: this.waste.waste_disposal ? 'waste_disposal' : 'recycling'
+                };
+                if (this.description) {
+                    tags.description = this.description;
+                }
+                if (!this.waste.waste_disposal) {
+                    for (let key in this.waste) {
+                        if(this.waste.hasOwnProperty(key) && this.waste[key]) {
+                            tags['recycling:'+key] = 'yes';
+                        }
+                    }
+                }
+                return tags;
+            },
             saveData: function () {
                 if(!this.hasData()) {
                     return;
                 }
-                let recycle_type = this.waste.waste_disposal ? 'waste_disposal' : 'recycling';
+                let tags = this.buildTags();
                 this.$emit('form-save', {
-                    waste: this.waste,
-                    description: this.description,
-                    amenity: recycle_type
+                    tags: tags,
+                    amenity: tags.amenity
                 });
             },
             cancelAddMode: function () {

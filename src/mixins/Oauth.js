@@ -23,20 +23,11 @@ export default {
                 component.username = userTag.attributes["display_name"].value;
             });
         },
-        addNodeXml: function (latlon, tags, description, changeset_id) {
+        addNodeXml: function (latlon, tags, changeset_id) {
             let xml = '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">';
-            if (description) {
-                xml += '<tag k="description" v="'+description+'"/>';
-            }
-            if (tags.waste_disposal) {
-                xml += '<tag k="amenity" v="waste_disposal"/>';
-            }
-            else {
-                xml += '<tag k="amenity" v="recycling"/>';
-                for (let key in tags) {
-                    if(tags.hasOwnProperty(key) && tags[key]) {
-                        xml += '<tag k="recycling:'+key+'" v="yes"/>';
-                    }
+            for (let key in tags) {
+                if(tags.hasOwnProperty(key)) {
+                    xml += '<tag k="'+key+'" v="'+tags[key]+'"/>';
                 }
             }
             xml += '</node></osm>';
@@ -50,7 +41,7 @@ export default {
         },
         addNodeSuccess: function () {},
         addNodeFail: function () {},
-        addNode: function (latlon, event) {
+        addNode: function (latlon, tags) {
             let component = this;
             let auth = this.auth;
             auth.xhr({
@@ -67,7 +58,7 @@ export default {
                     auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: component.addNodeXml(latlon, event.waste, event.description, changeset_id),
+                        content: component.addNodeXml(latlon, tags, changeset_id),
                         options: {
                             header: {
                                 'Content-Type': 'text/xml'

@@ -258,7 +258,7 @@
                         this.snackbar_text = 'Ошибка! Попробуйте позже.';
                         this.snackbar = true;
                     };
-                    this.addNode(this.marker.getLatLng(), event);
+                    this.addNode(this.marker.getLatLng(), event.tags);
 
                     this.$ga.event({
                         eventCategory: 'map_interaction',
