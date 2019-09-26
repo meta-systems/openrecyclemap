@@ -1,11 +1,12 @@
 <template>
     <div :class="['map_root text-center', {map_add_mode: add_mode}]">
         <div class="map_cross"><div class="map_cross2"></div></div>
+        <div class="add_mode_message">Потяните карту чтобы выбрать правильное расположение точки</div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <!-- <router-link class="orm_control orm_map_add" to="/map/add"></router-link> -->
-        <div class="orm_control orm_map_add" @click="add_mode = true"></div>
+        <div class="orm_control orm_map_add" @click="add_mode = true; deselectLayer();"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div 
@@ -518,8 +519,21 @@
         color:#777;
         margin-bottom:10px;
     }
-    .map_cross {
+    .map_cross,
+    .add_mode_message {
         display:none;
+    }
+
+    .map_add_mode .add_mode_message {
+        display:block;
+        padding:15px 40px;
+        text-align:center;
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        z-index: 2;
+        background:white;
     }
     .map_add_mode .map_filters {
         display:none;
