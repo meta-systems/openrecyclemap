@@ -6,13 +6,9 @@
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
-<!-- v-class="active: isActive" -->
-<!-- v-if="selectedLayer" -->
         <div 
             :class="['node_info', {node_edit: node_edit_status}]"
-            
-             
-            
+            v-if="selectedLayer"
             >
             <span class="p_close" @click="deselectLayer">×</span>
             
