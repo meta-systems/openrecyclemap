@@ -2,6 +2,10 @@
     <div class="map_root text-center">
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
         <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_steps" v-if="add_mode">
+            <div class="btn btn_gray">Отмена</div>
+            <div class="btn btn_green btn_add_next">Далее</div>
+        </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
@@ -512,16 +516,23 @@
         color:#777;
         margin-bottom:10px;
     }
-
-    .add_mode_message {
-        padding:15px 40px;
-        text-align:center;
+    .add_mode_message,
+    .add_mode_steps {
+        background:white;
         position:absolute;
-        top:0;
         left:0;
         right:0;
         z-index: 2;
-        background:white;
+    }
+    .add_mode_steps {
+        bottom:0;
+        padding:15px;
+        display:flex;
+    }
+    .add_mode_message {
+        padding:15px 40px;
+        text-align:center;
+        top:0;
     }
     .map_cross {
         position:absolute;
@@ -541,5 +552,8 @@
         background-repeat: no-repeat;
         background-position: center;
         /*background-size: contain;*/
+    }
+    .btn_add_next {
+        margin-left:auto;
     }
 </style>
