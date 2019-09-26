@@ -53,7 +53,7 @@
         overflow-x: auto;
         position:absolute;
         left:20px;
-        bottom:70px;
+        bottom:20px;
         border-radius:8px;
         right:20px;
         overflow-y:hidden;

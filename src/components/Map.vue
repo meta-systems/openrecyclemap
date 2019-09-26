@@ -1,9 +1,11 @@
 <template>
-    <div class="map_root text-center">
+    <div :class="['map_root text-center', {map_add_mode: add_mode}]">
+        <div class="map_cross"><div class="map_cross2"></div></div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
-        <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
+        <!-- <router-link class="orm_control orm_map_add" to="/map/add"></router-link> -->
+        <div class="orm_control orm_map_add" @click="add_mode = true"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
         <div 
@@ -62,6 +64,7 @@
     export default {
         data: function () {
             return {
+                add_mode:false,
                 node_edit_status:false,
                 map: null,
                 zoomMessage: false,
@@ -373,9 +376,9 @@
     }
     .map_root {
         height: 100%;
-        /*min-height: 100vh;*/
         overflow: hidden;
         height: calc(100% - 56px);
+        position:relative;
     }
     .v-bottom-sheet .v-sheet{
         padding:10px;
@@ -391,13 +394,13 @@
         z-index: 1;
     }
     .orm_map_add {
-        bottom:150px;
+        bottom:100px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
     }
     @media screen and (max-width: 900px) {
         .orm_map_add {
-            bottom:260px;
+            bottom:210px;
         }
     }
     .orm_control {
@@ -513,5 +516,28 @@
         font-style: italic;
         color:#777;
         margin-bottom:10px;
+    }
+    .map_cross {
+        display:none;
+    }
+    .map_add_mode .map_cross {
+        position:absolute;
+        top:50%;
+        left:50%;
+        z-index: 1;
+        border:1px solid red;
+        pointer-events: none;
+        display:block;
+    }
+    .map_cross2 {
+        height:44px;
+        width:44px;
+        position:absolute;
+        top:-22px;
+        left:-22px;
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='42' height='42' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cmask id='a' maskUnits='userSpaceOnUse' x='0' y='0' width='42' height='42' fill='%23000'%3E%3Cpath fill='%23fff' d='M0 0h42v42H0z'/%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21 1a1 1 0 0 0-1 1v18H2a1 1 0 1 0 0 2h18v18a1 1 0 1 0 2 0V22h18a1 1 0 1 0 0-2H22V2a1 1 0 0 0-1-1z'/%3E%3C/mask%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M21 1a1 1 0 0 0-1 1v18H2a1 1 0 1 0 0 2h18v18a1 1 0 1 0 2 0V22h18a1 1 0 1 0 0-2H22V2a1 1 0 0 0-1-1z' fill='%23000'/%3E%3Cpath d='M20 20v.6h.6V20H20zm0 2h.6v-.6H20v.6zm2 0v-.6h-.6v.6h.6zm0-2h-.6v.6h.6V20zM20.6 2c0-.22.18-.4.4-.4V.4c-.88 0-1.6.72-1.6 1.6h1.2zm0 18V2h-1.2v18h1.2zM2 20.6h18v-1.2H2v1.2zm-.4.4c0-.22.18-.4.4-.4v-1.2c-.88 0-1.6.72-1.6 1.6h1.2zm.4.4a.4.4 0 0 1-.4-.4H.4c0 .88.72 1.6 1.6 1.6v-1.2zm18 0H2v1.2h18v-1.2zm.6 18.6V22h-1.2v18h1.2zm.4.4a.4.4 0 0 1-.4-.4h-1.2c0 .88.72 1.6 1.6 1.6v-1.2zm.4-.4a.4.4 0 0 1-.4.4v1.2c.88 0 1.6-.72 1.6-1.6h-1.2zm0-18v18h1.2V22h-1.2zm18.6-.6H22v1.2h18v-1.2zm.4-.4a.4.4 0 0 1-.4.4v1.2c.88 0 1.6-.72 1.6-1.6h-1.2zm-.4-.4c.22 0 .4.18.4.4h1.2c0-.88-.72-1.6-1.6-1.6v1.2zm-18 0h18v-1.2H22v1.2zM21.4 2v18h1.2V2h-1.2zm-.4-.4c.22 0 .4.18.4.4h1.2c0-.88-.72-1.6-1.6-1.6v1.2z' fill='%23fff' mask='url(%23a)'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: center;
+        /*background-size: contain;*/
     }
 </style>

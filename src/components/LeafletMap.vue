@@ -114,7 +114,7 @@
     }
 </script>
 
-<style scoped>
+<style>
     .map_parent {
         height: calc(100% - 115px);
         height: 100%;
@@ -125,24 +125,6 @@
     }
     .map_container_behind {
         height: calc(100% - 165px) !important;
-    }
-
-    .orm_control:hover {
-        opacity:1;
-    }
-    .orm_control {
-        background-repeat: no-repeat;
-        background-size:contain;
-        z-index: 1;
-        position:absolute;
-        background-position: center;
-        background-color:white;
-        border-radius:30px;
-        height:40px;
-        width:40px;
-        opacity:0.7;
-        cursor:pointer;
-        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
     }
     .orm_layers {
         top:21px;
@@ -165,13 +147,13 @@
         background:#eee;
     }
     .orm_position {
-        bottom:85px;
+        bottom:35px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24.64' cy='25.08' r='9.53' stroke='%23000' stroke-width='2.38'/%3E%3Cpath fill='%23000' d='M23.45 9.6h2.38v5.95h-2.38zM23.45 34.61h2.38v5.95h-2.38zM40.12 23.88v2.38h-5.95v-2.38zM15.12 23.9v2.37H9.17V23.9z'/%3E%3Ccircle cx='24.64' cy='25.08' r='4.76' fill='%23000'/%3E%3C/svg%3E");
     }
     @media screen and (max-width: 900px) {
         .orm_position {
-            bottom:200px;
+            bottom:150px;
         }
     }
 </style>
