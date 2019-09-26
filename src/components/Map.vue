@@ -18,6 +18,7 @@
             <div class="f_list">
                 <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
             </div>
+            <div v-if="selected.description" class="f_description">{{ selected.description }}</div>
             
             <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
@@ -197,9 +198,9 @@
                             component.selected = {
                                 info: nodeTypes,
                                 osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
-                                josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id
+                                josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id,
+                                description: geoJsonProps.description
                             };
-                            console.log(component.selected);
                             layer.setStyle({
                                 weight: 5
                             });
