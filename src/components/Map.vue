@@ -130,6 +130,9 @@
                 }
             },
             displayData: function (data, filter, node_id) {
+                if(!data) {
+                    return;
+                }
                 let component = this;
                 let map = this.map;
                 this.lastData = data;
@@ -304,7 +307,7 @@
                 }
             },
             pushPosition: function () {
-                if(!this.sheet && this.$route.params.action === 'add') {
+                if((!this.sheet && this.$route.params.action === 'add' || this.$route.name === 'node')) {
                     return;
                 }
                 let position = this.map.getCenter();
