@@ -520,6 +520,9 @@
     .map_cross {
         display:none;
     }
+    .map_add_mode .map_filters {
+        display:none;
+    }
     .map_add_mode .map_cross {
         position:absolute;
         top:50%;
