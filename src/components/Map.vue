@@ -21,13 +21,15 @@
             
             <div class="edit_box">
                 
-                <span  @click="node_edit_status = true" class="btn btn_green" >Редактировать</span>
+                <span  @click="node_edit_status = true" class="btn btn_gray btn_node_edit" >Редактировать</span>
 
                 <div class="add_fractions">
                     <div class="add_fractions_title">Добавить фракции</div>
                     <span class="p_fraction ico_batteries">Батарейки</span>
                     <span class="p_fraction ico_low_energy_bulbs">Лампочки</span>
                 </div>
+
+                <span  @click="node_edit_status = true" class="btn btn_green btn_node_save" >Сохранить</span>
             </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer"></nodes-filter>
@@ -429,6 +431,22 @@
         right:0;
         top:7px;
     }
+
+    .btn {
+        padding:7px 15px;
+        border-radius:4px;
+        cursor:pointer;
+        display:inline-block;
+    }
+    .node_edit .btn_node_edit {
+        display:none;
+    }
+    .btn_node_save {
+        display:none;
+    }
+    .node_edit .btn_node_save {
+        display:inline-block;
+    }
     .p_fraction {
         position:relative;
         display:block;
@@ -468,15 +486,15 @@
         border-radius:15px;
         text-align:center;
     }
-    .btn {
-        padding:7px 15px;
-        border-radius:4px;
-        cursor:pointer;
-        display:inline-block;
-    }
     .btn_green {
         background:green;
         color:white;
+    }
+    .btn_gray:hover {
+        background:#eee;
+    }
+    .btn_gray {
+        border:1px solid #eee;
     }
     .edit_box {
         margin-top:15px;
