@@ -1,7 +1,7 @@
 <template>
-    <div :class="['map_root text-center', {map_add_mode: add_mode}]">
-        <div class="map_cross"><div class="map_cross2"></div></div>
-        <div class="add_mode_message">Потяните карту чтобы выбрать правильное расположение точки</div>
+    <div class="map_root text-center">
+        <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
+        <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
@@ -25,18 +25,18 @@
             
             <div class="edit_box">
                 
-                <span  @click="node_edit_status = true" class="btn btn_gray btn_node_edit" >Редактировать</span>
+                <span @click="node_edit_status = true" v-if="!node_edit_status" class="btn btn_gray">Редактировать</span>
 
-                <div class="add_fractions">
+                <div class="add_fractions" v-if="node_edit_status">
                     <div class="add_fractions_title">Добавить фракции</div>
                     <span class="p_fraction ico_batteries">Батарейки</span>
                     <span class="p_fraction ico_low_energy_bulbs">Лампочки</span>
                 </div>
 
-                <span  @click="node_edit_status = true" class="btn btn_green btn_node_save" >Сохранить</span>
+                <span @click="node_edit_status = true" v-if="node_edit_status" class="btn btn_green">Сохранить</span>
             </div>
         </div>
-        <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer"></nodes-filter>
+        <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top>
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
@@ -442,15 +442,6 @@
         cursor:pointer;
         display:inline-block;
     }
-    .node_edit .btn_node_edit {
-        display:none;
-    }
-    .btn_node_save {
-        display:none;
-    }
-    .node_edit .btn_node_save {
-        display:inline-block;
-    }
     .p_fraction {
         position:relative;
         display:block;
@@ -507,25 +498,16 @@
         background-color:#eee;
         cursor:pointer;
     }
-    .node_edit .add_fractions {
-        display:block;
-    }
     .add_fractions {
         margin-top:15px;
-        display:none;
     }
     .add_fractions_title {
         font-style: italic;
         color:#777;
         margin-bottom:10px;
     }
-    .map_cross,
-    .add_mode_message {
-        display:none;
-    }
 
-    .map_add_mode .add_mode_message {
-        display:block;
+    .add_mode_message {
         padding:15px 40px;
         text-align:center;
         position:absolute;
@@ -535,17 +517,13 @@
         z-index: 2;
         background:white;
     }
-    .map_add_mode .map_filters {
-        display:none;
-    }
-    .map_add_mode .map_cross {
+    .map_cross {
         position:absolute;
         top:50%;
         left:50%;
         z-index: 1;
         border:1px solid red;
         pointer-events: none;
-        display:block;
     }
     .map_cross2 {
         height:44px;
