@@ -53,9 +53,6 @@ export default {
         addNode: function (latlon, tags, description) {
             let component = this;
             let auth = this.auth;
-            let content = component.addNodeXml(latlon, tags, description, '234');
-            console.log(content);
-            return;
             auth.xhr({
                 method: 'PUT',
                 path: '/api/0.6/changeset/create',

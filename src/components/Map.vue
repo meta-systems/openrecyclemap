@@ -43,7 +43,7 @@
         <v-bottom-sheet v-model="sheet" persistent>
             <v-sheet class="text-center" height="50%">
                 <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <fractions-list :sheet="sheet" v-on:form-cancel="cancelAddMode" v-on:form-save="saveData"></fractions-list>
+                <fractions-form :sheet="sheet" v-on:form-cancel="cancelAddMode" v-on:form-save="saveData"></fractions-form>
             </v-sheet>
         </v-bottom-sheet>
     </div>
@@ -54,7 +54,7 @@
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
     import NodesFilter from './NodesFilter'
-    import FractionsList from './FractionsList'
+    import FractionsForm from './FractionsForm'
     import LeafletMap from './LeafletMap'
     import L from 'leaflet'
     import 'leaflet.snogylop'
@@ -102,7 +102,7 @@
         },
         components: {
             NodesFilter,
-            FractionsList,
+            FractionsForm,
             LeafletMap
         },
         mixins: [overpassMixin, oauthMixin],

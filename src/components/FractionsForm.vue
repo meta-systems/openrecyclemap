@@ -34,7 +34,7 @@
 
 <script>
     export default {
-        name: "fractions-list",
+        name: "fractions-form",
         props: ['sheet'],
         data: function () {
             return {
