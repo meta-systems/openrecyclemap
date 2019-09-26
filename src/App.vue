@@ -37,19 +37,19 @@
             processParams: function (route) {
                 if(route.name === 'about') {
                 }
+            },
+            fixHeight: function () {
+                let height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight;
+                let wrapEl = document.getElementsByClassName('application--wrap')[0];
+                wrapEl.setAttribute("style", "min-height:"+height+"px");
             }
         },
         created() {
             this.processParams(this.$route);
         },
         mounted() {
-
-            let height = 
-                window.innerHeight ||
-                document.documentElement.clientHeight ||
-                document.body.clientHeight;
-
-            document.getElementsByClassName('application--wrap')[0].setAttribute("style","min-height:"+height+"px");
+            this.fixHeight();
+            window.addEventListener('resize', this.fixHeight);
         },
         watch: {
             '$route' (to, from) {
