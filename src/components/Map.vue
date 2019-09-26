@@ -8,9 +8,24 @@
 
         <div class="node_info" v-if="selectedLayer">
             <span class="p_close" @click="deselectLayer">×</span>
-            <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
+            
+            <div class="f_list">
+                <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
+            </div>
+            
             <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
+            
+            <div class="edit_box">
+                
+                <span class="btn btn_green" @click="editMode">Редактировать</span>
+
+                <div class="add_fractions">
+                    <div class="add_fractions_title">Добавить фракции</div>
+                    <span class="p_fraction ico_batteries">Батарейки</span>
+                    <span class="p_fraction ico_low_energy_bulbs">Лампочки</span>
+                </div>
+            </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer"></nodes-filter>
         <v-snackbar v-model="snackbar" top>
@@ -317,6 +332,9 @@
                 this.selectedLayer = null;
                 this.$router.push({name: 'map'});
             },
+            editMode: function() {
+                alert('edit');
+            },
             onMapClick: function (e) {
                 if(this.selectedLayer) {
                     this.deselectLayer();
@@ -429,11 +447,32 @@
     .leaflet-control-locate {
         display: none;
     }
+    .p_fraction:after::hover {
+        color:#ddd !important;
+    }
+    .f_list .p_fraction:after {
+        position:absolute;
+        content:'×';
+        font-size:30px;
+        color:#eee;
+        margin-left:auto;
+        cursor:pointer;
+        right:0;
+        top:7px;
+    }
     .p_fraction {
+        position:relative;
         display:block;
         background-size:contain;
-        padding-left:25px;
+        padding-left:40px;
         margin-bottom:5px;
+        font-size:17px;
+        line-height: 1em;
+        min-height:33px;
+        display:flex;
+        align-items: center;
+        padding-right:30px;
+        border-radius:4px;
     }
     .p_link {
         color:black;
@@ -459,5 +498,30 @@
         height:30px;
         border-radius:15px;
         text-align:center;
+    }
+    .btn {
+        padding:7px 15px;
+        border-radius:4px;
+        cursor:pointer;
+        display:inline-block;
+    }
+    .btn_green {
+        background:green;
+        color:white;
+    }
+    .edit_box {
+        margin-top:15px;
+    }
+    .add_fractions .p_fraction:hover {
+        background-color:#eee;
+        cursor:pointer;
+    }
+    .add_fractions {
+        margin-top:15px;
+    }
+    .add_fractions_title {
+        font-style: italic;
+        color:#777;
+        margin-bottom:10px;
     }
 </style>
