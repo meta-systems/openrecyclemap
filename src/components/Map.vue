@@ -68,7 +68,7 @@
     import 'leaflet.snogylop'
 
     export default {
-        el: '.node_info',
+        // el: '.node_info',
         data: function () {
             return {
                 isActive: false,
