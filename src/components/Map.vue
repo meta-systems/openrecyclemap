@@ -3,8 +3,8 @@
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
         <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
-            <div class="btn btn_gray">Отмена</div>
-            <div class="btn btn_green btn_add_next">Далее</div>
+            <div class="btn btn_gray" @click="disableAddModeAlt">Отмена</div>
+            <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
@@ -224,6 +224,18 @@
                 this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, node_id));
             },
             enableAddModeAlt: function () {
+                if(!this.authenticated) {
+                    this.$router.replace({path: '/login'});
+                }
+                this.displayData(this.lastData, {
+                    plastic: true, paper: true,
+                    cans: true,
+                    glass_bottles: true,
+                    batteries: true,
+                    low_energy_bulbs: true,
+                    plastic_bags: true,
+                    waste_disposal: true
+                });
                 this.add_mode = true;
                 if(this.selectedLayer) {
                     this.deselectLayer();
@@ -247,6 +259,10 @@
                 this.snackbar_text = 'Укажите точку на карте';
                 this.snackbar = true;
                 this.adding = true;
+            },
+            disableAddModeAlt: function () {
+                this.displayData(this.lastData, this.filter);
+                this.add_mode = false;
             },
             disableAddMode: function () {
                 this.displayData(this.lastData, this.filter);
@@ -333,6 +349,16 @@
                     this.sheet = true;
                     this.map.setView(e.latlng, 18, {animate: false});
                 }
+            },
+            goNext: function () {
+                this.add_mode = false;
+                if(this.marker) {
+                    this.map.removeLayer(this.marker);
+                }
+                let position = this.map.getCenter();
+                this.marker = L.marker(position).addTo(this.map);
+                this.sheet = true;
+                this.map.setView(position, 18, {animate: false});
             },
             loadNode: function (node_id) {
                 let component = this;
