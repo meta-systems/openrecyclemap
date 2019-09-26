@@ -258,13 +258,12 @@
                         this.snackbar_text = 'Ошибка! Попробуйте позже.';
                         this.snackbar = true;
                     };
-                    this.addNode(this.marker.getLatLng(), event.waste, event.description);
+                    this.addNode(this.marker.getLatLng(), event);
 
-                    let recycle_type = event.waste.waste_disposal ? 'waste_disposal' : 'recycling';
                     this.$ga.event({
                         eventCategory: 'map_interaction',
                         eventAction: 'add_point',
-                        eventLabel: recycle_type,
+                        eventLabel: event.amenity,
                         eventValue: 1
                     });
                 }

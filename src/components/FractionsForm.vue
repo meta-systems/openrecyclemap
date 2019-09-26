@@ -80,7 +80,12 @@
                 if(!this.hasData()) {
                     return;
                 }
-                this.$emit('form-save', {waste: this.waste, description: this.description});
+                let recycle_type = this.waste.waste_disposal ? 'waste_disposal' : 'recycling';
+                this.$emit('form-save', {
+                    waste: this.waste,
+                    description: this.description,
+                    amenity: recycle_type
+                });
             },
             cancelAddMode: function () {
                 this.$emit('form-cancel');
