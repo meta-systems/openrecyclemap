@@ -134,7 +134,7 @@
     .orm_zoom {
         top:80px;
         right:20px;
-        height:80px;
+        height:80px !important;
     }
     .zoom_btn {
         line-height:40px;
