@@ -2,28 +2,28 @@
     <div>
         <v-layout row wrap class="fractions-list">
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearRecycling" v-model="waste.waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
+                <v-checkbox @change="clearRecycling" v-model="waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.glass_bottles" label="Стеклянные бутылки" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.glass_bottles" label="Стеклянные бутылки" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.plastic" label="Пластик" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.plastic" label="Пластик" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.paper" label="Бумага" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.paper" label="Бумага" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.cans" label="Алюминиевые банки" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.cans" label="Алюминиевые банки" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
             </v-flex>
             <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="waste.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
+                <v-checkbox @change="clearWaste" v-model="recycling.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
             </v-flex>
         </v-layout>
         <v-text-field label="Описание" box v-model="description"></v-text-field>
@@ -38,8 +38,9 @@
         props: ['sheet'],
         data: function () {
             return {
-                waste: {
-                    waste_disposal: false,
+                description: '',
+                waste_disposal: false,
+                recycling: {
                     plastic: false,
                     paper: false,
                     cans: false,
@@ -48,20 +49,17 @@
                     low_energy_bulbs: false,
                     plastic_bags: false,
                     plastic_bottles: false
-                },
-                description: ''
+                }
             }
         },
         methods: {
             clearRecycling: function () {
-                for (let key in this.waste) {
-                    if(key !== 'waste_disposal') {
-                        this.waste[key] = false;
-                    }
+                for (let key in this.recycling) {
+                    this.recycling[key] = false;
                 }
             },
             clearWaste: function () {
-                this.waste.waste_disposal = false;
+                this.waste_disposal = false;
             },
             initWaste: function () {
                 this.clearWaste();
@@ -69,23 +67,23 @@
                 this.description = null;
             },
             hasData: function () {
-                for (let key in this.waste) {
-                    if(this.waste.hasOwnProperty(key) && this.waste[key]) {
+                for (let key in this.recycling) {
+                    if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
                         return true;
                     }
                 }
-                return false;
+                return this.waste_disposal;
             },
             buildTags: function () {
                 let tags = {
-                    amenity: this.waste.waste_disposal ? 'waste_disposal' : 'recycling'
+                    amenity: this.waste_disposal ? 'waste_disposal' : 'recycling'
                 };
                 if (this.description) {
                     tags.description = this.description;
                 }
-                if (!this.waste.waste_disposal) {
-                    for (let key in this.waste) {
-                        if(this.waste.hasOwnProperty(key) && this.waste[key]) {
+                if (!this.waste_disposal) {
+                    for (let key in this.recycling) {
+                        if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
                             tags['recycling:'+key] = 'yes';
                         }
                     }
