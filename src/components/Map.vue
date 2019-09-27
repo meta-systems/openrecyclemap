@@ -12,9 +12,9 @@
         <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
 
-        <fractions-form :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
+        <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
-        <div :class="['node_info', {node_edit: node_edit_status}]" v-if="selectedLayer">
+        <div class="node_info" v-if="selectedLayer">
             <span class="p_close" @click="deselectLayer">×</span>
             
             <div class="f_list">
@@ -26,7 +26,7 @@
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
             
             <div class="edit_box">
-                <span @click="node_edit_status = true" class="btn btn_gray">Редактировать</span>
+                <span @click="goEdit" class="btn btn_gray">Редактировать</span>
             </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
@@ -55,11 +55,10 @@
             return {
                 edit_tags: false,
                 add_mode: false,
-                node_edit_status: false,
                 map: null,
                 zoomMessage: false,
                 selectedLayer: null,
-                selected: {},
+                selected: null,
                 rectangle: null,
                 loading: false,
                 snackbar_text: null,
@@ -171,11 +170,14 @@
                                 });
                             }
                             let nodeTypes = [];
+                            let selAmenity;
                             let geoJsonProps = feature.properties;
                             if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
                                 nodeTypes.push('waste_disposal');
+                                selAmenity = 'waste_disposal';
                             }
                             else {
+                                selAmenity = 'recycling';
                                 for (let key in component.labels) {
                                     if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
                                         nodeTypes.push(key);
@@ -186,6 +188,7 @@
                             component.selectedLayer = layer;
                             component.selected = {
                                 info: nodeTypes,
+                                amenity: selAmenity,
                                 osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
                                 josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id,
                                 description: geoJsonProps.description
@@ -287,10 +290,8 @@
                     weight: 1
                 });
                 this.selectedLayer = null;
+                this.selected = null;
                 this.$router.push({name: 'map'});
-            },
-            editMode: function() {
-                alert('edit');
             },
             onMapClick: function (e) {
                 if(this.selectedLayer) {
@@ -301,6 +302,9 @@
                 this.add_mode = false;
                 this.edit_tags = true;
                 this.marker = L.marker(this.map.getCenter());
+            },
+            goEdit: function () {
+                this.edit_tags = true;
             },
             loadNode: function (node_id) {
                 let component = this;

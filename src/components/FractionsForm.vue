@@ -33,7 +33,7 @@
 <script>
     export default {
         name: "fractions-form",
-        props: ['labels'],
+        props: ['labels', 'selected'],
         data: function () {
             return {
                 description: '',
@@ -97,6 +97,15 @@
             },
             cancelAddMode: function () {
                 this.$emit('form-cancel');
+            }
+        },
+        created() {
+            if(this.selected) {
+                this.description = this.selected.description;
+                this.waste_disposal = this.selected.amenity === 'waste_disposal';
+                if(!this.waste_disposal) {
+                    this.selected.info.forEach((item) => this.recycling[item] = true);
+                }
             }
         }
     }
