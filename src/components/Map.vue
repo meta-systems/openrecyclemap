@@ -1,7 +1,7 @@
 <template>
     <div class="map_root text-center">
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="add_mode_set_coord">Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
             <div class="btn btn_gray" @click="disableAddModeAlt">Отмена</div>
             <div class="btn btn_green btn_add_next" @click="goNextAlt">Далее</div>
@@ -13,16 +13,26 @@
         <div class="orm_control orm_map_add" @click="enableAddModeAlt"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
 
-        <div class="tags_box" v-if="edit_tags">
-            <div class="node_tags">
-                <div class="box_title">Фракции выбранной точки</div>
-                <span class="p_fraction ico_paper">Бумага</span>
-                <span class="p_fraction ico_cans">Алюминиевые банки</span>
+        <div class="tags_window" v-if="edit_tags">
+
+            <div class="tags_box">
+                <div class="node_tags">
+                    <div class="box_title">Фракции выбранной точки</div>
+                    <span class="p_fraction ico_paper">Бумага</span>
+                    <span class="p_fraction ico_cans">Алюминиевые банки</span>
+                </div>
+                <div class="f_list f_list_add">
+                    <div class="box_title">Доступные фракции</div>
+                    <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
+                </div>
             </div>
-            <div class="f_list f_list_add">
-                <div class="box_title">Доступные фракции</div>
-                <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
+
+            <div class="description_box">
+                <div class="box_title">Описание</div>
+                <div contenteditable="true" class="description_input" value="" id="" autocomplete="off"></div>
             </div>
+
+
         </div>
 
         <div 
@@ -83,6 +93,7 @@
         data: function () {
             return {
                 edit_tags:false,
+                add_mode_set_coord:false,
                 add_mode:false,
                 node_edit_status:false,
                 map: null,
@@ -250,6 +261,7 @@
                     waste_disposal: true
                 });
                 this.add_mode = true;
+                this.add_mode_set_coord = true;
                 if(this.selectedLayer) {
                     this.deselectLayer();
                 }
@@ -276,6 +288,7 @@
             disableAddModeAlt: function () {
                 this.displayData(this.lastData, this.filter);
                 this.add_mode = false;
+                this.edit_tags = false;
             },
             disableAddMode: function () {
                 this.displayData(this.lastData, this.filter);
@@ -365,6 +378,7 @@
             },
             goNextAlt: function () {
                 this.edit_tags = true;
+                this.add_mode_set_coord = false;
             },
             goNext: function () {
                 this.add_mode = false;
@@ -598,15 +612,17 @@
     .btn_add_next {
         margin-left:auto;
     }
-    .tags_box {
+    .tags_window {
         position:absolute;
-        top:100px;
+        top:0;
         left:0;
         right:0;
+        bottom:0;
         background:white;
         z-index: 1;
         display:flex;
         padding:20px;
+        flex-direction: column;
     }
     .node_tags {
         width:45%;
@@ -618,13 +634,22 @@
         padding:5px;
         line-height:1.2em;
         border-radius:4px;
+        display:inline-block;
     }
     .f_list_add {
         width:45%;
         margin-left:auto;
     }
-    .tags_box .p_fraction:hover {
+    .tags_window .p_fraction:hover {
         background-color:#eee;
         cursor:pointer;
+    }
+    .tags_box {
+        display:flex;
+    }
+    .description_input {
+        border:1px solid #ddd;
+        border-radius:4px;
+        max-width:400px;
     }
 </style>
