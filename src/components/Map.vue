@@ -15,7 +15,14 @@
 
         <div class="tags_window" v-if="edit_tags">
 
-            <div class="tags_box">
+            <div class="node_type">
+                <div class="box_title">Укажите тип контейнера</div>
+                <div class="node_type_choice">
+                    <div class="btn btn_green" @click="type_recycling = true">Переработка</div>
+                    <div class="btn btn_brown" @click="type_recycling = false">Обычная мусорка</div>
+                </div>
+            </div>
+            <div class="tags_box" v-if="type_recycling">
                 <div class="node_tags">
                     <div class="box_title">Фракции выбранной точки</div>
                     <span class="p_fraction ico_paper">Бумага</span>
@@ -92,6 +99,7 @@
     export default {
         data: function () {
             return {
+                type_recycling:false,
                 edit_tags:false,
                 add_mode_set_coord:false,
                 add_mode:false,
@@ -629,12 +637,10 @@
     }
     .box_title {
         margin-bottom:15px;
-        
-        background:#eee;
-        padding:5px;
+        margin-top:25px;
         line-height:1.2em;
-        border-radius:4px;
         display:inline-block;
+        border-bottom:4px solid #ECB5FF;
     }
     .f_list_add {
         width:45%;
@@ -651,5 +657,15 @@
         border:1px solid #ddd;
         border-radius:4px;
         max-width:400px;
+    }
+    .btn_brown {
+        background-color:#8D6E63;
+        color:white;
+    }
+    .node_type_choice {
+        display:flex;
+    }
+    .node_type .btn {
+        margin-right:30px;
     }
 </style>
