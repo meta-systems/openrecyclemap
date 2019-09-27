@@ -1,45 +1,43 @@
 <template>
-    <div>
-        <v-layout row wrap class="fractions-list">
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearRecycling" v-model="waste_disposal" label="Несортируемые отходы" color="red darken-3" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.glass_bottles" label="Стеклянные бутылки" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.plastic" label="Пластик" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.paper" label="Бумага" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.cans" label="Алюминиевые банки" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.batteries" label="Батарейки" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.low_energy_bulbs" label="Лампочки" color="success" hide-details></v-checkbox>
-            </v-flex>
-            <v-flex xs6 sm4>
-                <v-checkbox @change="clearWaste" v-model="recycling.plastic_bags" label="Пакеты" color="success" hide-details></v-checkbox>
-            </v-flex>
-        </v-layout>
-        <v-text-field label="Описание" box v-model="description"></v-text-field>
-        <v-btn class="mt-6" color="primary" @click="saveData">Сохранить</v-btn>
-        <v-btn class="mt-6" flat color="primary" @click="cancelAddMode">Отмена</v-btn>
+    <div class="tags_window">
+        <div class="node_type">
+            <div class="box_title">Укажите тип контейнера</div>
+            <div class="node_type_choice">
+                <v-btn @click="waste_disposal = false" color="primary"><v-icon v-if="!waste_disposal">check</v-icon> Переработка</v-btn>
+                <v-btn @click="waste_disposal = true" color="#8D6E63" dark><v-icon v-if="waste_disposal">check</v-icon> Обычная мусорка</v-btn>
+            </div>
+        </div>
+        <div class="tags_box" v-if="!waste_disposal">
+            <div class="node_tags">
+                <div class="box_title">Фракции выбранной точки</div>
+                <span v-for="(value, key) in recycling" v-if="value"
+                      :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
+            </div>
+            <div class="f_list f_list_add">
+                <div class="box_title">Доступные фракции</div>
+                <span v-for="(value, key) in recycling" v-if="!value"
+                      :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
+            </div>
+        </div>
+        <div class="description_box">
+            <div class="box_title">Описание</div>
+            <v-textarea label="Описание" rows="2" solo v-model="description"></v-textarea>
+        </div>
+        <div class="add_mode_steps">
+            <div class="btn btn_gray" @click="cancelAddMode">Отмена</div>
+            <div class="btn btn_green btn_add_next" @click="saveData">Сохранить</div>
+        </div>
     </div>
 </template>
 
 <script>
     export default {
         name: "fractions-form",
-        props: ['sheet'],
+        props: ['labels'],
         data: function () {
             return {
                 description: '',
-                waste_disposal: false,
+                waste_disposal: true,
                 recycling: {
                     plastic: false,
                     paper: false,
@@ -48,7 +46,7 @@
                     batteries: false,
                     low_energy_bulbs: false,
                     plastic_bags: false,
-                    plastic_bottles: false
+                    //plastic_bottles: false
                 }
             }
         },
@@ -58,13 +56,10 @@
                     this.recycling[key] = false;
                 }
             },
-            clearWaste: function () {
-                this.waste_disposal = false;
-            },
-            initWaste: function () {
-                this.clearWaste();
-                this.clearRecycling();
+            initData: function () {
                 this.description = null;
+                this.waste_disposal = false;
+                this.clearRecycling();
             },
             hasData: function () {
                 for (let key in this.recycling) {
@@ -103,21 +98,45 @@
             cancelAddMode: function () {
                 this.$emit('form-cancel');
             }
-        },
-        watch: {
-            sheet: {
-                handler(val) {
-                    if(val) {
-                        this.initWaste();
-                    }
-                }
-            }
         }
     }
 </script>
 
-<style scoped>
-    .fractions-list {
-        margin-bottom:10px;
+<style>
+    .tags_window {
+        position:absolute;
+        top:0;
+        left:0;
+        right:0;
+        bottom:0;
+        background:white;
+        z-index: 1;
+        display:flex;
+        padding:20px;
+        flex-direction: column;
+    }
+    .tags_window .p_fraction:hover {
+        background-color:#eee;
+        cursor:pointer;
+    }
+    .node_tags {
+        width:45%;
+    }
+    .box_title {
+        margin-bottom:15px;
+        margin-top:25px;
+        line-height:1.2em;
+        display:inline-block;
+        border-bottom:4px solid #ECB5FF;
+    }
+    .f_list_add {
+        width:45%;
+        margin-left:auto;
+    }
+    .tags_box {
+        display:flex;
+    }
+    .node_type_choice {
+        display:flex;
     }
 </style>

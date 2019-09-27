@@ -1,51 +1,20 @@
 <template>
     <div class="map_root text-center">
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="add_mode_set_coord">Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
-            <div class="btn btn_gray" @click="disableAddModeAlt">Отмена</div>
-            <div class="btn btn_green btn_add_next" @click="goNextAlt">Далее</div>
+            <div class="btn btn_gray" @click="disableAddMode">Отмена</div>
+            <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
-        <!-- <router-link class="orm_control orm_map_add" to="/map/add"></router-link> -->
-        <div class="orm_control orm_map_add" @click="enableAddModeAlt"></div>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
+        <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
+        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
 
-        <div class="tags_window" v-if="edit_tags">
+        <fractions-form :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
-            <div class="node_type">
-                <div class="box_title">Укажите тип контейнера</div>
-                <div class="node_type_choice">
-                    <div class="btn btn_green" @click="type_recycling = true">Переработка</div>
-                    <div class="btn btn_brown" @click="type_recycling = false">Обычная мусорка</div>
-                </div>
-            </div>
-            <div class="tags_box" v-if="type_recycling">
-                <div class="node_tags">
-                    <div class="box_title">Фракции выбранной точки</div>
-                    <span class="p_fraction ico_paper">Бумага</span>
-                    <span class="p_fraction ico_cans">Алюминиевые банки</span>
-                </div>
-                <div class="f_list f_list_add">
-                    <div class="box_title">Доступные фракции</div>
-                    <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
-                </div>
-            </div>
-
-            <div class="description_box">
-                <div class="box_title">Описание</div>
-                <div contenteditable="true" class="description_input" value="" id="" autocomplete="off"></div>
-            </div>
-
-
-        </div>
-
-        <div 
-            :class="['node_info', {node_edit: node_edit_status}]"
-            v-if="selectedLayer"
-            >
+        <div :class="['node_info', {node_edit: node_edit_status}]" v-if="selectedLayer">
             <span class="p_close" @click="deselectLayer">×</span>
             
             <div class="f_list">
@@ -57,32 +26,17 @@
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
             
             <div class="edit_box">
-                
-                <span @click="node_edit_status = true" v-if="!node_edit_status" class="btn btn_gray">Редактировать</span>
-
-                <div class="add_fractions" v-if="node_edit_status">
-                    <div class="add_fractions_title">Добавить фракции</div>
-                    <span class="p_fraction ico_batteries">Батарейки</span>
-                    <span class="p_fraction ico_low_energy_bulbs">Лампочки</span>
-                </div>
-
-                <span @click="node_edit_status = true" v-if="node_edit_status" class="btn btn_green">Сохранить</span>
+                <span @click="node_edit_status = true" class="btn btn_gray">Редактировать</span>
             </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
-        <v-snackbar v-model="snackbar" top>
+        <v-snackbar v-model="snackbar" top multi-line>
             {{ snackbar_text }}
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
         <v-snackbar v-model="zoomMessage" :timeout="0" top>
             Для загрузки данных приблизьте карту
         </v-snackbar>
-        <v-bottom-sheet v-model="sheet" persistent>
-            <v-sheet class="text-center" height="50%">
-                <h3>Подтвердите, что маркер установлен верно и укажите типы принимаемых отходов.</h3>
-                <fractions-form :sheet="sheet" v-on:form-cancel="cancelAddMode" v-on:form-save="saveData"></fractions-form>
-            </v-sheet>
-        </v-bottom-sheet>
     </div>
 </template>
 
@@ -99,11 +53,9 @@
     export default {
         data: function () {
             return {
-                type_recycling:false,
-                edit_tags:false,
-                add_mode_set_coord:false,
-                add_mode:false,
-                node_edit_status:false,
+                edit_tags: false,
+                add_mode: false,
+                node_edit_status: false,
                 map: null,
                 zoomMessage: false,
                 selectedLayer: null,
@@ -112,9 +64,7 @@
                 loading: false,
                 snackbar_text: null,
                 snackbar: false,
-                adding: false,
                 marker: null,
-                sheet: false,
                 layer: null,
                 filter: {
                     plastic: true,
@@ -212,6 +162,9 @@
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function (ev) {
                             L.DomEvent.stopPropagation(ev);
+                            if(component.add_mode) {
+                                return;
+                            }
                             if(component.selectedLayer) {
                                 component.selectedLayer.setStyle({
                                     weight: 1
@@ -255,25 +208,6 @@
                 this.loading = true;
                 this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, node_id));
             },
-            enableAddModeAlt: function () {
-                if(!this.authenticated) {
-                    this.$router.replace({path: '/login'});
-                }
-                this.displayData(this.lastData, {
-                    plastic: true, paper: true,
-                    cans: true,
-                    glass_bottles: true,
-                    batteries: true,
-                    low_energy_bulbs: true,
-                    plastic_bags: true,
-                    waste_disposal: true
-                });
-                this.add_mode = true;
-                this.add_mode_set_coord = true;
-                if(this.selectedLayer) {
-                    this.deselectLayer();
-                }
-            },
             enableAddMode: function () {
                 if(!this.authenticated) {
                     this.$router.replace({path: '/login'});
@@ -287,43 +221,31 @@
                     plastic_bags: true,
                     waste_disposal: true
                 });
-                let mapElem = this.map.getContainer();
-                mapElem.style.cursor = 'crosshair';
-                this.snackbar_text = 'Укажите точку на карте';
-                this.snackbar = true;
-                this.adding = true;
-            },
-            disableAddModeAlt: function () {
-                this.displayData(this.lastData, this.filter);
-                this.add_mode = false;
-                this.edit_tags = false;
-            },
-            disableAddMode: function () {
-                this.displayData(this.lastData, this.filter);
-                let mapElem = this.map.getContainer();
-                this.snackbar = false;
-                this.adding = false;
-                mapElem.style.cursor = 'default';
-            },
-            cancelAddMode: function () {
-                this.sheet = false;
-                if(this.marker) {
-                    this.map.removeLayer(this.marker);
-                    this.marker = null;
+                this.add_mode = true;
+                if(this.selectedLayer) {
+                    this.deselectLayer();
                 }
             },
+            disableAddMode: function () {
+                this.marker = null;
+                this.displayData(this.lastData, this.filter);
+                this.edit_tags = false;
+                this.add_mode = false;
+                this.$router.push({name: 'map'});
+            },
             saveData: function (event) {
-                this.sheet = false;
-                if(this.marker) {
+                let position = this.marker ? this.marker.getLatLng() : null;
+                this.disableAddMode();
+                if(position) {
                     this.addNodeSuccess = function () {
-                        this.snackbar_text = 'Информация успешно добавлена.';
+                        this.snackbar_text = 'Спасибо за добавление информации! Данные появятся на карте в течение нескольких минут.';
                         this.snackbar = true;
                     };
                     this.addNodeFail = function () {
                         this.snackbar_text = 'Ошибка! Попробуйте позже.';
                         this.snackbar = true;
                     };
-                    this.addNode(this.marker.getLatLng(), event.tags);
+                    this.addNode(position, event.tags);
 
                     this.$ga.event({
                         eventCategory: 'map_interaction',
@@ -334,7 +256,7 @@
                 }
             },
             pushPosition: function () {
-                if((!this.sheet && this.$route.params.action === 'add' || this.$route.name === 'node')) {
+                if((this.$route.params.action === 'add' || this.$route.name === 'node')) {
                     return;
                 }
                 let position = this.map.getCenter();
@@ -374,29 +296,11 @@
                 if(this.selectedLayer) {
                     this.deselectLayer();
                 }
-                if(this.adding) {
-                    this.disableAddMode();
-                    if(this.marker) {
-                        this.map.removeLayer(this.marker);
-                    }
-                    this.marker = L.marker(e.latlng).addTo(this.map);
-                    this.sheet = true;
-                    this.map.setView(e.latlng, 18, {animate: false});
-                }
-            },
-            goNextAlt: function () {
-                this.edit_tags = true;
-                this.add_mode_set_coord = false;
             },
             goNext: function () {
                 this.add_mode = false;
-                if(this.marker) {
-                    this.map.removeLayer(this.marker);
-                }
-                let position = this.map.getCenter();
-                this.marker = L.marker(position).addTo(this.map);
-                this.sheet = true;
-                this.map.setView(position, 18, {animate: false});
+                this.edit_tags = true;
+                this.marker = L.marker(this.map.getCenter());
             },
             loadNode: function (node_id) {
                 let component = this;
@@ -423,9 +327,6 @@
                 else {
                     if (to.params.action === 'add') {
                         this.enableAddMode();
-                    }
-                    else {
-                        this.disableAddMode();
                     }
                 }
             }
@@ -455,9 +356,6 @@
         overflow: hidden;
         height: calc(100% - 56px);
         position:relative;
-    }
-    .v-bottom-sheet .v-sheet{
-        padding:10px;
     }
     .leaflet-top.leaflet-right {
         top:10%;
@@ -495,19 +393,6 @@
     }
     .leaflet-control-locate {
         display: none;
-    }
-    .node_edit .f_list .p_fraction:after:hover {
-        color:#ddd !important;
-    }
-    .node_edit .f_list .p_fraction:after {
-        position:absolute;
-        content:'×';
-        font-size:30px;
-        color:#eee;
-        margin-left:auto;
-        cursor:pointer;
-        right:0;
-        top:7px;
     }
 
     .btn {
@@ -568,18 +453,6 @@
     .edit_box {
         margin-top:15px;
     }
-    .add_fractions .p_fraction:hover {
-        background-color:#eee;
-        cursor:pointer;
-    }
-    .add_fractions {
-        margin-top:15px;
-    }
-    .add_fractions_title {
-        font-style: italic;
-        color:#777;
-        margin-bottom:10px;
-    }
     .add_mode_message,
     .add_mode_steps {
         background:white;
@@ -619,51 +492,6 @@
     }
     .btn_add_next {
         margin-left:auto;
-    }
-    .tags_window {
-        position:absolute;
-        top:0;
-        left:0;
-        right:0;
-        bottom:0;
-        background:white;
-        z-index: 1;
-        display:flex;
-        padding:20px;
-        flex-direction: column;
-    }
-    .node_tags {
-        width:45%;
-    }
-    .box_title {
-        margin-bottom:15px;
-        margin-top:25px;
-        line-height:1.2em;
-        display:inline-block;
-        border-bottom:4px solid #ECB5FF;
-    }
-    .f_list_add {
-        width:45%;
-        margin-left:auto;
-    }
-    .tags_window .p_fraction:hover {
-        background-color:#eee;
-        cursor:pointer;
-    }
-    .tags_box {
-        display:flex;
-    }
-    .description_input {
-        border:1px solid #ddd;
-        border-radius:4px;
-        max-width:400px;
-    }
-    .btn_brown {
-        background-color:#8D6E63;
-        color:white;
-    }
-    .node_type_choice {
-        display:flex;
     }
     .node_type .btn {
         margin-right:30px;

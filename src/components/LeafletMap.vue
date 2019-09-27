@@ -27,7 +27,6 @@
 
     export default {
         name: "leaflet-map",
-        props: ['sheet'],
         mixins: [layersMixin],
         data: function () {
             return {
@@ -98,18 +97,6 @@
             this.map.on('zoomend', this.savePosition);
 
             this.$emit('map-init', this.map);
-        },
-        watch: {
-            sheet(val) {
-                let mapEl = this.map.getContainer();
-                if(val) {
-                    mapEl.classList.add('map_container_behind');
-                }
-                else {
-                    mapEl.classList.remove('map_container_behind');
-                }
-                setTimeout(() => this.map.invalidateSize(), 10);
-            }
         }
     }
 </script>
@@ -122,9 +109,6 @@
     #map_container {
         height: 100%;
         z-index: 0;
-    }
-    .map_container_behind {
-        height: calc(100% - 165px) !important;
     }
     .orm_layers {
         top:21px;
