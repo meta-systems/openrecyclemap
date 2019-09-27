@@ -4,7 +4,7 @@
         <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
             <div class="btn btn_gray" @click="disableAddModeAlt">Отмена</div>
-            <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
+            <div class="btn btn_green btn_add_next" @click="goNextAlt">Далее</div>
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
@@ -12,6 +12,18 @@
         <!-- <router-link class="orm_control orm_map_add" to="/map/add"></router-link> -->
         <div class="orm_control orm_map_add" @click="enableAddModeAlt"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange" :sheet="sheet"></leaflet-map>
+
+        <div class="tags_box" v-if="edit_tags">
+            <div class="node_tags">
+                <div class="box_title">Фракции выбранной точки</div>
+                <span class="p_fraction ico_paper">Бумага</span>
+                <span class="p_fraction ico_cans">Алюминиевые банки</span>
+            </div>
+            <div class="f_list f_list_add">
+                <div class="box_title">Доступные фракции</div>
+                <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
+            </div>
+        </div>
 
         <div 
             :class="['node_info', {node_edit: node_edit_status}]"
@@ -70,6 +82,7 @@
     export default {
         data: function () {
             return {
+                edit_tags:false,
                 add_mode:false,
                 node_edit_status:false,
                 map: null,
@@ -350,6 +363,9 @@
                     this.map.setView(e.latlng, 18, {animate: false});
                 }
             },
+            goNextAlt: function () {
+                this.edit_tags = true;
+            },
             goNext: function () {
                 this.add_mode = false;
                 if(this.marker) {
@@ -581,5 +597,34 @@
     }
     .btn_add_next {
         margin-left:auto;
+    }
+    .tags_box {
+        position:absolute;
+        top:100px;
+        left:0;
+        right:0;
+        background:white;
+        z-index: 1;
+        display:flex;
+        padding:20px;
+    }
+    .node_tags {
+        width:45%;
+    }
+    .box_title {
+        margin-bottom:15px;
+        
+        background:#eee;
+        padding:5px;
+        line-height:1.2em;
+        border-radius:4px;
+    }
+    .f_list_add {
+        width:45%;
+        margin-left:auto;
+    }
+    .tags_box .p_fraction:hover {
+        background-color:#eee;
+        cursor:pointer;
     }
 </style>
