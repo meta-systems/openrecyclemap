@@ -15,7 +15,7 @@ const routes = [
         name: 'root',
         path: '/',
         redirect: to => {
-            return { name: 'login' };
+            return { name: 'map' };
         }
     },
     {
