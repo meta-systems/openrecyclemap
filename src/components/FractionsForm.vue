@@ -10,12 +10,26 @@
         </div>
         <div class="tags_box" v-if="!waste_disposal">
             <div class="node_tags">
-                <div class="box_title">Фракции выбранной точки</div>
-                <span v-for="(value, key) in recycling" v-if="value"
-                      :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
+                <div class="box_title">Выбрано</div>
+                <span 
+                    v-for="(value, key) in recycling" 
+                    v-if="value"
+                    :class="['p_fraction', 'ico_'+key]" 
+                    @click="recycling[key] = !recycling[key]"
+                >{{ labels[key] }}</span>
+
+                <div v-if=" 
+                !recycling.batteries && 
+                !recycling.glass_bottles && 
+                !recycling.low_energy_bulbs && 
+                !recycling.paper && 
+                !recycling.plastic && 
+                !recycling.plastic_bags && 
+                !recycling.cans
+                " class="tags_not_selected">Выберите типы принимаемых отходов</div>
             </div>
             <div class="f_list f_list_add">
-                <div class="box_title">Доступные фракции</div>
+                <div class="box_title">Доступно</div>
                 <span v-for="(value, key) in recycling" v-if="!value"
                       :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
             </div>
@@ -114,6 +128,13 @@
 </script>
 
 <style>
+    .tags_not_selected {
+        color:#777;
+        font-style: italic;
+        padding-right:20px;
+        line-height: 1.2em;
+        padding-top:10px;
+    }
     .tags_window {
         position:absolute;
         top:0;
@@ -128,12 +149,49 @@
         overflow:auto;
         padding-bottom:10px;
     }
-    .tags_window .p_fraction:hover {
-        background-color:#eee;
-        cursor:pointer;
+    .node_tags .p_fraction:hover {
+        background:#ffc0cb63 !important;
     }
-    .node_tags {
-        width:45%;
+    .node_tags .p_fraction:hover:after {
+        width:30px;
+        height:30px;
+        content:'×';
+        margin-left:auto;
+        text-align:center;
+        font-size:30px;
+        line-height:30px;
+        line-height:30px;
+        color:#ee8a8a;
+    }
+    .f_list_add .p_fraction:hover {
+        background-color:#eee !important;
+    }
+    .p_fraction:before {
+        content:'';
+        width:35px;
+        height:35px;
+        min-width:35px;
+        background-size:contain;
+        margin-right:5px;
+    }
+    .p_fraction {
+        position:relative;
+        display:block;
+        background-size:contain;
+        margin-bottom:5px;
+        padding:5px;
+        font-size:16px;
+        line-height: 1em;
+        min-height:33px;
+        display:flex;
+        align-items: center;
+        border-radius:4px;
+        cursor:pointer;
+        background:none !important;
+        user-select: none;
+    }
+    .node_tags .p_fraction {
+        background:rgba(46, 125, 50, 0.1) !important;
     }
     .box_title {
         margin-bottom:15px;
@@ -144,12 +202,19 @@
         font-size:18px;
         /*border-bottom:4px solid #ECB5FF;*/
     }
+    .node_tags,
     .f_list_add {
-        width:45%;
-        margin-left:auto;
+        width:47%;
+    }
+    .f_list_add {
+        /*margin-left:auto;*/
     }
     .tags_box {
         display:flex;
+        justify-content: space-around;
+    }
+    .node_type {
+        margin-bottom:15px;
     }
     .node_type_choice {
         display:flex;
@@ -160,15 +225,16 @@
     }
     .type_btn {
         border-radius:8px;
-        padding:4%;
+        padding:2%;
         padding-top:70px;
         line-height: 1em;
         background-position: top center;
         text-align:center;
         cursor: pointer;
         max-width: 35%;
-        word-break:break-all;
+        overflow-wrap: break-word;
         user-select: none;
+        width:120px;
     }
     .type_waste.type_active,
     .type_waste:hover {

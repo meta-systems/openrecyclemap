@@ -405,20 +405,6 @@
         cursor:pointer;
         display:inline-block;
     }
-    .p_fraction {
-        position:relative;
-        display:block;
-        background-size:contain;
-        padding-left:40px;
-        margin-bottom:5px;
-        font-size:17px;
-        line-height: 1em;
-        min-height:33px;
-        display:flex;
-        align-items: center;
-        padding-right:30px;
-        border-radius:4px;
-    }
     .p_link {
         color:black;
         margin-right:5px;
