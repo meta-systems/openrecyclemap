@@ -8,6 +8,19 @@
                 <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div>
             </div>
         </div>
+
+        <div class="org_type_box" v-if="type_btn == 'org'">
+            <div class="box_title">Тип организации</div>
+            <div class="node_type_choice">
+                <div @click="org_type = 'uk'" :class="['type_btn type_org org_uk', { type_active: org_type === 'uk' }]" >Управляющая компания</div>
+                <div @click="org_type = 'eco'" :class="['type_btn type_org org_eco', {type_active: org_type === 'eco'}]" >Экологическая организация</div>
+                
+            </div>
+        </div>
+        <div class="name_box" v-if="type_btn == 'org'">
+            <div class="box_title">Название организации</div>
+            <v-textarea label="Название" rows="2" solo v-model="name"></v-textarea>
+        </div>
         <div class="tags_box" v-if="!waste_disposal">
             <div class="node_tags">
                 <div class="box_title">Выбрано</div>
@@ -51,6 +64,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
+                org_type: '',
                 type_btn: 'waste',
                 description: '',
                 waste_disposal: true,
@@ -152,7 +166,6 @@
     .node_tags .p_fraction:hover {
         background:#ffc0cb63 !important;
     }
-
 
     @media screen and (max-width: 500px) {
         .node_tags .p_fraction:hover:after {
