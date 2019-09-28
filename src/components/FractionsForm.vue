@@ -119,14 +119,14 @@
         top:0;
         left:0;
         right:0;
-        bottom:0;
+        bottom:60px;
         background:white;
         z-index: 1;
         display:flex;
         padding:0 3%;
         flex-direction: column;
         overflow:auto;
-        padding-bottom:50px;
+        padding-bottom:10px;
     }
     .tags_window .p_fraction:hover {
         background-color:#eee;
