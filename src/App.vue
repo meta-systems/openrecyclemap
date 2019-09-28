@@ -60,5 +60,7 @@
 </script>
 
 <style>
-
+    .v-item-group.v-bottom-nav--fixed {
+        z-index: 11;
+    }
 </style>

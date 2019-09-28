@@ -1,7 +1,7 @@
 <template>
     <div class="map_parent">
         <div class="orm_control orm_layers" @click="changeLayers"></div>
-        <div class="orm_control orm_position" @click="showPosition"></div>
+        <div class="orm_control orm_position" @click="showPosition"></div> <!-- v-if="add_mode" -->
         <div class="orm_control orm_zoom">
             <div class="zoom_btn" @click="zoomPlus">+</div>
             <div class="zoom_btn" @click="zoomMinus">−</div>

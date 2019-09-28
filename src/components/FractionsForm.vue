@@ -162,6 +162,7 @@
         flex-direction: column;
         overflow:auto;
         padding-bottom:10px;
+        z-index: 10;
     }
     .node_tags .p_fraction:hover {
         background:#ffc0cb63 !important;
