@@ -152,6 +152,13 @@
     .node_tags .p_fraction:hover {
         background:#ffc0cb63 !important;
     }
+
+
+    @media screen and (max-width: 500px) {
+        .node_tags .p_fraction:hover:after {
+            display:none;
+        }
+    }
     .node_tags .p_fraction:hover:after {
         width:30px;
         height:30px;
