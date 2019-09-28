@@ -241,7 +241,7 @@
                 this.disableAddMode();
                 if(position) {
                     this.addNodeSuccess = function () {
-                        this.snackbar_text = 'Спасибо за добавление информации! Данные появятся на карте в течение нескольких минут.';
+                        this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
                         this.snackbar = true;
                     };
                     this.addNodeFail = function () {
@@ -445,14 +445,15 @@
         text-align:center;
     }
     .btn_green {
-        background:green;
+        background:#1b5e20;
         color:white;
     }
     .btn_gray:hover {
         background:#eee;
     }
     .btn_gray {
-        border:1px solid #eee;
+        border:2px solid #eee;
+        box-sizing: border-box;
     }
     .edit_box {
         margin-top:15px;
@@ -469,6 +470,8 @@
         bottom:0;
         padding:15px;
         display:flex;
+        position: fixed;
+        bottom:50px;
     }
     .add_mode_message {
         padding:15px 40px;

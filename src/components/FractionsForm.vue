@@ -20,7 +20,7 @@
                       :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
             </div>
         </div>
-        <div class="description_box">
+        <div v-if="type_btn == 'org'" class="description_box">
             <div class="box_title">Описание</div>
             <v-textarea label="Описание" rows="2" solo v-model="description"></v-textarea>
         </div>
@@ -37,7 +37,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
-                type_btn: '',
+                type_btn: 'waste',
                 description: '',
                 waste_disposal: true,
                 recycling: {
@@ -125,6 +125,8 @@
         display:flex;
         padding:0 3%;
         flex-direction: column;
+        overflow:auto;
+        padding-bottom:50px;
     }
     .tags_window .p_fraction:hover {
         background-color:#eee;
