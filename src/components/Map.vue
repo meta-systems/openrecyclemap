@@ -232,6 +232,7 @@
                 }
             },
             disableAddMode: function () {
+                this.set_coord_mode = false;
                 this.marker = null;
                 this.displayData(this.lastData, this.filter);
                 this.edit_tags = false;
