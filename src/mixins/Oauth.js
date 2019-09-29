@@ -91,6 +91,12 @@ export default {
                     component.details();
                 }
             });
+            // this.$ga.event({
+            //     eventCategory: 'auth',
+            //     eventAction: 'auth_init',
+            //     eventLabel: 'auth_init,
+            //     eventValue: 1
+            // });
         },
         authInit: function () {
             this.auth = osmAuth({
