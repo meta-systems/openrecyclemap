@@ -1,7 +1,7 @@
 <template>
-    <div class="map_root text-center">
+    <div :class="['map_root text-center', { add_mode: add_mode }]" >
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="add_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="set_coord_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
             <div class="btn btn_gray" @click="disableAddMode">Отмена</div>
             <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
@@ -26,7 +26,7 @@
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
             
             <div class="edit_box">
-                <span @click="goEdit" class="btn btn_gray">Редактировать</span>
+                <!-- <span @click="goEdit" class="btn btn_gray">Редактировать</span> -->
             </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
@@ -54,6 +54,7 @@
         data: function () {
             return {
                 edit_tags: false,
+                set_coord_mode: false,
                 add_mode: false,
                 map: null,
                 zoomMessage: false,
@@ -225,6 +226,7 @@
                     waste_disposal: true
                 });
                 this.add_mode = true;
+                this.set_coord_mode = true;
                 if(this.selectedLayer) {
                     this.deselectLayer();
                 }
@@ -299,7 +301,8 @@
                 }
             },
             goNext: function () {
-                this.add_mode = false;
+                // this.add_mode = false;
+                this.set_coord_mode = false;
                 this.edit_tags = true;
                 this.marker = L.marker(this.map.getCenter());
             },
@@ -346,7 +349,8 @@
         position:absolute;
         top:10px;
         left:10px;
-        padding-top:80px;   
+        padding-top:40px; 
+        z-index:1;  
     }
     .main_loading {
         position: fixed !important;
@@ -404,6 +408,7 @@
         border-radius:4px;
         cursor:pointer;
         display:inline-block;
+        line-height:1.3em;
     }
     .p_link {
         color:black;
@@ -438,8 +443,7 @@
         background:#eee;
     }
     .btn_gray {
-        border:2px solid #eee;
-        box-sizing: border-box;
+        box-shadow: inset 0 0 0 2px #eee;
     }
     .edit_box {
         margin-top:15px;
@@ -454,10 +458,10 @@
     }
     .add_mode_steps {
         bottom:0;
-        padding:15px;
+        padding:10px 15px;
         display:flex;
         position: fixed;
-        bottom:50px;
+        bottom:56px;
     }
     .add_mode_message {
         padding:15px 40px;

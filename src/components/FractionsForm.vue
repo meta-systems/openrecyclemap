@@ -5,7 +5,7 @@
             <div class="node_type_choice">
                 <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >Несортированный мусор</div>
                 <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >Раздельный сбор</div>
-                <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div>
+                <!-- <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div> -->
             </div>
         </div>
 
@@ -150,11 +150,12 @@
         padding-top:10px;
     }
     .tags_window {
+        right:auto;
+        width:400px; 
         position:absolute;
         top:0;
         left:0;
-        right:0;
-        bottom:60px;
+        bottom:50px;
         background:white;
         z-index: 1;
         display:flex;
@@ -163,6 +164,16 @@
         overflow:auto;
         padding-bottom:10px;
         z-index: 10;
+
+    }
+
+
+    @media screen and (max-width: 500px) {
+      
+        .tags_window {
+            width:auto;
+            right:0;
+        }  
     }
     .node_tags .p_fraction:hover {
         background:#ffc0cb63 !important;

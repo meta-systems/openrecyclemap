@@ -82,7 +82,7 @@
                 "Mapbox": mapbox,
                 "Mapnik": this.mapnikLayer(),
                 "Mapbox sat": this.mapboxSat(),
-                "HERE sat": this.hereSat(),
+                // "HERE sat": this.hereSat(),
             };
 
             this.locateControl = L.control.locate({
@@ -110,10 +110,17 @@
         height: 100%;
         z-index: 0;
     }
+    .add_mode .orm_layers {
+        top:90px;
+    }
     .orm_layers {
         top:21px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.47 21.38L9.23 27.52C8 28.09 8 29 9.23 29.58l13.24 6.13c1.23.57 3.22.57 4.45 0l13.24-6.13c1.23-.57 1.23-1.5 0-2.06l-13.24-6.14a6.02 6.02 0 0 0-4.45 0z' fill='%23B3B3B3'/%3E%3Cpath d='M22.47 13.03L9.23 19.16c-1.23.57-1.23 1.5 0 2.06l13.24 6.14c1.23.56 3.22.56 4.45 0l13.24-6.14c1.23-.57 1.23-1.49 0-2.06l-13.24-6.13a6.02 6.02 0 0 0-4.45 0z' fill='%239C9C9C' fill-opacity='.55'/%3E%3C/svg%3E");
+    }
+
+    .add_mode .orm_zoom {
+        top:150px;
     }
     .orm_zoom {
         top:80px;
@@ -129,6 +136,9 @@
     }
     .zoom_btn:hover {
         background:#eee;
+    }
+    .add_mode .orm_position {
+        bottom:80px;
     }
     .orm_position {
         bottom:35px;

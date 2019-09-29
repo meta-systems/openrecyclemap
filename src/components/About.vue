@@ -38,11 +38,15 @@
 </script>
 
 <style>
+    .dev_box a {
+        text-decoration: none;
+    }
     .dev_box {
         position:absolute;
-        bottom:20px;
+        bottom:65px;
         right:20px;
         margin-top:30px;
+        font-size:12px;
     }
     h2 {
         margin-top:20px;
