@@ -1,7 +1,7 @@
 <template>
     <div :class="['map_root text-center', { add_mode: add_mode }]" >
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="set_coord_mode">Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="set_coord_mode"><div>Режим добавления новой точки.</div> Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
             <div class="btn btn_gray" @click="disableAddMode">Отмена</div>
             <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
@@ -463,11 +463,22 @@
         position: fixed;
         bottom:56px;
     }
+    .add_mode_message div {
+        font-weight: bold;
+    }
+
+
     .add_mode_message {
-        padding:15px 40px;
+        padding:15px 12%;
         text-align:center;
         top:0;
     }
+    @media screen and (max-width: 320px) {
+        .add_mode_message {
+            font-size:4vw;   
+        }
+    }
+
     .map_cross {
         position:absolute;
         top:50%;

@@ -111,7 +111,7 @@
         z-index: 0;
     }
     .add_mode .orm_layers {
-        top:90px;
+        top:110px;
     }
     .orm_layers {
         top:21px;
@@ -120,7 +120,7 @@
     }
 
     .add_mode .orm_zoom {
-        top:150px;
+        top:170px;
     }
     .orm_zoom {
         top:80px;
