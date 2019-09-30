@@ -4,6 +4,9 @@
             <span>Пластик</span>
         </div>
         <div :class="['map_filter ico_glass_bottles', {filter_active: filter.glass_bottles}]" @click="filter.glass_bottles = !filter.glass_bottles">
+            <span>Стеклянные бутылки</span>
+        </div>
+        <div :class="['map_filter ico_glass', {filter_active: filter.glass}]" @click="filter.glass = !filter.glass">
             <span>Стекло</span>
         </div>
         <div :class="['map_filter ico_paper', {filter_active: filter.paper}]" @click="filter.paper = !filter.paper">
@@ -97,6 +100,9 @@
         padding-top:67px;
         position:relative;
         border-radius:8px;
+        text-align: center;
+        line-height: 1em;
+        overflow-wrap: break-word;
     }
     .p_fraction.ico_paper:before,
     .ico_paper {
@@ -105,6 +111,10 @@
     .p_fraction.ico_glass_bottles:before,
     .ico_glass_bottles {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.22 18.38c.52-1.32 1.3-2.51 2.3-3.52l1.85-1.84c.2.22.55.22.76 0l1.53-1.52a.54.54 0 0 0 0-.77L31.6 7.67a.54.54 0 0 0-.76 0L29.3 9.2a.54.54 0 0 0 0 .77l-1.84 1.84c-1 1-2.2 1.78-3.52 2.3l-3.53 1.38c-2.15.84-4.1 2.12-5.74 3.75l-8.3 8.3a.54.54 0 0 0 0 .77l7.64 7.64c.22.21.56.21.77 0l8.3-8.3a16.64 16.64 0 0 0 3.75-5.74l1.38-3.53zm3-9.56l2.3 2.3-.77.76-2.3-2.3.77-.76zM14.41 34.81l-6.88-6.88L15.45 20a15.58 15.58 0 0 1 5.37-3.51l3.52-1.38a11.3 11.3 0 0 0 3.9-2.55l1.83-1.84 1.53 1.53-1.84 1.84A11.29 11.29 0 0 0 27.22 18l-1.38 3.53a15.58 15.58 0 0 1-3.51 5.37L14.4 34.8z' fill='%23000'/%3E%3Cpath d='M17.46 20.29a.54.54 0 0 0-.76 0l-6.5 6.5a.54.54 0 0 0 0 .76l4.59 4.58c.21.21.55.21.76 0l6.5-6.5a.54.54 0 0 0 0-.76l-4.59-4.59zm-2.29 10.7l-3.82-3.83 5.73-5.73 3.82 3.82-5.73 5.73z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .p_fraction.ico_glass:before,
+    .ico_glass {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 9h22v22H9V9z' fill='%23000'/%3E%3Cpath d='M9.8 9.7l2.4 2.3h.2l1.7.8 2.1-3H9.8zm7.4 0l-2.3 3.4 1.6.7.1.1 2.7 3 1.1 1.1.4-1 1.3-4.4-.9-2.9h-4zm4.9 0l.7 2.5 4.5-.9-.3-1.6h-5zm5.7 0l.4 1.9v.3l-.3.1-5.2 1-.7 2.4 2 2.4 6.2-4v-4h-2.4zm-18 1.1v7.3l3-1.2-.9-4.1-2-2zm3 2.3l.8 3.8 2.2.9 1.5-1.9-1.2-1.4-3.3-1.4zm17.4 1.6l-6.7 4.5-.6.4 7.3 4.6v-9.5zm-17 3l-3.4 1.2v7.2l7.8-4.5 2-1.4-1.6-.7-2.5-1h-.2l-2.1-.9zM23.6 21l-.2.3-2 2-.1 2.5 3 4 6-2.6v-2L23.5 21zm-6.5 1.8l-2.8 1.6 4.3 5.8h5l-3-4-.2-.2V26l.2-2-3.5-1zm-3.5 2L9.8 27v3.2h7.8l-4-5.4zm16.6 3.3l-4.9 2h5v-2z' fill='%23fff'/%3E%3C/svg%3E");
     }
     .p_fraction.ico_plastic:before,
     .ico_plastic {

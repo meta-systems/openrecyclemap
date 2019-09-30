@@ -66,6 +66,7 @@
                     plastic: false,
                     paper: false,
                     cans: false,
+                    glass: false,
                     glass_bottles: false,
                     batteries: false,
                     low_energy_bulbs: false,
