@@ -1,5 +1,5 @@
 import osmAuth from 'osm-auth'
-import convert from 'xml-js'
+import OsmNode from './OsmNode'
 
 export default {
     data: function () {
@@ -26,22 +26,11 @@ export default {
             });
         },
         nodeXml: function (latlon, tags, changeset_id, node_id, version) {
-            let xmlObj = {'type': 'element', 'name': 'node', 'elements': [],
-                'attributes': {'changeset': changeset_id, 'lat': latlon.lat, 'lon': latlon.lng}};
-            if(node_id) {
-                xmlObj.attributes.id = node_id;
-            }
-            if(version) {
-                xmlObj.attributes.version = version;
-            }
-            for (let key in tags) {
-                if(tags.hasOwnProperty(key)) {
-                    xmlObj.elements.push({'type': 'element', 'name': 'tag', 'attributes': {'k': key, 'v': tags[key]}});
-                }
-            }
-            return '<osm>'
-                + convert.js2xml({'elements': [xmlObj]})
-                + '</osm>';
+            let node = new OsmNode(latlon)
+                .setChangeset(changeset_id)
+                .setExisting(node_id, version)
+                .setTags(tags);
+            return node.xml;
         },
         createChangesetXml: function (changeset_name) {
             return '<osm><changeset>' +
@@ -107,21 +96,24 @@ export default {
         },
         updateNode: function (node_id, latlon, tags) {
             let component = this;
+            let nodeObj = new OsmNode(latlon, tags);
             this.readNode(node_id)
                 .then(function(version) {
-                    component.createChangeset('Update a recycling container')
-                        .then(function(changeset_id) {
-                            component.auth.xhr({
-                                method: 'PUT',
-                                path: '/api/0.6/node/'+node_id,
-                                content: component.nodeXml(latlon, tags, changeset_id, node_id, version),
-                                options: {
-                                    header: {
-                                        'Content-Type': 'text/xml'
-                                    }
-                                }
-                            }, component.onNodeCreateResponse);
-                        });
+                    nodeObj.setExisting(node_id, version);
+                    return component.createChangeset('Update a recycling container');
+                })
+                .then(function(changeset_id) {
+                    nodeObj.setChangeset(changeset_id);
+                    component.auth.xhr({
+                        method: 'PUT',
+                        path: '/api/0.6/node/'+node_id,
+                        content: nodeObj.xml,
+                        options: {
+                            header: {
+                                'Content-Type': 'text/xml'
+                            }
+                        }
+                    }, component.onNodeCreateResponse);
                 });
         },
         readNode: function (node_id) {
