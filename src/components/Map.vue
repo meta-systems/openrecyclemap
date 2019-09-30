@@ -26,7 +26,7 @@
             <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
             
             <div class="edit_box">
-                <!-- <span @click="goEdit" class="btn btn_gray">Редактировать</span> -->
+                <span @click="goEdit" class="btn btn_gray">Редактировать</span>
             </div>
         </div>
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
@@ -192,7 +192,9 @@
                                 amenity: selAmenity,
                                 osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
                                 josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id,
-                                description: geoJsonProps.description
+                                description: geoJsonProps.description,
+                                centre: geoJsonProps.hasOwnProperty('recycling_type') && geoJsonProps.recycling_type === 'centre',
+                                name: geoJsonProps.name
                             };
                             layer.setStyle({
                                 weight: 5

@@ -5,21 +5,22 @@
             <div class="node_type_choice">
                 <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >Несортированный мусор</div>
                 <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >Раздельный сбор</div>
-                <!-- <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div> -->
+                <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div>
             </div>
         </div>
 
-        <div class="org_type_box" v-if="type_btn == 'org'">
+        <!--
+        <div class="org_type_box" v-if="type_btn === 'org'">
             <div class="box_title">Тип организации</div>
             <div class="node_type_choice">
                 <div @click="org_type = 'uk'" :class="['type_btn type_org org_uk', { type_active: org_type === 'uk' }]" >Управляющая компания</div>
                 <div @click="org_type = 'eco'" :class="['type_btn type_org org_eco', {type_active: org_type === 'eco'}]" >Экологическая организация</div>
-                
             </div>
         </div>
-        <div class="name_box" v-if="type_btn == 'org'">
+        -->
+        <div class="name_box" v-if="type_btn === 'org'">
             <div class="box_title">Название организации</div>
-            <v-textarea label="Название" rows="2" solo v-model="name"></v-textarea>
+            <v-text-field label="Название" solo v-model="name"></v-text-field>
         </div>
         <div class="tags_box" v-if="!waste_disposal">
             <div class="node_tags">
@@ -31,15 +32,7 @@
                     @click="recycling[key] = !recycling[key]"
                 >{{ labels[key] }}</span>
 
-                <div v-if=" 
-                !recycling.batteries && 
-                !recycling.glass_bottles && 
-                !recycling.low_energy_bulbs && 
-                !recycling.paper && 
-                !recycling.plastic && 
-                !recycling.plastic_bags && 
-                !recycling.cans
-                " class="tags_not_selected">Выберите типы принимаемых отходов</div>
+                <div v-if="!isRecycling" class="tags_not_selected">Выберите типы принимаемых отходов</div>
             </div>
             <div class="f_list f_list_add">
                 <div class="box_title">Доступно</div>
@@ -47,7 +40,7 @@
                       :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
             </div>
         </div>
-        <div v-if="type_btn == 'org'" class="description_box">
+        <div v-if="type_btn === 'org'" class="description_box">
             <div class="box_title">Описание</div>
             <v-textarea label="Описание" rows="2" solo v-model="description"></v-textarea>
         </div>
@@ -64,6 +57,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
+                name: '',
                 org_type: '',
                 type_btn: 'waste',
                 description: '',
@@ -80,6 +74,16 @@
                 }
             }
         },
+        computed: {
+            isRecycling: function () {
+                for (let key in this.recycling) {
+                    if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        },
         methods: {
             clearRecycling: function () {
                 for (let key in this.recycling) {
@@ -92,12 +96,7 @@
                 this.clearRecycling();
             },
             hasData: function () {
-                for (let key in this.recycling) {
-                    if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
-                        return true;
-                    }
-                }
-                return this.waste_disposal;
+                return this.isRecycling || this.waste_disposal;
             },
             buildTags: function () {
                 let tags = {
@@ -133,9 +132,13 @@
             if(this.selected) {
                 this.description = this.selected.description;
                 this.waste_disposal = this.selected.amenity === 'waste_disposal';
+                this.type_btn = this.waste_disposal
+                    ? 'waste'
+                    : (this.selected.centre ? 'org' : 'recycle');
                 if(!this.waste_disposal) {
                     this.selected.info.forEach((item) => this.recycling[item] = true);
                 }
+                this.name = this.selected.name;
             }
         }
     }
