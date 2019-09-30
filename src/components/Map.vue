@@ -243,6 +243,7 @@
                 this.$router.push({name: 'map'});
             },
             saveData: function (event) {
+                let nposition = this.marker ? this.marker.getLatLng() : null;
                 this.disableAddMode();
                 this.addNodeSuccess = function () {
                     this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
@@ -259,9 +260,8 @@
                     }
                 }
                 else {
-                    let position = this.marker ? this.marker.getLatLng() : null;
-                    if (position) {
-                        this.addNode(position, event.tags);
+                    if (nposition) {
+                        this.addNode(nposition, event.tags);
 
                         this.$ga.event({
                             eventCategory: 'map_interaction',
