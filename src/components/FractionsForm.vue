@@ -40,7 +40,7 @@
                       :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
             </div>
         </div>
-        <div v-if="type_btn === 'org'" class="description_box">
+        <div v-if="!waste_disposal" class="description_box">
             <div class="box_title">Описание</div>
             <v-textarea label="Описание" rows="2" solo v-model="description"></v-textarea>
         </div>
@@ -58,7 +58,6 @@
         data: function () {
             return {
                 name: '',
-                org_type: '',
                 type_btn: 'waste',
                 description: '',
                 waste_disposal: true,
@@ -110,6 +109,15 @@
                         if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
                             tags['recycling:'+key] = 'yes';
                         }
+                    }
+                    if (this.type_btn === 'org') {
+                        tags['recycling_type'] = 'centre';
+                        if (this.name) {
+                            tags['name'] = this.name;
+                        }
+                    }
+                    else {
+                        tags['recycling_type'] = 'container';
                     }
                 }
                 return tags;
