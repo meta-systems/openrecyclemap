@@ -194,7 +194,8 @@
                                 josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id,
                                 description: geoJsonProps.description,
                                 centre: geoJsonProps.hasOwnProperty('recycling_type') && geoJsonProps.recycling_type === 'centre',
-                                name: geoJsonProps.name
+                                name: geoJsonProps.name,
+                                node_id: node_id
                             };
                             layer.setStyle({
                                 weight: 5
@@ -242,25 +243,33 @@
                 this.$router.push({name: 'map'});
             },
             saveData: function (event) {
-                let position = this.marker ? this.marker.getLatLng() : null;
                 this.disableAddMode();
-                if(position) {
-                    this.addNodeSuccess = function () {
-                        this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
-                        this.snackbar = true;
-                    };
-                    this.addNodeFail = function () {
-                        this.snackbar_text = 'Ошибка! Попробуйте позже.';
-                        this.snackbar = true;
-                    };
-                    this.addNode(position, event.tags);
+                this.addNodeSuccess = function () {
+                    this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
+                    this.snackbar = true;
+                };
+                this.addNodeFail = function () {
+                    this.snackbar_text = 'Ошибка! Попробуйте позже.';
+                    this.snackbar = true;
+                };
+                if(event.id) {
+                    let position = this.selectedLayer ? this.selectedLayer.getLatLng() : null;
+                    if (position) {
+                        this.updateNode(event.id, position, event.tags);
+                    }
+                }
+                else {
+                    let position = this.marker ? this.marker.getLatLng() : null;
+                    if (position) {
+                        this.addNode(position, event.tags);
 
-                    this.$ga.event({
-                        eventCategory: 'map_interaction',
-                        eventAction: 'add_point',
-                        eventLabel: event.amenity,
-                        eventValue: 1
-                    });
+                        this.$ga.event({
+                            eventCategory: 'map_interaction',
+                            eventAction: 'add_point',
+                            eventLabel: event.amenity,
+                            eventValue: 1
+                        });
+                    }
                 }
             },
             pushPosition: function () {

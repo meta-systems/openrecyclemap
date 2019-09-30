@@ -6,7 +6,8 @@ export default {
         return {
             auth: null,
             username: null,
-            authenticated: null
+            authenticated: null,
+            changeset_id: null
         };
     },
     methods: {
@@ -24,63 +25,116 @@ export default {
                 component.username = userTag.attributes["display_name"].value;
             });
         },
-        addNodeXml: function (latlon, tags, changeset_id) {
-            let xmlObj = {'elements': []};
+        nodeXml: function (latlon, tags, changeset_id, node_id, version) {
+            let xmlObj = {'type': 'element', 'name': 'node', 'elements': [],
+                'attributes': {'changeset': changeset_id, 'lat': latlon.lat, 'lon': latlon.lng}};
+            if(node_id) {
+                xmlObj.attributes.id = node_id;
+            }
+            if(version) {
+                xmlObj.attributes.version = version;
+            }
             for (let key in tags) {
                 if(tags.hasOwnProperty(key)) {
                     xmlObj.elements.push({'type': 'element', 'name': 'tag', 'attributes': {'k': key, 'v': tags[key]}});
                 }
             }
-            return '<osm><node changeset="'+changeset_id+'" lat="'+latlon.lat+'" lon="'+latlon.lng+'">'
-                + convert.js2xml(xmlObj)
-                + '</node></osm>';
+            return '<osm>'
+                + convert.js2xml({'elements': [xmlObj]})
+                + '</osm>';
         },
-        createChangesetXml: function () {
+        createChangesetXml: function (changeset_name) {
             return '<osm><changeset>' +
                 '<tag k="created_by" v="OpenRecycleMap"/>' +
-                '<tag k="comment" v="Adding a recycling container"/>' +
+                '<tag k="comment" v="'+changeset_name+'"/>' +
                 '</changeset></osm>'
+        },
+        createChangeset: function (changeset_name) {
+            let component = this;
+            return new Promise(function(resolve, reject) {
+                component.auth.xhr({
+                    method: 'PUT',
+                    path: '/api/0.6/changeset/create',
+                    content: component.createChangesetXml(changeset_name),
+                    options: {
+                        header: {
+                            'Content-Type': 'text/xml'
+                        }
+                    }
+                }, function(err, changeset_id) {
+                    if(changeset_id) {
+                        component.changeset_id = changeset_id;
+                        resolve(changeset_id);
+                    }
+                });
+            });
+        },
+        closeChangeset: function (changeset_id) {
+            this.auth.xhr({
+                method: 'PUT',
+                path: '/api/0.6/changeset/'+changeset_id+'/close'
+            }, function (err, closed_id) {
+                console.log('Changeset #'+closed_id+' has just been closed.')
+            });
+        },
+        onNodeCreateResponse: function(err, node_id) {
+            if(node_id) {
+                this.closeChangeset(this.changeset_id);
+                this.addNodeSuccess();
+            }
+            else {
+                this.addNodeFail();
+            }
+            this.changeset_id = null;
         },
         addNodeSuccess: function () {},
         addNodeFail: function () {},
         addNode: function (latlon, tags) {
             let component = this;
-            let auth = this.auth;
-            auth.xhr({
-                method: 'PUT',
-                path: '/api/0.6/changeset/create',
-                content: this.createChangesetXml(),
-                options: {
-                    header: {
-                        'Content-Type': 'text/xml'
-                    }
-                }
-            }, function(err, changeset_id) {
-                if(changeset_id) {
-                    auth.xhr({
+            this.createChangeset('Add a recycling container')
+                .then(function(changeset_id) {
+                    component.auth.xhr({
                         method: 'PUT',
                         path: '/api/0.6/node/create',
-                        content: component.addNodeXml(latlon, tags, changeset_id),
+                        content: component.nodeXml(latlon, tags, changeset_id),
                         options: {
                             header: {
                                 'Content-Type': 'text/xml'
                             }
                         }
-                    }, function(err, node_id) {
-                        if(node_id) {
-                            auth.xhr({
+                    }, component.onNodeCreateResponse);
+                });
+        },
+        updateNode: function (node_id, latlon, tags) {
+            let component = this;
+            this.readNode(node_id)
+                .then(function(version) {
+                    component.createChangeset('Update a recycling container')
+                        .then(function(changeset_id) {
+                            component.auth.xhr({
                                 method: 'PUT',
-                                path: '/api/0.6/changeset/'+changeset_id+'/close'
-                            }, function (err, closed_id) {
-                                console.log('Changeset #'+closed_id+' has just been closed.')
-                            });
-                            component.addNodeSuccess();
-                        }
-                        else {
-                            component.addNodeFail();
-                        }
-                    });
-                }
+                                path: '/api/0.6/node/'+node_id,
+                                content: component.nodeXml(latlon, tags, changeset_id, node_id, version),
+                                options: {
+                                    header: {
+                                        'Content-Type': 'text/xml'
+                                    }
+                                }
+                            }, component.onNodeCreateResponse);
+                        });
+                });
+        },
+        readNode: function (node_id) {
+            let auth = this.auth;
+            return new Promise(function(resolve, reject) {
+                auth.xhr({
+                    method: 'GET',
+                    path: '/api/0.6/node/'+node_id
+                }, function(err, response) {
+                    let nodeEl = response.getElementsByTagName('node')[0];
+                    let version = nodeEl.getAttribute('version');
+                    resolve(version);
+                });
             });
         },
         authenticate: function () {
