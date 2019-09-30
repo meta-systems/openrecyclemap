@@ -80,8 +80,10 @@
             let mapbox = this.mapboxLayer().addTo(this.map);
             this.baseLayers = {
                 "Mapbox": mapbox,
+                "Hydda": this.hyddaLayer(),
                 "Mapnik": this.mapnikLayer(),
                 "Mapbox sat": this.mapboxSat(),
+                "ESRI sat": this.esriSat(),
                 // "HERE sat": this.hereSat(),
             };
 

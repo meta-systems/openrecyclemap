@@ -2,6 +2,7 @@ export default {
     methods: {
         mapboxLayer: function () {
             return L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
+            // return L.tileLayer('//api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 21,
                 id: 'mapbox.streets',
@@ -12,6 +13,12 @@ export default {
             return L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 21,
                 attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+            });
+        },
+        hyddaLayer: function () {
+            return  L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: 'Tiles courtesy of <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
             });
         },
         hereSat: function () {
@@ -39,6 +46,11 @@ export default {
                 attribution: 'Тайлы <a href="http://mapbox.com/about/maps/">MapBox</a>',
                 subdomains: 'abcd',
                 accessToken: process.env.VUE_APP_MAPBOX_TOKEN
+            });
+        },
+        esriSat: function () {
+            return L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+                attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'
             });
         }
     }
