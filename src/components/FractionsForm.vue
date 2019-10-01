@@ -142,15 +142,17 @@
         },
         created() {
             if(this.selected) {
-                this.description = this.selected.description;
-                this.waste_disposal = this.selected.amenity === 'waste_disposal';
+                let geoJsonProps = this.selected.props;
+                let centre = geoJsonProps.hasOwnProperty('recycling_type') && geoJsonProps.recycling_type === 'centre';
+                this.description = geoJsonProps.description;
+                this.name = geoJsonProps.name;
+                this.waste_disposal = geoJsonProps.amenity === 'waste_disposal';
                 this.type_btn = this.waste_disposal
                     ? 'waste'
-                    : (this.selected.centre ? 'org' : 'recycle');
+                    : (centre ? 'org' : 'recycle');
                 if(!this.waste_disposal) {
-                    this.selected.info.forEach((item) => this.recycling[item] = true);
+                    this.selected.fractions.forEach((item) => this.recycling[item] = true);
                 }
-                this.name = this.selected.name;
                 this.node_id = this.selected.node_id;
             }
         }

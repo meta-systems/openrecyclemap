@@ -10,25 +10,13 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
+        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="deselectLayer" v-on:map-change="onMapChange"></leaflet-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
-        <div class="node_info" v-if="selectedLayer">
-            <span class="p_close" @click="deselectLayer">×</span>
-            
-            <div class="f_list">
-                <span v-for="item in selected.info" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
-            </div>
-            <div v-if="selected.description" class="f_description">{{ selected.description }}</div>
-            
-            <a target="_blank" class="p_link" :href="selected.osmLink">Смотреть в OSM</a>
-            <a target="_blank" class="p_link" :href="selected.josmLink" title="Редактировать в JOSM">(J)</a>
-            
-            <div class="edit_box">
-                <span @click="goEdit" class="btn btn_gray">Редактировать</span>
-            </div>
-        </div>
+        <node-info :key="selectedId" :selected="selected" :labels="labels" v-if="selectedLayer"
+                   v-on:close-info="deselectLayer" v-on:edit-click="goEdit"></node-info>
+
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top multi-line>
             {{ snackbar_text }}
@@ -45,6 +33,7 @@
     import overpassMixin from '../mixins/Overpass'
     import oauthMixin from '../mixins/Oauth'
     import NodesFilter from './NodesFilter'
+    import NodeInfo from './NodeInfo'
     import FractionsForm from './FractionsForm'
     import LeafletMap from './LeafletMap'
     import L from 'leaflet'
@@ -59,6 +48,7 @@
                 map: null,
                 zoomMessage: false,
                 selectedLayer: null,
+                selectedId: null,
                 selected: null,
                 rectangle: null,
                 loading: false,
@@ -97,6 +87,7 @@
         },
         components: {
             NodesFilter,
+            NodeInfo,
             FractionsForm,
             LeafletMap
         },
@@ -174,33 +165,15 @@
                                     weight: 1
                                 });
                             }
-                            let nodeTypes = [];
-                            let selAmenity;
                             let geoJsonProps = feature.properties;
-                            if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                                nodeTypes.push('waste_disposal');
-                                selAmenity = 'waste_disposal';
-                            }
-                            else {
-                                selAmenity = 'recycling';
-                                for (let key in component.labels) {
-                                    if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                        nodeTypes.push(key);
-                                    }
-                                }
-                            }
                             let node_id = geoJsonProps.id.replace('node/', '');
                             component.selectedLayer = layer;
                             component.selected = {
-                                info: nodeTypes,
-                                amenity: selAmenity,
-                                osmLink: 'https://openstreetmap.org/' + geoJsonProps.id,
-                                josmLink: 'http://127.0.0.1:8111/load_object?objects=n' + node_id,
-                                description: geoJsonProps.description,
-                                centre: geoJsonProps.hasOwnProperty('recycling_type') && geoJsonProps.recycling_type === 'centre',
-                                name: geoJsonProps.name,
+                                props: geoJsonProps,
+                                fractions: component.parseFractions(geoJsonProps),
                                 node_id: node_id
                             };
+                            component.selectedId = node_id;
                             layer.setStyle({
                                 weight: 5
                             });
@@ -234,9 +207,7 @@
                 });
                 this.add_mode = true;
                 this.set_coord_mode = true;
-                if(this.selectedLayer) {
-                    this.deselectLayer();
-                }
+                this.deselectLayer();
             },
             disableAddMode: function () {
                 this.set_coord_mode = false;
@@ -304,17 +275,16 @@
                 }
             },
             deselectLayer: function () {
+                if(!this.selectedLayer) {
+                    return;
+                }
                 this.selectedLayer.setStyle({
                     weight: 1
                 });
                 this.selectedLayer = null;
                 this.selected = null;
+                this.selectedId = null;
                 this.$router.push({name: 'map'});
-            },
-            onMapClick: function (e) {
-                if(this.selectedLayer) {
-                    this.deselectLayer();
-                }
             },
             goNext: function () {
                 // this.add_mode = false;
@@ -334,6 +304,20 @@
                         component.loadData(node_id);
                     }
                 });
+            },
+            parseFractions: function (geoJsonProps) {
+                let nodeTypes = [];
+                if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+                    nodeTypes.push('waste_disposal');
+                }
+                else {
+                    for (let key in this.labels) {
+                        if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
+                            nodeTypes.push(key);
+                        }
+                    }
+                }
+                return nodeTypes;
             }
         },
         mounted() {
@@ -358,16 +342,6 @@
 </script>
 
 <style>
-    .node_info {
-        background:white;
-        border-radius:15px;
-        padding:20px;
-        position:absolute;
-        top:10px;
-        left:10px;
-        padding-top:40px; 
-        z-index:1;  
-    }
     .main_loading {
         position: fixed !important;
         bottom: 140px;
@@ -460,9 +434,6 @@
     }
     .btn_gray {
         box-shadow: inset 0 0 0 2px #eee;
-    }
-    .edit_box {
-        margin-top:15px;
     }
     .add_mode_message,
     .add_mode_steps {
