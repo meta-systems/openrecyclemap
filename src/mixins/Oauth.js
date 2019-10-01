@@ -1,5 +1,6 @@
 import osmAuth from 'osm-auth'
 import OsmNode from './OsmNode'
+import NodeParser from './NodeParser'
 
 export default {
     data: function () {
@@ -98,8 +99,9 @@ export default {
             let component = this;
             let nodeObj = new OsmNode(latlon, tags);
             this.readNode(node_id)
-                .then(function(version) {
-                    nodeObj.setExisting(node_id, version);
+                .then(function(node) {
+                    nodeObj.setExisting(node_id, node.version);
+                    nodeObj.setTags(node.tags);
                     return component.createChangeset('Update a recycling container');
                 })
                 .then(function(changeset_id) {
@@ -123,9 +125,11 @@ export default {
                     method: 'GET',
                     path: '/api/0.6/node/'+node_id
                 }, function(err, response) {
-                    let nodeEl = response.getElementsByTagName('node')[0];
-                    let version = nodeEl.getAttribute('version');
-                    resolve(version);
+                    let nodeParser = new NodeParser(response);
+                    resolve({
+                        version: nodeParser.version,
+                        tags: nodeParser.tags
+                    });
                 });
             });
         },
