@@ -72,23 +72,25 @@
                     cans: true,
                     glass: true,
                     glass_bottles: true,
+                    plastic_bags: true,
+                    clothes: true,
                     batteries: true,
                     low_energy_bulbs: true,
-                    plastic_bags: true,
                     //plastic_bottles: true,
                     waste_disposal: false
                 },
                 labels: {
                     plastic: 'Пластик',
                     paper: 'Бумага',
-                    cans: 'Алюминиевые банки',
+                    cans: 'Металл',
                     glass: 'Стекло',
                     glass_bottles: 'Стеклянные бутылки',
                     batteries: 'Батарейки',
+                    plastic_bottles: 'Пластиковые бутылки',
+                    clothes: 'Одежда',
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',
-                    plastic_bottles: 'Пластиковые бутылки',
-                    waste_disposal: 'Мусорный контейнер'
+                    waste_disposal: 'Несортированный мусор'
                 },
                 lastData: null
             };

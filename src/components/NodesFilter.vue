@@ -13,16 +13,19 @@
             <span>Бумага</span>
         </div>
         <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.cans = !filter.cans">
-            <span>Алюминий</span>
+            <span>Металл</span>
+        </div>
+        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.plastic_bags = !filter.plastic_bags">
+            <span>Пакеты</span>
+        </div>
+        <div :class="['map_filter ico_clothes', {filter_active: filter.clothes}]" @click="filter.clothes = !filter.clothes">
+            <span>Одежда</span>
         </div>
         <div :class="['map_filter ico_low_energy_bulbs', {filter_active: filter.low_energy_bulbs}]" @click="filter.low_energy_bulbs = !filter.low_energy_bulbs">
             <span>Лампочки</span>
         </div>
         <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
             <span>Батарейки</span>
-        </div>
-        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.plastic_bags = !filter.plastic_bags">
-            <span>Пакеты</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.waste_disposal = !filter.waste_disposal">
             <span>Несортируемые</span>
@@ -111,6 +114,10 @@
     .p_fraction.ico_glass_bottles:before,
     .ico_glass_bottles {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.22 18.38c.52-1.32 1.3-2.51 2.3-3.52l1.85-1.84c.2.22.55.22.76 0l1.53-1.52a.54.54 0 0 0 0-.77L31.6 7.67a.54.54 0 0 0-.76 0L29.3 9.2a.54.54 0 0 0 0 .77l-1.84 1.84c-1 1-2.2 1.78-3.52 2.3l-3.53 1.38c-2.15.84-4.1 2.12-5.74 3.75l-8.3 8.3a.54.54 0 0 0 0 .77l7.64 7.64c.22.21.56.21.77 0l8.3-8.3a16.64 16.64 0 0 0 3.75-5.74l1.38-3.53zm3-9.56l2.3 2.3-.77.76-2.3-2.3.77-.76zM14.41 34.81l-6.88-6.88L15.45 20a15.58 15.58 0 0 1 5.37-3.51l3.52-1.38a11.3 11.3 0 0 0 3.9-2.55l1.83-1.84 1.53 1.53-1.84 1.84A11.29 11.29 0 0 0 27.22 18l-1.38 3.53a15.58 15.58 0 0 1-3.51 5.37L14.4 34.8z' fill='%23000'/%3E%3Cpath d='M17.46 20.29a.54.54 0 0 0-.76 0l-6.5 6.5a.54.54 0 0 0 0 .76l4.59 4.58c.21.21.55.21.76 0l6.5-6.5a.54.54 0 0 0 0-.76l-4.59-4.59zm-2.29 10.7l-3.82-3.83 5.73-5.73 3.82 3.82-5.73 5.73z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .p_fraction.ico_clothes:before,
+    .ico_clothes {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M25.13 8.25H22.3a2.82 2.82 0 01-5.62 0h-2.81L6 12.75l2.25 6.19 3.38-1.13v12.94h15.75V17.81l3.37 1.13L33 12.75l-7.87-4.5zm4.94 9.27l-2.34-.77-1.48-.5V29.62h-13.5V16.25l-1.48.5-2.34.77-1.55-4.26 6.8-3.89h1.55a3.94 3.94 0 007.54 0h1.56l6.79 3.89-1.55 4.26z' fill='%23000'/%3E%3C/svg%3E");
     }
     .p_fraction.ico_glass:before,
     .ico_glass {
