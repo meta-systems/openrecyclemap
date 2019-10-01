@@ -35,6 +35,7 @@
     import NodesFilter from './NodesFilter'
     import NodeInfo from './NodeInfo'
     import FractionsForm from './FractionsForm'
+    import Filter from '../mixins/Filter'
     import LeafletMap from './LeafletMap'
     import L from 'leaflet'
     import 'leaflet.snogylop'
@@ -56,19 +57,7 @@
                 snackbar: false,
                 marker: null,
                 layer: null,
-                filter: {
-                    plastic: true,
-                    paper: true,
-                    cans: true,
-                    glass: true,
-                    glass_bottles: true,
-                    plastic_bags: true,
-                    clothes: true,
-                    batteries: true,
-                    low_energy_bulbs: true,
-                    //plastic_bottles: true,
-                    waste_disposal: false
-                },
+                filter: new Filter(),
                 labels: {
                     plastic: 'Пластик',
                     paper: 'Бумага',
@@ -136,7 +125,7 @@
                     },
                     filter: function (feature) {
                         let geoJsonProps = feature.properties;
-                        if(!filter) {
+                        if(!filter.enabled()) {
                             return true;
                         }
                         if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
@@ -192,19 +181,18 @@
                 this.loading = true;
                 this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, node_id));
             },
+            showAllFilter: function () {
+                return {
+                    enabled: function () {
+                        return false;
+                    }
+                };
+            },
             enableAddMode: function () {
                 if(!this.authenticated) {
                     this.$router.replace({path: '/login'});
                 }
-                this.displayData(this.lastData, {
-                    plastic: true, paper: true,
-                    cans: true,
-                    glass_bottles: true,
-                    batteries: true,
-                    low_energy_bulbs: true,
-                    plastic_bags: true,
-                    waste_disposal: true
-                });
+                this.displayData(this.lastData, this.showAllFilter());
                 this.add_mode = true;
                 this.set_coord_mode = true;
                 this.deselectLayer();
