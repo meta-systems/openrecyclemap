@@ -94,6 +94,17 @@
     .ico_waste_disposal.filter_active:before {
         background:#8D6E63;
     }
+    .map_filter:hover:before {
+        width:10px;
+        height:10px;
+        border-radius:10px;
+        content: '';
+        display:block;
+        border:1px solid #2E7D32;
+        position:absolute;
+        top:10px;
+        left:45%;
+    }
     .map_filter {
         margin:10px;
         padding:5px;

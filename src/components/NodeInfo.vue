@@ -70,6 +70,7 @@
         left:10px;
         padding-top:40px;
         z-index:1;
+        max-width: 300px;
     }
     .edit_box {
         margin-top:15px;
