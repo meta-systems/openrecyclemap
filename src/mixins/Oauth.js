@@ -1,6 +1,7 @@
 import osmAuth from 'osm-auth'
-import OsmNode from './OsmNode'
-import NodeParser from './NodeParser'
+import OsmNode from '../osm/OsmNode'
+import NodeParser from '../osm/NodeParser'
+import Changeset from '../osm/Changeset'
 
 export default {
     data: function () {
@@ -33,19 +34,13 @@ export default {
                 .setTags(tags);
             return node.xml;
         },
-        createChangesetXml: function (changeset_name) {
-            return '<osm><changeset>' +
-                '<tag k="created_by" v="OpenRecycleMap"/>' +
-                '<tag k="comment" v="'+changeset_name+'"/>' +
-                '</changeset></osm>'
-        },
         createChangeset: function (changeset_name) {
             let component = this;
             return new Promise(function(resolve, reject) {
                 component.auth.xhr({
                     method: 'PUT',
                     path: '/api/0.6/changeset/create',
-                    content: component.createChangesetXml(changeset_name),
+                    content: (new Changeset(changeset_name)).xml,
                     options: {
                         header: {
                             'Content-Type': 'text/xml'
