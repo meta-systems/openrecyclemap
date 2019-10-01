@@ -1,3 +1,5 @@
+import OverpassQuery from '../osm/OverpassQuery'
+
 export default {
     data: function () {
         return {
@@ -42,28 +44,17 @@ export default {
         },
         buildQuery: function (center) {
             let bbox = this.bboxFromCenter(center);
-            return '[out:json][timeout:25];\n' +
-                '(\n' +
-                '  node["amenity"="recycling"]('+bbox+');\n' +
-                '  node["amenity"="waste_disposal"]('+bbox+');\n' +
-                ');\n' +
-                'out body;'+
-                '>;\n' +
-                'out skel qt;';
-        },
-        nodeQuery: function (node) {
-            return '[out:json][timeout:25];\n' +
-                '(\n' +
-                '  node('+node+');\n' +
-                ');\n' +
-                'out body;'+
-                '>;\n' +
-                'out skel qt;';
+            let query = new OverpassQuery();
+            let tags = [
+                {k: 'amenity', v: 'recycling'},
+                {k: 'amenity', v: 'waste_disposal'}
+            ];
+            return query.nodeByTags(tags, bbox).body;
         },
         fetchAmenity: function (center, callback) {
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
-                body: 'data='+this.buildQuery(center)
+                body: this.buildQuery(center)
             })
                 .then(function (response) {
                     if(!response.ok) {
@@ -74,9 +65,10 @@ export default {
                 .then(callback);
         },
         fetchNode: function (node, callback) {
+            let query = new OverpassQuery();
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
-                body: 'data='+this.nodeQuery(node)
+                body: query.nodeById(node).body
             })
                 .then(function (response) {
                     if(!response.ok) {
