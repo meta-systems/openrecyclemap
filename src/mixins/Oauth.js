@@ -90,12 +90,14 @@ export default {
                     }, component.onNodeCreateResponse);
                 });
         },
-        updateNode: function (node_id, latlon, tags) {
+        updateNode: function (node_id, node_type, latlon, tags) {
             let component = this;
-            let nodeObj = new OsmNode(latlon, tags);
-            this.readNode(node_id)
+            let nodeObj = new OsmNode(node_type, latlon);
+            this.readNode(node_id, node_type)
                 .then(function(node) {
                     nodeObj.setExisting(node_id, node.version);
+                    nodeObj.setRefs(node.refs);
+                    nodeObj.setTags(tags);
                     nodeObj.setTags(node.tags);
                     return component.createChangeset('Update a recycling container');
                 })
@@ -103,7 +105,7 @@ export default {
                     nodeObj.setChangeset(changeset_id);
                     component.auth.xhr({
                         method: 'PUT',
-                        path: '/api/0.6/node/'+node_id,
+                        path: '/api/0.6/'+node_type+'/'+node_id,
                         content: nodeObj.xml,
                         options: {
                             header: {
@@ -113,17 +115,18 @@ export default {
                     }, component.onNodeCreateResponse);
                 });
         },
-        readNode: function (node_id) {
+        readNode: function (node_id, node_type) {
             let auth = this.auth;
             return new Promise(function(resolve, reject) {
                 auth.xhr({
                     method: 'GET',
-                    path: '/api/0.6/node/'+node_id
+                    path: '/api/0.6/'+node_type+'/'+node_id
                 }, function(err, response) {
                     let nodeParser = new NodeParser(response);
                     resolve({
                         version: nodeParser.version,
-                        tags: nodeParser.tags
+                        tags: nodeParser.tags,
+                        refs: nodeParser.refs
                     });
                 });
             });

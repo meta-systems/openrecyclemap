@@ -1,15 +1,16 @@
 import convert from 'xml-js'
 
 export default class OsmNode {
-    constructor(latlon, tags) {
+    constructor(node_type, latlon) {
         this.node = {
             'type': 'element',
-            'name': 'node',
+            'name': node_type,
             'elements': [],
-            'attributes': {'lat': latlon.lat, 'lon': latlon.lng}
+            'attributes': {}
         };
-        if(tags) {
-            this.setTags(tags);
+        if(node_type === 'node' && latlon) {
+            this.node.attributes.lat = latlon.lat;
+            this.node.attributes.lon = latlon.lng;
         }
     }
     setChangeset(id) {
@@ -24,6 +25,9 @@ export default class OsmNode {
             this.node.attributes.version = version;
         }
         return this;
+    }
+    setRefs(refs) {
+        refs.forEach((ref) => this.node.elements.push({'type': 'element', 'name': 'nd', 'attributes': {'ref': ref}}));
     }
     setTags(tags) {
         for (let key in tags) {

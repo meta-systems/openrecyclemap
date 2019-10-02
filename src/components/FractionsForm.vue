@@ -57,6 +57,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
+                node_type: 'node',
                 node_id: null,
                 name: '',
                 type_btn: 'waste',
@@ -132,6 +133,7 @@
                 let tags = this.buildTags();
                 this.$emit('form-save', {
                     id: this.node_id,
+                    type: this.node_type,
                     tags: tags,
                     amenity: tags.amenity
                 });
@@ -153,6 +155,7 @@
                 if(!this.waste_disposal) {
                     this.selected.fractions.forEach((item) => this.recycling[item] = true);
                 }
+                this.node_type = this.selected.node_type;
                 this.node_id = this.selected.node_id;
             }
         }

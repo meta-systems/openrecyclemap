@@ -19,9 +19,18 @@ export default class NodeParser {
             'recycling:low_energy_bulbs',
         ];
     }
+    get osm_type() {
+        let nodeEl = this.doc.documentElement.firstElementChild;
+        return nodeEl.tagName;
+    }
     get version() {
-        let nodeEl = this.doc.getElementsByTagName('node')[0];
+        let nodeEl = this.doc.documentElement.firstElementChild;
         return nodeEl.getAttribute('version');
+    }
+    get refs() {
+        let refs = [];
+        this.doc.querySelectorAll('nd').forEach((nd) => refs.push(nd.getAttribute('ref')));
+        return refs;
     }
     get tags() {
         let notSupportedTags = {};

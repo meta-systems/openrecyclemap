@@ -208,7 +208,7 @@
                 if(event.id) {
                     let position = this.selectedLayer ? this.selectedLayer.getLatLng() : null;
                     if (position) {
-                        this.updateNode(event.id, position, event.tags);
+                        this.updateNode(event.id, event.type, position, event.tags);
                     }
                 }
                 else {
