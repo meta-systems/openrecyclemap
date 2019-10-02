@@ -22,6 +22,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
+                node_type: null,
                 node_id: null,
                 fractions: null,
                 description: null,
@@ -32,10 +33,10 @@
         },
         computed: {
             osmLink: function () {
-                return 'https://openstreetmap.org/node/' + this.node_id;
+                return 'https://openstreetmap.org/' + this.node_type + '/' + this.node_id;
             },
             josmLink: function () {
-                return 'http://127.0.0.1:8111/load_object?objects=n' + this.node_id;
+                return 'http://127.0.0.1:8111/load_object?objects=' + this.node_type.substring(0, 1) + this.node_id;
             },
         },
         methods: {
@@ -49,6 +50,7 @@
         created() {
             if (this.selected) {
                 let geoJsonProps = this.selected.props;
+                this.node_type = this.selected.node_type;
                 this.node_id = this.selected.node_id;
                 this.fractions = this.selected.fractions;
                 this.description = geoJsonProps.description;

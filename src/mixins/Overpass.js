@@ -64,11 +64,17 @@ export default {
                 })
                 .then(callback);
         },
-        fetchNode: function (node, callback) {
+        fetchNode: function (params, callback) {
             let query = new OverpassQuery();
+            if(params.type === 'way') {
+                query.wayById(params.node);
+            }
+            else {
+                query.nodeById(params.node);
+            }
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
-                body: query.nodeById(node).body
+                body: query.body
             })
                 .then(function (response) {
                     if(!response.ok) {

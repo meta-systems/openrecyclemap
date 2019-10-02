@@ -25,7 +25,7 @@ const routes = [
     },
     {
         name: 'node',
-        path: '/r/:node',
+        path: '/:type(node|way)/:node',
         component: mapComponent
     },
     {

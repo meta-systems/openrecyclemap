@@ -85,13 +85,13 @@
             initMap: function (map) {
                 this.map = map;
                 if(this.$route.name === 'node') {
-                    this.loadNode(this.$route.params.node);
+                    this.loadNode(this.$route.params);
                 }
                 else {
                     this.loadData();
                 }
             },
-            displayData: function (data, filter, node_id) {
+            displayData: function (data, filter, to_select) {
                 if(!data) {
                     return;
                 }
@@ -141,20 +141,22 @@
                                 });
                             }
                             let geoJsonProps = feature.properties;
-                            let node_id = geoJsonProps.id.replace('node/', '');
+                            let sel_type = geoJsonProps.id.includes('way') ? 'way' : 'node';
+                            let sel_id = geoJsonProps.id.replace(sel_type+'/', '');
                             component.selectedLayer = layer;
                             component.selected = {
                                 props: geoJsonProps,
                                 fractions: component.parseFractions(geoJsonProps),
-                                node_id: node_id
+                                node_id: sel_id,
+                                node_type: sel_type
                             };
-                            component.selectedId = node_id;
+                            component.selectedId = sel_id;
                             layer.setStyle({
                                 weight: 5
                             });
-                            component.$router.push({name: 'node', params: {node: node_id}});
+                            component.$router.push({name: 'node', params: {node: sel_id, type: sel_type}});
                         });
-                        if(feature.properties.id === 'node/'+node_id) {
+                        if(feature.properties.id === to_select) {
                             layer.fire('click');
                         }
                     },
@@ -163,9 +165,10 @@
                     }
                 }).addTo(map);
             },
-            loadData: function (node_id) {
+            loadData: function (params) {
                 this.loading = true;
-                this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, node_id));
+                let to_select = (params && params.node) ? params.type+'/'+params.node : false;
+                this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, to_select));
             },
             showAllFilter: function () {
                 return {
@@ -274,13 +277,14 @@
                     this.edit_tags = true;
                 }
             },
-            loadNode: function (node_id) {
+            loadNode: function (params) {
                 let component = this;
-                this.fetchNode(node_id, function (data) {
+                this.fetchNode(params, function (data) {
                     if(data.elements.length > 0) {
-                        let node = data.elements[0];
+                        let element = data.elements[0];
+                        let node = element.type === 'way' ? element.center : element;
                         component.map.setView([node.lat, node.lon], 17, {animate: false});
-                        component.loadData(node_id);
+                        component.loadData(params);
                     }
                 });
             },
@@ -308,7 +312,7 @@
         watch: {
             '$route'(to, from) {
                 if(to.name === 'node') {
-                    //this.loadNode(to.params.node);
+                    //this.loadNode(to.params);
                 }
                 else {
                     if (to.params.action === 'add') {
