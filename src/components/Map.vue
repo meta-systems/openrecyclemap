@@ -267,7 +267,12 @@
                 this.marker = L.marker(this.map.getCenter());
             },
             goEdit: function () {
-                this.edit_tags = true;
+                if(!this.authenticated) {
+                    this.$router.replace({path: '/login'});
+                }
+                else {
+                    this.edit_tags = true;
+                }
             },
             loadNode: function (node_id) {
                 let component = this;
