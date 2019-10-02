@@ -1,6 +1,6 @@
 import convert from 'xml-js'
 
-export default class OsmNode {
+export default class OsmBuilder {
     constructor(node_type, latlon) {
         this.node = {
             'type': 'element',

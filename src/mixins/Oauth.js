@@ -1,6 +1,6 @@
 import osmAuth from 'osm-auth'
-import OsmNode from '../osm/OsmNode'
-import NodeParser from '../osm/NodeParser'
+import OsmBuilder from '../osm/OsmBuilder'
+import OsmParser from '../osm/OsmParser'
 import Changeset from '../osm/Changeset'
 
 export default {
@@ -28,7 +28,7 @@ export default {
             });
         },
         nodeXml: function (latlon, tags, changeset_id, node_id, version) {
-            let node = new OsmNode(latlon)
+            let node = new OsmBuilder('node', latlon)
                 .setChangeset(changeset_id)
                 .setExisting(node_id, version)
                 .setTags(tags);
@@ -92,7 +92,7 @@ export default {
         },
         updateNode: function (node_id, node_type, latlon, tags) {
             let component = this;
-            let nodeObj = new OsmNode(node_type, latlon);
+            let nodeObj = new OsmBuilder(node_type, latlon);
             this.readNode(node_id, node_type)
                 .then(function(node) {
                     nodeObj.setExisting(node_id, node.version);
@@ -122,7 +122,7 @@ export default {
                     method: 'GET',
                     path: '/api/0.6/'+node_type+'/'+node_id
                 }, function(err, response) {
-                    let nodeParser = new NodeParser(response);
+                    let nodeParser = new OsmParser(response);
                     resolve({
                         version: nodeParser.version,
                         tags: nodeParser.tags,

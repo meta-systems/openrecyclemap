@@ -1,4 +1,4 @@
-export default class NodeParser {
+export default class OsmParser {
     constructor(xmlDoc) {
         this.doc = xmlDoc;
     }
