@@ -38,6 +38,12 @@
             let router = this.$router;
             let token = this.parseToken();
             if(token) {
+                this.$ga.event({
+                    eventCategory: 'auth',
+                    eventAction: 'auth_ok',
+                    eventLabel: 'auth_ok',
+                    eventValue: 1
+                });
                 this.auth.bootstrapToken(token, function(err, oauth) {
                     router.replace({name: 'login'});
                 });
