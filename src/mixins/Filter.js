@@ -20,4 +20,18 @@ export default class Filter {
         }
         return false;
     }
+    fit(geoJsonProps) {
+        if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
+            return this.waste_disposal;
+        }
+        for (let key in this) {
+            if(!this.hasOwnProperty(key) || !this[key] || key === 'waste_disposal') {
+                continue;
+            }
+            if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
+                return true;
+            }
+        }
+        return false;
+    }
 }

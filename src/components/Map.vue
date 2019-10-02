@@ -124,24 +124,10 @@
                         };
                     },
                     filter: function (feature) {
-                        let geoJsonProps = feature.properties;
                         if(!filter.enabled()) {
                             return true;
                         }
-                        if(geoJsonProps.hasOwnProperty('amenity') && geoJsonProps['amenity'] === 'waste_disposal') {
-                            return filter.waste_disposal;
-                        }
-                        else {
-                            for (let key in filter) {
-                                if(!filter[key] || key === 'waste_disposal') {
-                                    continue;
-                                }
-                                if(geoJsonProps.hasOwnProperty('recycling:'+key) && geoJsonProps['recycling:'+key] === 'yes') {
-                                    return true;
-                                }
-                            }
-                        }
-                        return false;
+                        return filter.fit(feature.properties);
                     },
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function (ev) {
