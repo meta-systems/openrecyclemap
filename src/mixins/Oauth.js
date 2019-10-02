@@ -130,18 +130,15 @@ export default {
         },
         authenticate: function () {
             let component = this;
+            this.$ga.event({
+                eventCategory: 'auth',
+                eventAction: 'auth_init',
+                eventLabel: 'auth_init',
+                eventValue: 1
+            });
             this.auth.authenticate(function (err, oauth) {
                 component.authenticated = oauth.authenticated();
-                if(component.authenticated) {
-                    component.details();
-                }
             });
-            // this.$ga.event({
-            //     eventCategory: 'auth',
-            //     eventAction: 'auth_init',
-            //     eventLabel: 'auth_init,
-            //     eventValue: 1
-            // });
         },
         authInit: function () {
             this.auth = osmAuth({
