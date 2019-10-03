@@ -3,6 +3,9 @@
         <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.plastic = !filter.plastic">
             <span>Пластик</span>
         </div>
+        <div :class="['map_filter ico_plastic', {filter_active: filter.plastic_bottles}]" @click="filter.plastic_bottles = !filter.plastic_bottles">
+            <span>ПЭТ бутылки</span>
+        </div>
         <div :class="['map_filter ico_glass_bottles', {filter_active: filter.glass_bottles}]" @click="filter.glass_bottles = !filter.glass_bottles">
             <span>Стеклянные бутылки</span>
         </div>

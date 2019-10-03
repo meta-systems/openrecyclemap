@@ -5,6 +5,10 @@
         <div class="f_list">
             <span v-for="item in fractions" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
         </div>
+        <table>
+            <tr v-for="(item, key, index) in all_tags" ><td>{{ key }}</td><td>{{ item }}</td></tr>
+        </table>
+
         <div v-if="description" class="f_description">{{ description }}</div>
 
         <a target="_blank" class="p_link" :href="osmLink">Смотреть в OSM</a>
@@ -22,6 +26,7 @@
         props: ['labels', 'selected'],
         data: function () {
             return {
+                all_tags: null,
                 node_type: null,
                 node_id: null,
                 fractions: null,
@@ -50,6 +55,8 @@
         created() {
             if (this.selected) {
                 let geoJsonProps = this.selected.props;
+                this.all_tags = geoJsonProps;
+                delete this.all_tags.id;
                 this.node_type = this.selected.node_type;
                 this.node_id = this.selected.node_id;
                 this.fractions = this.selected.fractions;
