@@ -12,8 +12,11 @@
 
 <script>
     import layersMixin from '../mixins/Layers'
-    import L from 'leaflet'
     import 'leaflet/dist/leaflet.css'
+    import L from 'leaflet'
+    import 'mapbox-gl/dist/mapbox-gl.css'
+    import mapboxgl from 'mapbox-gl'
+    import 'mapbox-gl-leaflet'
     //import 'font-awesome/css/font-awesome.min.css'
     //import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
     import 'leaflet.locatecontrol';
@@ -77,9 +80,9 @@
                 zoomControl: false
             }).setView([lat, lng], zoom);
 
-            let mapbox = this.mapboxLayer().addTo(this.map);
+            let defLayer = this.mapboxVector().addTo(this.map);
             this.baseLayers = {
-                "Mapbox": mapbox,
+                "Mapbox": defLayer,
                 "Hydda": this.hyddaLayer(),
                 "Mapnik": this.mapnikLayer(),
                 "Mapbox sat": this.mapboxSat(),

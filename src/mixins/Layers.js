@@ -1,8 +1,19 @@
 export default {
     methods: {
+        mapboxVector: function () {
+            return L.mapboxGL({
+                accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
+                style: 'mapbox://styles/mapbox/bright-v8'
+            });
+        },
+        brightVector: function () {
+            return L.mapboxGL({
+                accessToken: process.env.VUE_APP_MAPBOX_TOKEN,
+                style: 'https://raw.githubusercontent.com/osm2vectortiles/mapbox-gl-styles/master/styles/bright-v9-cdn.json'
+            });
+        },
         mapboxLayer: function () {
             return L.tileLayer('//api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
-            // return L.tileLayer('//api.mapbox.com/styles/v1/mapbox/streets-v9/tiles/{z}/{x}/{y}?access_token={accessToken}', {
                 attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
                 maxZoom: 21,
                 id: 'mapbox.streets',
