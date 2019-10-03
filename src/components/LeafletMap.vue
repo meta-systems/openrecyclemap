@@ -85,8 +85,8 @@
             };
         },
         mounted() {
-            let lat = this.$route.params.lat || localStorage.getItem('lat') || 57.82;
-            let lng = this.$route.params.lon || localStorage.getItem('lng') || 28.35;
+            let lat = this.$route.params.lat || localStorage.getItem('lat') || 55.75;
+            let lng = this.$route.params.lon || localStorage.getItem('lng') || 37.61;
             let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
 
             this.map = L.map('map_container', {
