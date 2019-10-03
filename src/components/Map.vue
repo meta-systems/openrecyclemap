@@ -10,7 +10,7 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="deselectLayer" v-on:map-change="onMapChange"></leaflet-map>
+        <leaflet-map v-on:map-init="initMap" v-on:location-found="loadData" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
@@ -132,7 +132,7 @@
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function (ev) {
                             L.DomEvent.stopPropagation(ev);
-                            if(component.add_mode) {
+                            if(component.add_mode || component.edit_tags) {
                                 return;
                             }
                             if(component.selectedLayer) {
@@ -236,7 +236,12 @@
                     this.$router.push({name: 'position', params: {lat: lat, lon: lon, zoom: zoom}});
                 }
             },
-            onMapChange: function (e) {
+            onMapClick: function () {
+                if(!this.edit_tags) {
+                    this.deselectLayer();
+                }
+            },
+            onMapChange: function () {
                 this.pushPosition();
                 if(!this.bounds) {
                     return;

@@ -78,7 +78,6 @@
         created() {
             this.baseLayers = {
                 "Mapbox": this.mapboxVector(),
-                "Hydda": this.hyddaLayer(),
                 "Mapnik": this.mapnikLayer(),
                 "Mapbox sat": this.mapboxSat(),
                 "ESRI sat": this.esriSat()
