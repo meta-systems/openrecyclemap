@@ -27,6 +27,12 @@
         <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
             <span>Батарейки</span>
         </div>
+        <div :class="['map_filter ico_notags', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
+            <span>Без тегов</span>
+        </div>
+        <div :class="['map_filter ico_all', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
+            <span>Все раздельные</span>
+        </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.waste_disposal = !filter.waste_disposal">
             <span>Несортируемые</span>
         </div>
@@ -117,6 +123,11 @@
         text-align: center;
         line-height: 1em;
         overflow-wrap: break-word;
+    }
+    .p_fraction.ico_notags:before,
+    .ico_notags {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='41' height='41' viewBox='0 0 41 41' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M29.0483 20.1504C29.0483 22.5544 28.1122 24.8145 26.4123 26.5144C24.7124 28.2142 22.4523 29.1504 20.0483 29.1504C18.3654 29.1504 16.7534 28.691 15.3543 27.8327L16.3862 26.8008C17.4729 27.4016 18.7213 27.7441 20.0483 27.7441C24.2356 27.7441 27.6421 24.3376 27.6421 20.1504C27.6421 18.8233 27.2995 17.5749 26.6987 16.4883L27.7306 15.4564C28.589 16.8554 29.0483 18.4675 29.0483 20.1504ZM12.0729 29.1202L11.0785 28.1259L13.2064 25.9979C11.8101 24.3693 11.0483 22.3184 11.0483 20.1504C11.0483 17.7464 11.9845 15.4863 13.6844 13.7864C15.3843 12.0866 17.6444 11.1504 20.0483 11.1504C22.2164 11.1504 24.2673 11.9121 25.8959 13.3085L28.0238 11.1806L29.0182 12.1749L12.0729 29.1202ZM14.2072 24.9971L24.8951 14.3093C23.5791 13.2154 21.8893 12.5566 20.0483 12.5566C15.8611 12.5566 12.4546 15.9632 12.4546 20.1504C12.4546 21.9913 13.1133 23.6812 14.2072 24.9971V24.9971Z' fill='black'/%3E%3C/svg%3E");
+
     }
     .p_fraction.ico_paper:before,
     .ico_paper {
