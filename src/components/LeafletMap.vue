@@ -53,6 +53,7 @@
                     }
                 }
                 this.map.addLayer(this.baseLayers[nextkey]);
+                this.saveLayer(nextkey);
             },
             zoomPlus: function () {
                 this.map.zoomIn();
@@ -69,7 +70,19 @@
                 localStorage.setItem('lat', position.lat);
                 localStorage.setItem('lng', position.lng);
                 localStorage.setItem('zoom', this.map.getZoom());
+            },
+            saveLayer: function (layer) {
+                localStorage.setItem('layer', layer);
             }
+        },
+        created() {
+            this.baseLayers = {
+                "Mapbox": this.mapboxVector(),
+                "Hydda": this.hyddaLayer(),
+                "Mapnik": this.mapnikLayer(),
+                "Mapbox sat": this.mapboxSat(),
+                "ESRI sat": this.esriSat()
+            };
         },
         mounted() {
             let lat = this.$route.params.lat || localStorage.getItem('lat') || 57.82;
@@ -80,15 +93,8 @@
                 zoomControl: false
             }).setView([lat, lng], zoom);
 
-            let defLayer = this.mapboxVector().addTo(this.map);
-            this.baseLayers = {
-                "Mapbox": defLayer,
-                "Hydda": this.hyddaLayer(),
-                "Mapnik": this.mapnikLayer(),
-                "Mapbox sat": this.mapboxSat(),
-                "ESRI sat": this.esriSat(),
-                // "HERE sat": this.hereSat(),
-            };
+            let defLayer = localStorage.getItem('layer') || 'Mapbox';
+            this.baseLayers[defLayer].addTo(this.map);
 
             this.locateControl = L.control.locate({
                 showPopup: false
