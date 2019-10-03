@@ -209,6 +209,13 @@
                     let position = this.selectedLayer ? this.selectedLayer.getLatLng() : null;
                     if (position) {
                         this.updateNode(event.id, event.type, position, event.tags);
+
+                        this.$ga.event({
+                            eventCategory: 'map_interaction',
+                            eventAction: 'update_point',
+                            eventLabel: event.amenity,
+                            eventValue: 1
+                        });
                     }
                 }
                 else {
