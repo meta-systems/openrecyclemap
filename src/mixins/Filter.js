@@ -1,5 +1,16 @@
 export default class Filter {
     constructor() {
+        let stored = localStorage.getItem('filter');
+        if(stored) {
+            Object.assign(this, JSON.parse(stored));
+        }
+        else {
+            this.assignRecycling();
+            this.waste_disposal = false;
+            this.recycling = true;
+        }
+    }
+    assignRecycling() {
         this.plastic = false;
         this.paper = false;
         this.cans = false;
@@ -10,8 +21,16 @@ export default class Filter {
         this.batteries = false;
         this.low_energy_bulbs = false;
         this.plastic_bottles = false;
-        this.waste_disposal = false;
-        this.recycling = true;
+    }
+    invert(key) {
+        this[key] = !this[key];
+        if(this[key] && key !== 'waste_disposal' && key !== 'recycling') {
+            this.recycling = false;
+        }
+        if(this[key] && key === 'recycling') {
+            this.assignRecycling();
+        }
+        localStorage.setItem('filter', JSON.stringify(this));
     }
     enabled() {
         for (let key in this) {

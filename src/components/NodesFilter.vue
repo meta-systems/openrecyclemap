@@ -1,39 +1,39 @@
 <template>
     <div class="map_filters">
-        <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.plastic = !filter.plastic">
+        <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.invert('plastic')">
             <span>Пластик</span>
         </div>
-        <div :class="['map_filter ico_plastic', {filter_active: filter.plastic_bottles}]" @click="filter.plastic_bottles = !filter.plastic_bottles">
+        <div :class="['map_filter ico_plastic', {filter_active: filter.plastic_bottles}]" @click="filter.invert('plastic_bottles')">
             <span>ПЭТ бутылки</span>
         </div>
-        <div :class="['map_filter ico_glass_bottles', {filter_active: filter.glass_bottles}]" @click="filter.glass_bottles = !filter.glass_bottles">
+        <div :class="['map_filter ico_glass_bottles', {filter_active: filter.glass_bottles}]" @click="filter.invert('glass_bottles')">
             <span>Стеклянные бутылки</span>
         </div>
-        <div :class="['map_filter ico_glass', {filter_active: filter.glass}]" @click="filter.glass = !filter.glass">
+        <div :class="['map_filter ico_glass', {filter_active: filter.glass}]" @click="filter.invert('glass')">
             <span>Стекло</span>
         </div>
-        <div :class="['map_filter ico_paper', {filter_active: filter.paper}]" @click="filter.paper = !filter.paper">
+        <div :class="['map_filter ico_paper', {filter_active: filter.paper}]" @click="filter.invert('paper')">
             <span>Бумага</span>
         </div>
-        <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.cans = !filter.cans">
+        <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.invert('cans')">
             <span>Металл</span>
         </div>
-        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.plastic_bags = !filter.plastic_bags">
+        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.invert('plastic_bags')">
             <span>Пакеты</span>
         </div>
-        <div :class="['map_filter ico_clothes', {filter_active: filter.clothes}]" @click="filter.clothes = !filter.clothes">
+        <div :class="['map_filter ico_clothes', {filter_active: filter.clothes}]" @click="filter.invert('clothes')">
             <span>Одежда</span>
         </div>
-        <div :class="['map_filter ico_low_energy_bulbs', {filter_active: filter.low_energy_bulbs}]" @click="filter.low_energy_bulbs = !filter.low_energy_bulbs">
+        <div :class="['map_filter ico_low_energy_bulbs', {filter_active: filter.low_energy_bulbs}]" @click="filter.invert('low_energy_bulbs')">
             <span>Лампочки</span>
         </div>
-        <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
+        <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.invert('batteries')">
             <span>Батарейки</span>
         </div>
-        <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.recycling = !filter.recycling">
+        <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
             <span>Все раздельные</span>
         </div>
-        <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.waste_disposal = !filter.waste_disposal">
+        <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
             <span>Несортируемые</span>
         </div>
     </div>
