@@ -71,6 +71,8 @@
 
 <style>
     .node_info {
+        max-height: 100%;
+        overflow: auto;
         background:white;
         border-radius:15px;
         padding:20px;

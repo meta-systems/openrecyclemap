@@ -389,7 +389,7 @@
     }
 
     .btn {
-        padding:7px 15px;
+        padding:9px 15px;
         border-radius:4px;
         cursor:pointer;
         display:inline-block;
@@ -440,7 +440,7 @@
     }
     .add_mode_steps {
         bottom:0;
-        padding:10px 15px;
+        padding:15px 15px;
         display:flex;
         position: fixed;
         bottom:56px;
