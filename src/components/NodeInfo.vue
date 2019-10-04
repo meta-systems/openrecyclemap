@@ -5,14 +5,15 @@
         <div class="f_list">
             <span v-for="item in fractions" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
         </div>
-        <table>
-            <tr v-for="(item, key, index) in all_tags" ><td>{{ key }}</td><td>{{ item }}</td></tr>
+        <table v-if="info">
+            <tr v-for="(item, key) in all_tags" ><td>{{ key }}</td><td>{{ item }}</td></tr>
         </table>
 
         <div v-if="description" class="f_description">{{ description }}</div>
 
         <a target="_blank" class="p_link" :href="osmLink">Смотреть в OSM</a>
         <a target="_blank" class="p_link" :href="josmLink" title="Редактировать в JOSM">(J)</a>
+        <v-btn flat icon small color="secondary" @click="info = !info"><v-icon>info</v-icon></v-btn>
 
         <div class="edit_box">
             <span @click="goEdit" class="btn btn_gray">Редактировать</span>
@@ -33,7 +34,8 @@
                 description: null,
                 amenity: null,
                 centre: null,
-                name: null
+                name: null,
+                info: false
             }
         },
         computed: {
@@ -55,7 +57,7 @@
         created() {
             if (this.selected) {
                 let geoJsonProps = this.selected.props;
-                this.all_tags = geoJsonProps;
+                this.all_tags = Object.assign({}, geoJsonProps);
                 delete this.all_tags.id;
                 this.node_type = this.selected.node_type;
                 this.node_id = this.selected.node_id;

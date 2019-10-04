@@ -30,10 +30,7 @@
         <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
             <span>Батарейки</span>
         </div>
-        <div :class="['map_filter ico_notags', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
-            <span>Без тегов</span>
-        </div>
-        <div :class="['map_filter ico_all', {filter_active: filter.batteries}]" @click="filter.batteries = !filter.batteries">
+        <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.recycling = !filter.recycling">
             <span>Все раздельные</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.waste_disposal = !filter.waste_disposal">
