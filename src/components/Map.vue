@@ -168,7 +168,14 @@
             loadData: function (params) {
                 this.loading = true;
                 let to_select = (params && params.node) ? params.type+'/'+params.node : false;
-                this.fetchAmenity(this.map.getCenter(), (data) => this.displayData(data, this.filter, to_select));
+                this.fetchAmenity(this.map.getCenter(),
+                    (data) => this.displayData(data, this.filter, to_select),
+                    () => {
+                        this.snackbar_text = 'Сервер временно недоступен. Попробуйте обновить страницу или зайти позже.';
+                        this.snackbar = true;
+                        this.loading = false;
+                    }
+                );
             },
             showAllFilter: function () {
                 return {

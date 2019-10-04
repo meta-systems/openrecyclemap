@@ -51,7 +51,7 @@ export default {
             ];
             return query.nodeByTags(tags, bbox).body;
         },
-        fetchAmenity: function (center, callback) {
+        fetchAmenity: function (center, callback, errorCallback) {
             fetch(process.env.VUE_APP_OVERPASS_URL, {
                 method: 'POST',
                 body: this.buildQuery(center)
@@ -62,7 +62,8 @@ export default {
                     }
                     return response.json();
                 })
-                .then(callback);
+                .then(callback)
+                .catch(errorCallback);
         },
         fetchNode: function (params, callback) {
             let query = new OverpassQuery();
