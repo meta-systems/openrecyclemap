@@ -9,6 +9,7 @@ export default class OsmParser {
             'description',
             'recycling_type',
             'recycling:plastic',
+            'recycling:plastic_bottles',
             'recycling:paper',
             'recycling:cans',
             'recycling:glass',
