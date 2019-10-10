@@ -1,7 +1,7 @@
 <template>
     <div class="map_parent">
         <div class="orm_control orm_layers" @click="changeLayers"></div>
-        <div class="orm_control orm_position" @click="showPosition"></div> <!-- v-if="add_mode" -->
+        <div class="orm_control orm_position" @click="showPosition"></div>
         <div class="orm_control orm_zoom">
             <div class="zoom_btn" @click="zoomPlus">+</div>
             <div class="zoom_btn" @click="zoomMinus">−</div>
@@ -12,21 +12,8 @@
 
 <script>
     import layersMixin from '../mixins/Layers'
-    import 'leaflet/dist/leaflet.css'
-    import L from 'leaflet'
     import 'mapbox-gl/dist/mapbox-gl.css'
     import mapboxgl from 'mapbox-gl'
-    import 'mapbox-gl-leaflet'
-    //import 'font-awesome/css/font-awesome.min.css'
-    //import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
-    import 'leaflet.locatecontrol';
-
-    delete L.Icon.Default.prototype._getIconUrl;
-    L.Icon.Default.mergeOptions({
-        iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-        iconUrl: require('leaflet/dist/images/marker-icon.png'),
-        shadowUrl: require('leaflet/dist/images/marker-shadow.png')
-    });
 
     export default {
         name: "leaflet-map",
@@ -59,7 +46,7 @@
                 this.map.zoomIn();
             },
             zoomMinus: function () {
-                this.map.zoomOut();
+                this.map.zoomOut(); 
             },
             showPosition: function () {
                 // request location update and set location
@@ -73,14 +60,40 @@
             },
             saveLayer: function (layer) {
                 localStorage.setItem('layer', layer);
+            },
+            highlightedMarkerStyle: function () {
+                return {
+                    "id": "recycling-highlighted",
+                    "type": "circle",
+                    "source": "composite",
+                    "source-layer": "Recycling-russia",
+                    "paint": {
+                        "circle-radius": 10,
+                        "circle-color": "hsl(124, 54%, 31%)"
+                    },
+                    "filter": ["in", "id", ""]
+                };
+            },
+            mapLoad: function () {
+                this.$emit('map-init', this.map);
+
+                this.map.addLayer(this.highlightedMarkerStyle(), 'recycling-russia');
+
+                let component = this;
+                this.map.on('click', 'recycling-russia', function (e) {
+                    component.$emit('feature-click', e.features[0]);
+                    component.map.setFilter("recycling-highlighted", ["in", "id", e.features[0].properties.id]);
+                });
+                this.map.on('mouseenter', 'recycling-russia', function () {
+                    component.map.getCanvas().style.cursor = 'pointer';
+                });
+                this.map.on('mouseleave', 'recycling-russia', function () {
+                    component.map.getCanvas().style.cursor = '';
+                });
             }
         },
         created() {
             this.baseLayers = {
-                "Mapbox": this.mapboxVector(),
-                "Mapnik": this.mapnikLayer(),
-                "Mapbox sat": this.mapboxSat(),
-                "ESRI sat": this.esriSat()
             };
         },
         mounted() {
@@ -88,25 +101,16 @@
             let lng = this.$route.params.lon || localStorage.getItem('lng') || 37.61;
             let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
 
-            this.map = L.map('map_container', {
-                zoomControl: false
-            }).setView([lat, lng], zoom);
+            mapboxgl.accessToken = 'pk.eyJ1Ijoiem9qbCIsImEiOiJjazFqOWVreTMwOHp0M2NvY2k5NXlnOG5qIn0.nIWy30T5RHsCPSSETaTBVA';
 
-            let defLayer = localStorage.getItem('layer') || 'Mapbox';
-            this.baseLayers[defLayer].addTo(this.map);
+            this.map = new mapboxgl.Map({
+                container: 'map_container',
+                style: 'mapbox://styles/zojl/ck1jah7991kuz1cmk3k5irlzk',
+                zoom: zoom,
+                center: [lng, lat]
+            });
 
-            this.locateControl = L.control.locate({
-                showPopup: false
-            }).addTo(this.map);
-
-            this.map.on('click', (e) => this.$emit('map-click', e));
-            this.map.on('moveend', (e) => this.$emit('map-change', e));
-            this.map.on('zoomend', (e) => this.$emit('map-change', e));
-            this.map.on('locationfound', (e) => this.$emit('location-found', e));
-            this.map.on('moveend', this.savePosition);
-            this.map.on('zoomend', this.savePosition);
-
-            this.$emit('map-init', this.map);
+            this.map.on('load', this.mapLoad);
         }
     }
 </script>

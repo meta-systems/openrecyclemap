@@ -10,8 +10,8 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick"
-                     v-on:map-change="onMapChange" v-on:feature-click="onFeatureClick"></leaflet-map>
+        <mapbox-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick"
+                     v-on:map-change="onMapChange" v-on:feature-click="onFeatureClick"></mapbox-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
@@ -37,7 +37,7 @@
     import NodeInfo from './NodeInfo'
     import FractionsForm from './FractionsForm'
     import Filter from '../mixins/Filter'
-    import LeafletMap from './LeafletMap'
+    import MapboxMap from './MapboxMap'
     import L from 'leaflet'
     import 'leaflet.snogylop'
 
@@ -79,7 +79,7 @@
             NodesFilter,
             NodeInfo,
             FractionsForm,
-            LeafletMap
+            MapboxMap
         },
         mixins: [overpassMixin, oauthMixin],
         methods: {
@@ -298,7 +298,8 @@
                     if(data.elements.length > 0) {
                         let element = data.elements[0];
                         let node = element.type === 'way' ? element.center : element;
-                        component.map.setView([node.lat, node.lon], 17, {animate: false});
+                        component.map.setCenter([node.lon, node.lat]);
+                        component.map.setZoom(17);
                         component.loadData(params);
                     }
                 });
