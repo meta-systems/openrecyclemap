@@ -151,7 +151,7 @@
                 let geoJsonProps = feature.properties;
                 let sel_type = geoJsonProps.osm_type;
                 let sel_id = geoJsonProps.id;
-                //this.selectedLayer = layer;
+                this.selectedLayer = feature.layer;
                 this.selected = {
                     props: geoJsonProps,
                     fractions: this.parseFractions(geoJsonProps),
@@ -272,12 +272,10 @@
                 if(!this.selectedLayer) {
                     return;
                 }
-                this.selectedLayer.setStyle({
-                    weight: 1
-                });
                 this.selectedLayer = null;
                 this.selected = null;
                 this.selectedId = null;
+                this.map.setFilter("recycling-highlighted", ["in", "id", ""]);
                 this.$router.push({name: 'map'});
             },
             goNext: function () {
