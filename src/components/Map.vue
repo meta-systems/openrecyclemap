@@ -300,6 +300,7 @@
                         let node = element.type === 'way' ? element.center : element;
                         component.map.setCenter([node.lon, node.lat]);
                         component.map.setZoom(17);
+                        component.map.setFilter("recycling-highlighted", ["in", "id", parseInt(params.node)]);
                         component.loadData(params);
                     }
                 });
