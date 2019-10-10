@@ -97,6 +97,32 @@
                 center: [lng, lat]
             });
 
+            let component = this;
+            this.map.on('load', function () {
+                component.map.addLayer({
+                    "id": "recycling-highlighted",
+                    "type": "circle",
+                    "source": "composite",
+                    "source-layer": "Recycling-russia",
+                    "paint": {
+                        "circle-radius": 10,
+                        "circle-color": "hsl(124, 54%, 31%)"
+                    },
+                    "filter": ["in", "id", ""]
+                }, 'recycling-russia');
+
+                component.map.on('click', 'recycling-russia', function (e) {
+                    component.$emit('feature-click', e.features[0]);
+                    component.map.setFilter("recycling-highlighted", ["in", "id", e.features[0].properties.id]);
+                });
+                component.map.on('mouseenter', 'recycling-russia', function () {
+                    component.map.getCanvas().style.cursor = 'pointer';
+                });
+                component.map.on('mouseleave', 'recycling-russia', function () {
+                    component.map.getCanvas().style.cursor = '';
+                });
+            });
+
             /*
             let defLayer = localStorage.getItem('layer') || 'Mapbox';
             this.baseLayers[defLayer].addTo(this.map);

@@ -10,7 +10,8 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link>
-        <leaflet-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
+        <leaflet-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick"
+                     v-on:map-change="onMapChange" v-on:feature-click="onFeatureClick"></leaflet-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
@@ -132,29 +133,7 @@
                     onEachFeature: function (feature, layer) {
                         layer.on('click', function (ev) {
                             L.DomEvent.stopPropagation(ev);
-                            if(component.add_mode || component.edit_tags) {
-                                return;
-                            }
-                            if(component.selectedLayer) {
-                                component.selectedLayer.setStyle({
-                                    weight: 1
-                                });
-                            }
-                            let geoJsonProps = feature.properties;
-                            let sel_type = geoJsonProps.id.includes('way') ? 'way' : 'node';
-                            let sel_id = geoJsonProps.id.replace(sel_type+'/', '');
-                            component.selectedLayer = layer;
-                            component.selected = {
-                                props: geoJsonProps,
-                                fractions: component.parseFractions(geoJsonProps),
-                                node_id: sel_id,
-                                node_type: sel_type
-                            };
-                            component.selectedId = sel_id;
-                            layer.setStyle({
-                                weight: 5
-                            });
-                            component.$router.push({name: 'node', params: {node: sel_id, type: sel_type}});
+                            //...
                         });
                         if(feature.properties.id === to_select) {
                             layer.fire('click');
@@ -164,6 +143,23 @@
                         return new L.CircleMarker(latlng);
                     }
                 }).addTo(map);
+            },
+            onFeatureClick: function (feature) {
+                if(this.add_mode || this.edit_tags) {
+                    return;
+                }
+                let geoJsonProps = feature.properties;
+                let sel_type = geoJsonProps.osm_type;
+                let sel_id = geoJsonProps.id;
+                //this.selectedLayer = layer;
+                this.selected = {
+                    props: geoJsonProps,
+                    fractions: this.parseFractions(geoJsonProps),
+                    node_id: sel_id,
+                    node_type: sel_type
+                };
+                this.selectedId = sel_id;
+                this.$router.push({name: 'node', params: {node: sel_id, type: sel_type}});
             },
             loadData: function (params) {
                 /*
