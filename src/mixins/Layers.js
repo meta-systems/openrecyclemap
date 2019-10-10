@@ -6,6 +6,12 @@ export default {
                 style: 'mapbox://styles/mapbox/bright-v8'
             });
         },
+        mapboxRecycling: function () {
+            return L.mapboxGL({
+                accessToken: 'pk.eyJ1Ijoiem9qbCIsImEiOiJjazFqOWVreTMwOHp0M2NvY2k5NXlnOG5qIn0.nIWy30T5RHsCPSSETaTBVA',
+                style: 'mapbox://styles/zojl/ck1j96uck09qe1cqmkj4r5l4v'
+            });
+        },
         brightVector: function () {
             return L.mapboxGL({
                 accessToken: process.env.VUE_APP_MAPBOX_TOKEN,

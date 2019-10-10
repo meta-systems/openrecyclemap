@@ -88,23 +88,32 @@
             let lng = this.$route.params.lon || localStorage.getItem('lng') || 37.61;
             let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
 
-            this.map = L.map('map_container', {
-                zoomControl: false
-            }).setView([lat, lng], zoom);
+            mapboxgl.accessToken = 'pk.eyJ1Ijoiem9qbCIsImEiOiJjazFqOWVreTMwOHp0M2NvY2k5NXlnOG5qIn0.nIWy30T5RHsCPSSETaTBVA';
 
+            this.map = new mapboxgl.Map({
+                container: 'map_container',
+                style: 'mapbox://styles/zojl/ck1jah7991kuz1cmk3k5irlzk',
+                zoom: zoom,
+                center: [lng, lat]
+            });
+
+            /*
             let defLayer = localStorage.getItem('layer') || 'Mapbox';
             this.baseLayers[defLayer].addTo(this.map);
 
             this.locateControl = L.control.locate({
                 showPopup: false
             }).addTo(this.map);
+            */
 
+            /*
             this.map.on('click', (e) => this.$emit('map-click', e));
             this.map.on('moveend', (e) => this.$emit('map-change', e));
             this.map.on('zoomend', (e) => this.$emit('map-change', e));
             this.map.on('locationfound', (e) => this.$emit('location-found', e));
             this.map.on('moveend', this.savePosition);
             this.map.on('zoomend', this.savePosition);
+            */
 
             this.$emit('map-init', this.map);
         }

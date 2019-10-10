@@ -166,6 +166,7 @@
                 }).addTo(map);
             },
             loadData: function (params) {
+                /*
                 this.loading = true;
                 let to_select = (params && params.node) ? params.type+'/'+params.node : false;
                 this.fetchAmenity(this.map.getCenter(),
@@ -176,6 +177,7 @@
                         this.loading = false;
                     }
                 );
+                */
             },
             showAllFilter: function () {
                 return {
