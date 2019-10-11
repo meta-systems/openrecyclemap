@@ -93,9 +93,13 @@
                         component.map.setFilter("recycling-highlighted", ["in", "id", features[0].properties.id]);
                     }
                     else {
-                        component.map.setFilter("recycling-highlighted", ["in", "id", ""]);
+                        component.$emit('map-click');
                     }
                 });
+                this.map.on('moveend', (e) => this.$emit('map-change', e));
+                this.map.on('zoomend', (e) => this.$emit('map-change', e));
+                this.map.on('moveend', this.savePosition);
+                this.map.on('zoomend', this.savePosition);
             }
         },
         created() {

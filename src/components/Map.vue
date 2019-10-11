@@ -10,8 +10,8 @@
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
         <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link>
-        <mapbox-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick"
-                     v-on:map-change="onMapChange" v-on:feature-click="onFeatureClick"></mapbox-map>
+        <mapbox-map v-on:map-init="initMap" v-on:location-found="pushPosition" v-on:map-click="onMapClick"
+                     v-on:map-change="pushPosition" v-on:feature-click="onFeatureClick"></mapbox-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
@@ -241,7 +241,7 @@
                     return;
                 }
                 let position = this.map.getCenter();
-                let zoom = this.map.getZoom();
+                let zoom = this.map.getZoom().toFixed(5);
                 let lat = position.lat.toFixed(5);
                 let lon = position.lng.toFixed(5);
                 if(this.$route.params.lat !== lat || this.$route.params.lon !== lon || this.$route.params.zoom != zoom) {
@@ -251,21 +251,6 @@
             onMapClick: function () {
                 if(!this.edit_tags) {
                     this.deselectLayer();
-                }
-            },
-            onMapChange: function () {
-                this.pushPosition();
-                if(!this.bounds) {
-                    return;
-                }
-                let zoomInvalid = this.map.getZoom() < 13;
-                let fit = this.bounds.contains(this.map.getCenter());
-                this.zoomMessage = zoomInvalid && !fit;
-                if(zoomInvalid) {
-                    return;
-                }
-                if(!fit) {
-                    this.loadData();
                 }
             },
             deselectLayer: function () {
