@@ -80,15 +80,21 @@
                 this.map.addLayer(this.highlightedMarkerStyle(), 'recycling-russia');
 
                 let component = this;
-                this.map.on('click', 'recycling-russia', function (e) {
-                    component.$emit('feature-click', e.features[0]);
-                    component.map.setFilter("recycling-highlighted", ["in", "id", e.features[0].properties.id]);
-                });
                 this.map.on('mouseenter', 'recycling-russia', function () {
                     component.map.getCanvas().style.cursor = 'pointer';
                 });
                 this.map.on('mouseleave', 'recycling-russia', function () {
                     component.map.getCanvas().style.cursor = '';
+                });
+                this.map.on('click', function (e) {
+                    let features = component.map.queryRenderedFeatures(e.point);
+                    if(features.length > 0 && features[0].layer.id === 'recycling-russia') {
+                        component.$emit('feature-click', features[0]);
+                        component.map.setFilter("recycling-highlighted", ["in", "id", features[0].properties.id]);
+                    }
+                    else {
+                        component.map.setFilter("recycling-highlighted", ["in", "id", ""]);
+                    }
                 });
             }
         },
