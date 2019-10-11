@@ -28,6 +28,13 @@ export default class OsmParser {
         let nodeEl = this.doc.documentElement.firstElementChild;
         return nodeEl.getAttribute('version');
     }
+    get latlon() {
+        let nodeEl = this.doc.documentElement.firstElementChild;
+        return {
+            lat: nodeEl.getAttribute('lat'),
+            lng: nodeEl.getAttribute('lon')
+        };
+    }
     get refs() {
         let refs = [];
         this.doc.querySelectorAll('nd').forEach((nd) => refs.push(nd.getAttribute('ref')));

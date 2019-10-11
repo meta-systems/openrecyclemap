@@ -90,11 +90,12 @@ export default {
                     }, component.onNodeCreateResponse);
                 });
         },
-        updateNode: function (node_id, node_type, latlon, tags) {
+        updateNode: function (node_id, node_type, tags) {
             let component = this;
-            let nodeObj = new OsmBuilder(node_type, latlon);
+            let nodeObj;
             this.readNode(node_id, node_type)
                 .then(function(node) {
+                    nodeObj = new OsmBuilder(node_type, node.latlon);
                     nodeObj.setExisting(node_id, node.version);
                     nodeObj.setRefs(node.refs);
                     nodeObj.setTags(tags);
@@ -126,7 +127,8 @@ export default {
                     resolve({
                         version: nodeParser.version,
                         tags: nodeParser.tags,
-                        refs: nodeParser.refs
+                        refs: nodeParser.refs,
+                        latlon: nodeParser.latlon
                     });
                 });
             });

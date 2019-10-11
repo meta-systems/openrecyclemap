@@ -49,7 +49,7 @@
                 add_mode: false,
                 map: null,
                 zoomMessage: false,
-                selectedLayer: null,
+                selectedLayer: false,
                 selectedId: null,
                 selected: null,
                 rectangle: null,
@@ -151,7 +151,7 @@
                 let geoJsonProps = feature.properties;
                 let sel_type = geoJsonProps.osm_type;
                 let sel_id = geoJsonProps.id;
-                this.selectedLayer = feature.layer;
+                this.selectedLayer = true;
                 this.selected = {
                     props: geoJsonProps,
                     fractions: this.parseFractions(geoJsonProps),
@@ -211,17 +211,14 @@
                     this.snackbar = true;
                 };
                 if(event.id) {
-                    let position = this.selectedLayer ? this.selectedLayer.getLatLng() : null;
-                    if (position) {
-                        this.updateNode(event.id, event.type, position, event.tags);
+                    this.updateNode(event.id, event.type, event.tags);
 
-                        this.$ga.event({
-                            eventCategory: 'map_interaction',
-                            eventAction: 'update_point',
-                            eventLabel: event.amenity,
-                            eventValue: 1
-                        });
-                    }
+                    this.$ga.event({
+                        eventCategory: 'map_interaction',
+                        eventAction: 'update_point',
+                        eventLabel: event.amenity,
+                        eventValue: 1
+                    });
                 }
                 else {
                     if (nposition) {
@@ -257,7 +254,7 @@
                 if(!this.selectedLayer) {
                     return;
                 }
-                this.selectedLayer = null;
+                this.selectedLayer = false;
                 this.selected = null;
                 this.selectedId = null;
                 this.map.setFilter("recycling-highlighted", ["in", "id", ""]);
