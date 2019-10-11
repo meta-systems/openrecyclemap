@@ -88,9 +88,6 @@
                 if(this.$route.name === 'node') {
                     this.loadNode(this.$route.params);
                 }
-                else {
-                    this.loadData();
-                }
             },
             displayData: function (data, filter, to_select) {
                 if(!data) {
@@ -280,10 +277,18 @@
                     if(data.elements.length > 0) {
                         let element = data.elements[0];
                         let node = element.type === 'way' ? element.center : element;
+                        component.selectedLayer = true;
+                        component.selected = {
+                            props: element.tags,
+                            fractions: component.parseFractions(element.tags),
+                            node_id: element.id,
+                            node_type: element.type
+                        };
+                        component.selectedId = element.id;
+
                         component.map.setCenter([node.lon, node.lat]);
                         component.map.setZoom(17);
                         component.map.setFilter("recycling-highlighted", ["in", "id", parseInt(params.node)]);
-                        component.loadData(params);
                     }
                 });
             },
