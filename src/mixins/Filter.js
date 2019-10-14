@@ -57,4 +57,26 @@ export default class Filter {
         }
         return false;
     }
+    /**
+     * @see https://docs.mapbox.com/mapbox-gl-js/style-spec/#other-filter
+     * @returns {*[]}
+     */
+    toMapboxSpec() {
+        let conditions = ["any"];
+        for (let key in this) {
+            if(this.hasOwnProperty(key) && this[key]) {
+                if(key === 'recycling') {
+                    conditions.push(["==", "amenity", "recycling"]);
+                    continue;
+                }
+                if(key === 'waste_disposal') {
+                    conditions.push(["==", "amenity", "waste_disposal"]);
+                }
+                else {
+                    conditions.push(["==", "recycling:"+key, "yes"]);
+                }
+            }
+        }
+        return conditions.length > 1 ? conditions : true;
+    }
 }
