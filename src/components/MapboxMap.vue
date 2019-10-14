@@ -26,12 +26,13 @@
         },
         methods: {
             changeLayers: function () {
-                let current = this.map.getStyle();
-                if(current.name === 'Recycling Light') {
-                    this.map.setStyle('mapbox://styles/mapbox/satellite-v9');
+                let sat_layer = 'mapbox-satellite';
+                let visibility = this.map.getLayoutProperty(sat_layer, 'visibility');
+                if(visibility === 'visible') {
+                    this.map.setLayoutProperty(sat_layer, 'visibility', 'none');
                 }
                 else {
-                    this.map.setStyle('mapbox://styles/zojl/ck1jah7991kuz1cmk3k5irlzk');
+                    this.map.setLayoutProperty(sat_layer, 'visibility', 'visible');
                 }
             },
             zoomPlus: function () {
