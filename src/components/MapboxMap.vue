@@ -21,26 +21,18 @@
         data: function () {
             return {
                 map: null,
-                baseLayers: [],
                 locateControl: null
             };
         },
         methods: {
             changeLayers: function () {
-                let nextkey = Object.keys(this.baseLayers)[0];
-                let removed = false;
-                for (let key in this.baseLayers) {
-                    if(removed) {
-                        nextkey = key;
-                        break;
-                    }
-                    if(this.map.hasLayer(this.baseLayers[key])) {
-                        this.map.removeLayer(this.baseLayers[key]);
-                        removed = true;
-                    }
+                let current = this.map.getStyle();
+                if(current.name === 'Recycling Light') {
+                    this.map.setStyle('mapbox://styles/mapbox/satellite-v9');
                 }
-                this.map.addLayer(this.baseLayers[nextkey]);
-                this.saveLayer(nextkey);
+                else {
+                    this.map.setStyle('mapbox://styles/zojl/ck1jah7991kuz1cmk3k5irlzk');
+                }
             },
             zoomPlus: function () {
                 this.map.zoomIn();
@@ -109,10 +101,6 @@
                 this.map.on('moveend', this.savePosition);
                 this.map.on('zoomend', this.savePosition);
             }
-        },
-        created() {
-            this.baseLayers = {
-            };
         },
         mounted() {
             let lat = this.$route.params.lat || localStorage.getItem('lat') || 55.75;
