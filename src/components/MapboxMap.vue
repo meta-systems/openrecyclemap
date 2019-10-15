@@ -61,8 +61,9 @@
                     "source": "composite",
                     "source-layer": "Recycling-russia",
                     "paint": {
-                        "circle-radius": 10,
-                        "circle-color": "hsl(124, 54%, 31%)"
+                        "circle-color": "hsl(0, 0%, 100%)",
+                        "circle-radius": 14,
+                        "circle-stroke-width": 0
                     },
                     "filter": ["in", "id", ""]
                 };
