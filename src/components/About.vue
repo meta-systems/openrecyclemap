@@ -16,6 +16,8 @@
 
         <h2>Тэги в OSM</h2>
      <p>Работа над названиями фракций и их тегами ведется в этом <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">гугл документе</a>. Пока что реализованы самые базовые теги, но со временем список поддерживаемых тегов будет расширяться.</p>
+     <p>Work on the names of fractions and their tags is carried out in this <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">Google doc</a>. So far, the most basic tags have been implemented, but over time, the list of supported tags will expand.
+     </p>
 
         <div class="dev_box">
             Разработано в <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
