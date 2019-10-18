@@ -20,6 +20,7 @@ export default class OsmParser {
             'recycling:clothes',
             'recycling:batteries',
             'recycling:low_energy_bulbs',
+            'recycling:scrap_metal',
         ];
     }
     get osm_type() {

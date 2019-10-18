@@ -71,7 +71,8 @@
                     clothes: 'Одежда',
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',
-                    waste_disposal: 'Несортированный мусор'
+                    waste_disposal: 'Несортированный мусор',
+                    scrap_metal: 'Металлолом'
                 },
                 lastData: null
             };
@@ -466,7 +467,7 @@
     }
     @media screen and (max-width: 320px) {
         .add_mode_message {
-            font-size:4vw;   
+            font-size:4vw;
         }
     }
 

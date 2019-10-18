@@ -7,12 +7,12 @@
             <router-link class="box_item ico_account" to="/login">Аккаунт</router-link>
             <router-link class="box_item ico_add" to="/map/add">Добавить</router-link>
             <router-link class="box_item ico_map" to="/map">Карта</router-link>
-            
+
         </div>
 
 
      <h2>Данные</h2>
-         <p>Данные для этой карты берутся из <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> - проекта свободной карты, составляемый тысячами добровольцев со всего мира.</p>
+         <p>Данные для этой карты берутся из <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> - проекта свободной карты, составляемый тысячами добровольцев со всего мира..                                   .</p>
 
         <h2>Тэги в OSM</h2>
      <p>Работа над названиями фракций и их тегами ведется в этом <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">гугл документе</a>. Пока что реализованы самые базовые теги, но со временем список поддерживаемых тегов будет расширяться.</p>
@@ -22,7 +22,7 @@
         </div>
 
     </div>
-    
+
 
 </template>
 

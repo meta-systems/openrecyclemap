@@ -25,10 +25,10 @@
         <div class="tags_box" v-if="!waste_disposal">
             <div class="node_tags">
                 <div class="box_title">Выбрано</div>
-                <span 
-                    v-for="(value, key) in recycling" 
+                <span
+                    v-for="(value, key) in recycling"
                     v-if="value"
-                    :class="['p_fraction', 'ico_'+key]" 
+                    :class="['p_fraction', 'ico_'+key]"
                     @click="recycling[key] = !recycling[key]"
                 >{{ labels[key] }}</span>
 
@@ -75,6 +75,7 @@
                     low_energy_bulbs: false,
                     plastic_bottles: false,
                     hazardous_waste: false,
+                    scrap_metal: false,
                     engine_oil: false
                 }
             }
@@ -174,7 +175,7 @@
     }
     .tags_window {
         right:auto;
-        width:400px; 
+        width:400px;
         position:absolute;
         top:0;
         left:0;
@@ -192,11 +193,11 @@
 
 
     @media screen and (max-width: 500px) {
-      
+
         .tags_window {
             width:auto;
             right:0;
-        }  
+        }
     }
     .node_tags .p_fraction:hover {
         background:#ffc0cb63 !important;
