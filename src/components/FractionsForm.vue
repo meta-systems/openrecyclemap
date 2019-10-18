@@ -73,7 +73,8 @@
                     clothes: false,
                     batteries: false,
                     low_energy_bulbs: false,
-                    plastic_bottles: false
+                    plastic_bottles: false,
+                    hazardous_waste: false
                 }
             }
         },

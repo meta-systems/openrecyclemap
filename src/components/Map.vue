@@ -66,6 +66,7 @@
                     glass_bottles: 'Стеклянные бутылки',
                     batteries: 'Батарейки',
                     plastic_bottles: 'Пластиковые бутылки',
+                    hazardous_waste: 'Опасные отходы',
                     clothes: 'Одежда',
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',

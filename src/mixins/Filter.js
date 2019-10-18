@@ -21,6 +21,7 @@ export default class Filter {
         this.batteries = false;
         this.low_energy_bulbs = false;
         this.plastic_bottles = false;
+        this.hazardous_waste = false;
     }
     invert(key) {
         this[key] = !this[key];
