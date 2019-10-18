@@ -67,6 +67,7 @@
                     batteries: 'Батарейки',
                     plastic_bottles: 'Пластиковые бутылки',
                     hazardous_waste: 'Опасные отходы',
+                    engine_oil: 'Машинное масло',
                     clothes: 'Одежда',
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',
