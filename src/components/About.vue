@@ -2,7 +2,7 @@
     <div class="about-container">
         <router-link class="orm_logo" aria-label="Map" to="/map"></router-link>
         <p><b>OpenRecycleMap</b> - приложение для просмотра и добавления информации о пунктах приема отходов,
-            которые будут отправлены на переработку.</p>
+            которые будут отправлены на переработку. Я добавил изменения в код.</p>
         <div class="main_box">
             <router-link class="box_item ico_account" to="/login">Аккаунт</router-link>
             <router-link class="box_item ico_add" to="/map/add">Добавить</router-link>

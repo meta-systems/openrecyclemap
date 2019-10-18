@@ -75,7 +75,8 @@
                     low_energy_bulbs: false,
                     plastic_bottles: false,
                     hazardous_waste: false,
-                    scrap_metal: false
+                    scrap_metal: false,
+                    engine_oil: false
                 }
             }
         },
