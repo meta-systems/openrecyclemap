@@ -74,7 +74,8 @@
                     batteries: false,
                     low_energy_bulbs: false,
                     plastic_bottles: false,
-                    hazardous_waste: false
+                    hazardous_waste: false,
+                    tyres: false
                 }
             }
         },

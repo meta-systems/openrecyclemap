@@ -70,7 +70,8 @@
                     clothes: 'Одежда',
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',
-                    waste_disposal: 'Несортированный мусор'
+                    waste_disposal: 'Несортированный мусор',
+                    tyres: 'Покрышки'
                 },
                 lastData: null
             };
