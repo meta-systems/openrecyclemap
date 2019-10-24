@@ -72,7 +72,8 @@
                     low_energy_bulbs: 'Лампочки',
                     plastic_bags: 'Пакеты',
                     waste_disposal: 'Несортированный мусор',
-                    scrap_metal: 'Металлолом'
+                    scrap_metal: 'Металлолом',
+                    car_batteries: 'Автомобильные аккумуляторы'
                 },
                 lastData: null
             };

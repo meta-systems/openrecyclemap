@@ -29,6 +29,7 @@
         </div>
         <div :class="['map_filter ico_scrap_metal', {filter_active: filter.scrap_metal}]" @click="filter.invert('scrap_metal')">
             <span>Металлолом</span>
+        </div>
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
             <span>Машинное масло</span>
         </div>
@@ -44,6 +45,11 @@
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
             <span>Несортируемые</span>
         </div>
+
+        <div :class="['map_filter ico_car_batteries', {filter_active: filter.car_batteries}]" @click="filter.invert('car_batteries')">
+            <span>Автомобильные аккумуляторы</span>
+        </div>
+
     </div>
 </template>
 
@@ -194,6 +200,10 @@
     .p_fraction.ico_waste_disposal:before,
     .ico_waste_disposal {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M28.47 12.3h-.34v-.7c0-.6-.5-1.09-1.1-1.09h-4.02l-.49-1.72A1.1 1.1 0 0 0 21.47 8h-3.94c-.49 0-.92.33-1.05.8l-.5 1.71h-4.02c-.6 0-1.09.5-1.09 1.1v.7h-.34a.37.37 0 1 0 0 .74h.73l1.3 16.29c.08.93.87 1.66 1.8 1.66h10.28c.93 0 1.72-.73 1.8-1.66l1.3-16.29h.73a.37.37 0 0 0 0-.74zM17.2 9a.35.35 0 0 1 .33-.25h3.94c.15 0 .3.1.33.25l.44 1.51h-5.48L17.2 9zm-5.24 2.26h15.07c.2 0 .35.15.35.34v.7H11.62v-.7c0-.19.15-.34.34-.34zM25.7 29.28c-.05.55-.51.97-1.06.97H14.36c-.55 0-1.01-.42-1.06-.97L12 13.05h15l-1.3 16.23z' fill='%23000'/%3E%3Cpath d='M19.5 29.2c.2 0 .37-.16.37-.37v-14a.37.37 0 0 0-.74 0v14c0 .2.16.38.37.38zM15.9 28.85a.37.37 0 0 0 .74-.04l-.72-14a.37.37 0 1 0-.74.04l.72 14zM22.71 29.2h.02c.2 0 .36-.15.37-.35l.72-14a.37.37 0 0 0-.74-.04l-.72 14c-.01.2.15.38.35.4z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .p_fraction.ico_car_batteries:before,
+    .ico_car_batteries {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg height='40' viewBox='0 0 64 64' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 58h46a1 1 0 001-1V29a1 1 0 00-1-1H9a1 1 0 00-1 1v28a1 1 0 001 1zm1-28h44v26H10z'/%3E%3Cpath d='M61 20h-1v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1h-4a1 1 0 00-1 1v3a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1H15a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1H6a1 1 0 00-1 1v3a1 1 0 00-1 1v5H3a1 1 0 00-1 1v4a1 1 0 001 1h1v35a1 1 0 001 1h54a1 1 0 001-1V26h1a1 1 0 001-1v-4a1 1 0 00-1-1zm-6-8h2v2h-2zm-1 4h4v4h-4zm-6 4h-3v-4h3zm-27 0v-4h4v4zm6-4h4v4h-4zm6 0h4v4h-4zm6 0h4v4h-4zm-23 0h3v4h-3zm-9-4h2v2H7zm-1 4h4v4H6zm52 44H6V26h52zm2-36H4v-2h56zM7 8h2V6h2V4H9V2H7v2H5v2h2zM53 4h6v2h-6z'/%3E%3Cpath d='M39.88 34.53A1 1 0 0039 34h-7a1 1 0 00-.87.51l-5 9A1 1 0 0027 45h3.61l-2.56 7.68a1 1 0 001.72.96l10-12A1 1 0 0039 40h-2.13l2.96-4.45a1 1 0 00.05-1.02zm-5.71 5.91A1 1 0 0035 42h1.86l-5.23 6.29 1.32-3.97A1 1 0 0032 43h-3.3l3.89-7h4.54z'/%3E%3C/svg%3E");
     }
 
 
