@@ -11,9 +11,9 @@
 </template>
 
 <script>
-    import layersMixin from '../mixins/Layers'
     import 'leaflet/dist/leaflet.css'
     import L from 'leaflet'
+    import layersMixin from '../mixins/Layers'
     import 'mapbox-gl/dist/mapbox-gl.css'
     import mapboxgl from 'mapbox-gl'
     import 'mapbox-gl-leaflet'
