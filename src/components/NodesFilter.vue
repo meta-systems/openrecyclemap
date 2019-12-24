@@ -29,6 +29,7 @@
         </div>
         <div :class="['map_filter ico_scrap_metal', {filter_active: filter.scrap_metal}]" @click="filter.invert('scrap_metal')">
             <span>Металлолом</span>
+        </div>
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
             <span>Машинное масло</span>
         </div>
