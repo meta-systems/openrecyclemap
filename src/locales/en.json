@@ -1,0 +1,33 @@
+{
+  "message": {
+    "zoomIn": "Zoom in to load the data",
+    "username": "You are logged in as",
+    "selectType": "Select a type",
+    "wasteDisposal": "Waste disposal",
+    "recyclingContainer": "Recycling container",
+    "recyclingOrganization": "Recycling organization",
+    "organizationName": "Organization name",
+    "description": "Description",
+    "selected": "Selected",
+    "available": "Available",
+    "selectFractions": "Select recycling fractions",
+    "devBy": "Developed by"
+  },
+  "fraction": {
+    "plastic": "Plastic"
+  },
+  "menu": {
+    "map": "Map",
+    "user": "User",
+    "about": "About",
+    "add": "Add"
+  },
+  "button": {
+    "toMap": "Go to the map",
+    "logout": "Logout",
+    "login": "Login with OSM",
+    "next": "Next",
+    "cancel": "Cancel",
+    "save": "Save"
+  }
+}

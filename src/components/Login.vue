@@ -1,16 +1,16 @@
 <template>
     <div class="login-container">
         <div v-if="authenticated">
-            <p>Вы авторизованы как <b>{{ username }}</b>.</p>
-            <v-btn @click="toMap" color="primary">Перейти к карте</v-btn>
+            <p>{{ $t('message.username') }} <b>{{ username }}</b>.</p>
+            <v-btn @click="toMap" color="primary">{{ $t('button.toMap') }}</v-btn>
         </div>
         <div v-if="authenticated === false">
             <p>Для того, чтобы вносить информацию о пунктах приема отходов, вам необходимо войти через аккаунт <b>OpenStreetMap</b>.</p>
             <p>OpenStreetMap - это глобальный проект по созданию открытой карты.</p>
             <p>Если у вас ещё нет аккаунта, вы можете зарегистрироваться. Это совсем просто. Перейдите по ссылке ниже.</p>
         </div>
-        <v-btn @click="logout" color="primary" v-if="authenticated" flat>Выход</v-btn>
-        <v-btn @click="authenticate" color="primary" v-if="!authenticated">Войти через OSM</v-btn>
+        <v-btn @click="logout" color="primary" v-if="authenticated" flat>{{ $t('button.logout') }}</v-btn>
+        <v-btn @click="authenticate" color="primary" v-if="!authenticated">{{ $t('button.login') }}</v-btn>
     </div>
 </template>
 

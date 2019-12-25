@@ -1,7 +1,7 @@
 <template>
     <div class="map_filters">
         <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.invert('plastic')">
-            <span>Пластик</span>
+            <span>{{ $t('fraction.plastic') }}</span>
         </div>
         <div :class="['map_filter ico_plastic_bottles', {filter_active: filter.plastic_bottles}]" @click="filter.invert('plastic_bottles')">
             <span>ПЭТ бутылки</span>

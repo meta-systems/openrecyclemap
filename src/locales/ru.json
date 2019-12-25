@@ -1,0 +1,33 @@
+{
+  "message": {
+    "zoomIn": "Для загрузки данных приблизьте карту",
+    "username": "Вы авторизованы как",
+    "selectType": "Укажите тип",
+    "wasteDisposal": "Несортированный мусор",
+    "recyclingContainer": "Раздельный сбор",
+    "recyclingOrganization": "Организация",
+    "organizationName": "Название организации",
+    "description": "Описание",
+    "selected": "Выбрано",
+    "available": "Доступно",
+    "selectFractions": "Выберите типы принимаемых отходов",
+    "devBy": "Разработано в"
+  },
+  "fraction": {
+    "plastic": "Пластик"
+  },
+  "menu": {
+    "map": "Карта",
+    "user": "Пользователь",
+    "about": "О проекте",
+    "add": "Добавить"
+  },
+  "button": {
+    "toMap": "Перейти к карте",
+    "logout": "Выход",
+    "login": "Войти через OSM",
+    "next": "Далее",
+    "cancel": "Отмена",
+    "save": "Сохранить"
+  }
+}

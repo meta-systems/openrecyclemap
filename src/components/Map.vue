@@ -3,8 +3,8 @@
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
         <div class="add_mode_message" v-if="set_coord_mode"><div>Режим добавления новой точки.</div> Потяните карту чтобы выбрать правильное расположение точки</div>
         <div class="add_mode_steps" v-if="add_mode">
-            <div class="btn btn_gray" @click="disableAddMode">Отмена</div>
-            <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
+            <div class="btn btn_gray" @click="disableAddMode">{{ $t('button.cancel') }}</div>
+            <div class="btn btn_green btn_add_next" @click="goNext">{{ $t('button.next') }}</div>
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
@@ -23,7 +23,7 @@
             <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
         </v-snackbar>
         <v-snackbar v-model="zoomMessage" :timeout="0" top>
-            Для загрузки данных приблизьте карту
+            {{ $t('message.zoomIn') }}
         </v-snackbar>
     </div>
 </template>
@@ -59,7 +59,7 @@
                 layer: null,
                 filter: new Filter(),
                 labels: {
-                    plastic: 'Пластик',
+                    plastic: this.$t('fraction.plastic'),
                     paper: 'Бумага',
                     cans: 'Металл',
                     glass: 'Стекло',

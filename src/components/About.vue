@@ -4,9 +4,9 @@
         <p><b>OpenRecycleMap</b> - приложение для просмотра и добавления информации о пунктах приема отходов,
             которые будут отправлены на переработку. Я добавил изменения в код.</p>
         <div class="main_box">
-            <router-link class="box_item ico_account" to="/login">Аккаунт</router-link>
-            <router-link class="box_item ico_add" to="/map/add">Добавить</router-link>
-            <router-link class="box_item ico_map" to="/map">Карта</router-link>
+            <router-link class="box_item ico_account" to="/login">{{ $t('menu.user') }}</router-link>
+            <router-link class="box_item ico_add" to="/map/add">{{ $t('menu.add') }}</router-link>
+            <router-link class="box_item ico_map" to="/map">{{ $t('menu.map') }}</router-link>
 
         </div>
 
@@ -15,10 +15,10 @@
          <p>Данные для этой карты берутся из <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a> - проекта свободной карты, составляемый тысячами добровольцев со всего мира..                                   .</p>
 
         <h2>Тэги в OSM</h2>
-     <p>Работа над названиями фракций и их тегами ведется в этом <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">гугл документе</a>. Пока что реализованы самые базовые теги, но со временем список поддерживаемых тегов будет расширяться.</p>
+        <p>Работа над названиями фракций и их тегами ведется в этом <a rel="noopener" href="https://docs.google.com/document/d/1Ma4ku0M1T7Y-CYaA-d2-IDL-iJ1uGgOH5HlW3vfLWXQ/edit?usp=sharing" target="_blank">гугл документе</a>. Пока что реализованы самые базовые теги, но со временем список поддерживаемых тегов будет расширяться.</p>
 
         <div class="dev_box">
-            Разработано в <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
+            {{ $t('message.devBy') }} <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
         </div>
 
     </div>

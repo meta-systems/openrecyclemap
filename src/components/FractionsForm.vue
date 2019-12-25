@@ -1,30 +1,21 @@
 <template>
     <div class="tags_window">
         <div class="node_type">
-            <div class="box_title">Укажите тип</div>
+            <div class="box_title">{{ $t('message.selectType') }}</div>
             <div class="node_type_choice">
-                <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >Несортированный мусор</div>
-                <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >Раздельный сбор</div>
-                <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >Организация</div>
+                <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >{{ $t('message.wasteDisposal') }}</div>
+                <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >{{ $t('message.recyclingContainer') }}</div>
+                <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >{{ $t('message.recyclingOrganization') }}</div>
             </div>
         </div>
 
-        <!--
-        <div class="org_type_box" v-if="type_btn === 'org'">
-            <div class="box_title">Тип организации</div>
-            <div class="node_type_choice">
-                <div @click="org_type = 'uk'" :class="['type_btn type_org org_uk', { type_active: org_type === 'uk' }]" >Управляющая компания</div>
-                <div @click="org_type = 'eco'" :class="['type_btn type_org org_eco', {type_active: org_type === 'eco'}]" >Экологическая организация</div>
-            </div>
-        </div>
-        -->
         <div class="name_box" v-if="type_btn === 'org'">
-            <div class="box_title">Название организации</div>
-            <v-text-field label="Название" solo v-model="name"></v-text-field>
+            <div class="box_title">{{ $t('message.organizationName') }}</div>
+            <v-text-field :label="$t('message.organizationName')" solo v-model="name"></v-text-field>
         </div>
         <div class="tags_box" v-if="!waste_disposal">
             <div class="node_tags">
-                <div class="box_title">Выбрано</div>
+                <div class="box_title">{{ $t('message.selected') }}</div>
                 <span
                     v-for="(value, key) in recycling"
                     v-if="value"
@@ -32,21 +23,21 @@
                     @click="recycling[key] = !recycling[key]"
                 >{{ labels[key] }}</span>
 
-                <div v-if="!isRecycling" class="tags_not_selected">Выберите типы принимаемых отходов</div>
+                <div v-if="!isRecycling" class="tags_not_selected">{{ $t('message.selectFractions') }}</div>
             </div>
             <div class="f_list f_list_add">
-                <div class="box_title">Доступно</div>
+                <div class="box_title">{{ $t('message.available') }}</div>
                 <span v-for="(value, key) in recycling" v-if="!value"
                       :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
             </div>
         </div>
         <div v-if="!waste_disposal" class="description_box">
-            <div class="box_title">Описание</div>
-            <v-textarea label="Описание" rows="2" solo v-model="description"></v-textarea>
+            <div class="box_title">{{ $t('message.description') }}</div>
+            <v-textarea :label="$t('message.description')" rows="2" solo v-model="description"></v-textarea>
         </div>
         <div class="add_mode_steps">
-            <div class="btn btn_gray" @click="cancelAddMode">Отмена</div>
-            <div class="btn btn_green btn_add_next" @click="saveData">Сохранить</div>
+            <div class="btn btn_gray" @click="cancelAddMode">{{ $t('button.cancel') }}</div>
+            <div class="btn btn_green btn_add_next" @click="saveData">{{ $t('button.save') }}</div>
         </div>
     </div>
 </template>
