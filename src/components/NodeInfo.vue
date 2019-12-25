@@ -11,12 +11,12 @@
 
         <div v-if="description" class="f_description">{{ description }}</div>
 
-        <a target="_blank" class="p_link" :href="osmLink">Смотреть в OSM</a>
-        <a target="_blank" class="p_link" :href="josmLink" title="Редактировать в JOSM">(J)</a>
+        <a target="_blank" class="p_link" :href="osmLink">{{ $t('button.osmLink') }}</a>
+        <a target="_blank" class="p_link" :href="josmLink" :title="$t('button.josm')">(J)</a>
         <v-btn flat icon small color="secondary" @click="info = !info"><v-icon>info</v-icon></v-btn>
 
         <div class="edit_box">
-            <span @click="goEdit" class="btn btn_gray">Редактировать</span>
+            <span @click="goEdit" class="btn btn_gray">{{ $t('button.edit') }}</span>
         </div>
     </div>
 </template>

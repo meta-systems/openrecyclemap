@@ -4,46 +4,46 @@
             <span>{{ $t('fraction.plastic') }}</span>
         </div>
         <div :class="['map_filter ico_plastic_bottles', {filter_active: filter.plastic_bottles}]" @click="filter.invert('plastic_bottles')">
-            <span>ПЭТ бутылки</span>
+            <span>{{ $t('fraction.plastic_bottles') }}</span>
         </div>
         <div :class="['map_filter ico_glass_bottles', {filter_active: filter.glass_bottles}]" @click="filter.invert('glass_bottles')">
-            <span>Стеклянные бутылки</span>
+            <span>{{ $t('fraction.glass_bottles') }}</span>
         </div>
         <div :class="['map_filter ico_glass', {filter_active: filter.glass}]" @click="filter.invert('glass')">
-            <span>Стекло</span>
+            <span>{{ $t('fraction.glass') }}</span>
         </div>
         <div :class="['map_filter ico_paper', {filter_active: filter.paper}]" @click="filter.invert('paper')">
-            <span>Бумага</span>
+            <span>{{ $t('fraction.paper') }}</span>
         </div>
         <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.invert('cans')">
-            <span>Металл</span>
+            <span>{{ $t('fraction.cans') }}</span>
         </div>
         <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.invert('plastic_bags')">
-            <span>Пакеты</span>
+            <span>{{ $t('fraction.plastic_bags') }}</span>
         </div>
         <div :class="['map_filter ico_clothes', {filter_active: filter.clothes}]" @click="filter.invert('clothes')">
-            <span>Одежда</span>
+            <span>{{ $t('fraction.clothes') }}</span>
         </div>
         <div :class="['map_filter ico_hazardous_waste', {filter_active: filter.hazardous_waste}]" @click="filter.invert('hazardous_waste')">
-            <span>Опасные отходы</span>
+            <span>{{ $t('fraction.hazardous_waste') }}</span>
         </div>
         <div :class="['map_filter ico_scrap_metal', {filter_active: filter.scrap_metal}]" @click="filter.invert('scrap_metal')">
-            <span>Металлолом</span>
+            <span>{{ $t('fraction.scrap_metal') }}</span>
         </div>
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
-            <span>Машинное масло</span>
+            <span>{{ $t('fraction.engine_oil') }}</span>
         </div>
         <div :class="['map_filter ico_low_energy_bulbs', {filter_active: filter.low_energy_bulbs}]" @click="filter.invert('low_energy_bulbs')">
-            <span>Лампочки</span>
+            <span>{{ $t('fraction.low_energy_bulbs') }}</span>
         </div>
         <div :class="['map_filter ico_batteries', {filter_active: filter.batteries}]" @click="filter.invert('batteries')">
-            <span>Батарейки</span>
+            <span>{{ $t('fraction.batteries') }}</span>
         </div>
         <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
-            <span>Все раздельные</span>
+            <span>{{ $t('fraction.anyRecycling') }}</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
-            <span>Несортируемые</span>
+            <span>{{ $t('fraction.wasteDisposal') }}</span>
         </div>
     </div>
 </template>

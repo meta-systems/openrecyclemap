@@ -11,10 +11,32 @@
     "selected": "Selected",
     "available": "Available",
     "selectFractions": "Select recycling fractions",
+    "addMode": "Adding a new node.",
+    "addModeHint": "Move the map to choose a correct node location",
+    "loadDataError": "Server is temporary unavailable. Try to refresh a page or come back later.",
+    "saveNodeError": "Error! Please, try later.",
+    "saveNodeSuccess": "Thank you for adding a new data! Your data will appear on the map soon.",
+    "needAccount": "To add a new data to the map, you need to log in with <b>OpenStreetMap</b>.",
+    "aboutOsm": "OpenStreetMap is a global project of creating an open source map.",
+    "signUp": "If you don't have an account yet, you can easily sign up on a link below.",
     "devBy": "Developed by"
   },
   "fraction": {
-    "plastic": "Plastic"
+    "wasteDisposal": "Waste disposal",
+    "anyRecycling": "Any recycling",
+    "plastic": "Plastic",
+    "paper": "Paper",
+    "cans": "Cans",
+    "glass": "Glass",
+    "glass_bottles": "Glass bottles",
+    "batteries": "Batteries",
+    "plastic_bottles": "Plastic bottles",
+    "hazardous_waste": "Hazardous waste",
+    "engine_oil": "Engine oil",
+    "clothes": "Clothes",
+    "low_energy_bulbs": "Low energy bulbs",
+    "plastic_bags": "Plastic bags",
+    "scrap_metal": "Scrap metal"
   },
   "menu": {
     "map": "Map",
@@ -28,6 +50,10 @@
     "login": "Login with OSM",
     "next": "Next",
     "cancel": "Cancel",
-    "save": "Save"
+    "save": "Save",
+    "edit": "Edit",
+    "josm": "Edit with JOSM",
+    "osmLink": "Show in OSM",
+    "ok": "OK"
   }
 }

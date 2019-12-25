@@ -1,7 +1,9 @@
 <template>
     <div :class="['map_root text-center', { add_mode: add_mode }]" >
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="set_coord_mode"><div>Режим добавления новой точки.</div> Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="set_coord_mode">
+            <div>{{ $t('message.addMode') }}</div> {{ $t('message.addModeHint') }}
+        </div>
         <div class="add_mode_steps" v-if="add_mode">
             <div class="btn btn_gray" @click="disableAddMode">{{ $t('button.cancel') }}</div>
             <div class="btn btn_green btn_add_next" @click="goNext">{{ $t('button.next') }}</div>
@@ -20,7 +22,7 @@
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top multi-line>
             {{ snackbar_text }}
-            <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
+            <v-btn color="pink" @click="snackbar = false" flat>{{ $t('button.ok') }}</v-btn>
         </v-snackbar>
         <v-snackbar v-model="zoomMessage" :timeout="0" top>
             {{ $t('message.zoomIn') }}
@@ -60,19 +62,19 @@
                 filter: new Filter(),
                 labels: {
                     plastic: this.$t('fraction.plastic'),
-                    paper: 'Бумага',
-                    cans: 'Металл',
-                    glass: 'Стекло',
-                    glass_bottles: 'Стеклянные бутылки',
-                    batteries: 'Батарейки',
-                    plastic_bottles: 'Пластиковые бутылки',
-                    hazardous_waste: 'Опасные отходы',
-                    engine_oil: 'Машинное масло',
-                    clothes: 'Одежда',
-                    low_energy_bulbs: 'Лампочки',
-                    plastic_bags: 'Пакеты',
-                    waste_disposal: 'Несортированный мусор',
-                    scrap_metal: 'Металлолом'
+                    paper: this.$t('fraction.paper'),
+                    cans: this.$t('fraction.cans'),
+                    glass: this.$t('fraction.glass'),
+                    glass_bottles: this.$t('fraction.glass_bottles'),
+                    batteries: this.$t('fraction.batteries'),
+                    plastic_bottles: this.$t('fraction.plastic_bottles'),
+                    hazardous_waste: this.$t('fraction.hazardous_waste'),
+                    engine_oil: this.$t('fraction.engine_oil'),
+                    clothes: this.$t('fraction.clothes'),
+                    low_energy_bulbs: this.$t('fraction.low_energy_bulbs'),
+                    plastic_bags: this.$t('fraction.plastic_bags'),
+                    waste_disposal: this.$t('fraction.wasteDisposal'),
+                    scrap_metal: this.$t('fraction.scrap_metal')
                 },
                 lastData: null
             };
@@ -174,7 +176,7 @@
                 this.fetchAmenity(this.map.getCenter(),
                     (data) => this.displayData(data, this.filter, to_select),
                     () => {
-                        this.snackbar_text = 'Сервер временно недоступен. Попробуйте обновить страницу или зайти позже.';
+                        this.snackbar_text = this.$t('message.loadDataError');
                         this.snackbar = true;
                         this.loading = false;
                     }
@@ -208,11 +210,11 @@
                 let nposition = this.marker ? this.marker.getLatLng() : null;
                 this.disableAddMode();
                 this.addNodeSuccess = function () {
-                    this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
+                    this.snackbar_text = this.$t('message.saveNodeSuccess');
                     this.snackbar = true;
                 };
                 this.addNodeFail = function () {
-                    this.snackbar_text = 'Ошибка! Попробуйте позже.';
+                    this.snackbar_text = this.$t('message.saveNodeError');
                     this.snackbar = true;
                 };
                 if(event.id) {
