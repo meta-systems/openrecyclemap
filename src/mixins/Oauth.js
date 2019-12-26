@@ -149,7 +149,8 @@ export default {
                 oauth_secret: 'FujOIM84AK1J6JtHoBBdENS2MIWz3xOpL2TqBpxa',
                 auto: true,
                 singlepage: true,
-                landing: 'land'
+                landing: 'land',
+                url: process.env.VUE_APP_OSM_API_URL
             });
             this.authenticated = this.auth.authenticated();
             if(this.authenticated) {
