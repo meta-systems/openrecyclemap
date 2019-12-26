@@ -54,7 +54,7 @@ export default {
             return L.tileLayer('//api.tiles.mapbox.com/v4/mapbox.satellite/{z}/{x}/{y}@2x.png?access_token={accessToken}', {
                 maxZoom: 19,
                 url: 'MapboxSat',
-                attribution: 'Тайлы <a href="http://mapbox.com/about/maps/">MapBox</a>',
+                attribution: 'Tiles <a href="http://mapbox.com/about/maps/">MapBox</a>',
                 subdomains: 'abcd',
                 accessToken: process.env.VUE_APP_MAPBOX_TOKEN
             });
