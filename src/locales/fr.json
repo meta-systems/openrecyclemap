@@ -55,5 +55,12 @@
     "josm": "Éditer avec JOSM",
     "osmLink": "Montrer dans OSM",
     "ok": "OK"
+  },
+  "about": {
+    "app": "{0} est une application pour voir et ajouter des lieux qui acceptent les déchets pour recyclage.",
+    "dataHeader": "Données",
+    "data": "Cette application utilise les données issues d'{0}. OSM est un projet de carte open-source créée par des milliers de contributeurs tout autour du globe. Les données sont librement accessibles et mises sous licence ODbl.",
+    "contributingHeader": "Comment contribuer ?",
+    "contributing": "Le projet est publié sur {0}. Vous pouvez voir et discuter des attributs OSM que l'application utilise. Vous pouvez poster une anomalie si le rendu de l'application est incorrect. Vous pouvez aussi ajouter des traductions dans votre propre langue. Actuellement, l'application est traduite en Anglais, Russe et Français."
   }
 }
