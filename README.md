@@ -9,8 +9,15 @@
 
 ## Development
 
-- Run `vue ui`
-- "start task" at "Tasks" > "Serve", then "Open app"
+- Run `npm run serve`
+
+In this mode the app uses an osm dev server.
+
+## Production
+
+- Run `npm run build`
+
+In this mode the app uses an osm production server. Your changes will affect a live OSM database.
 
 ## OSM Tags
 
