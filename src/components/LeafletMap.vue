@@ -73,6 +73,20 @@
             },
             saveLayer: function (layer) {
                 localStorage.setItem('layer', layer);
+            },
+            getDefaultCoords: function (lang) {
+                let coords = {
+                    en: {lat: 51.5, lng: -0.1, zoom: 13},
+                    ru: {lat: 55.75, lng: 37.61, zoom: 13},
+                    fr: {lat: 48.84, lng: 2.35, zoom: 13},
+                    pt: {lat: 38.72, lng: -9.14, zoom: 14},
+                    de: {lat: 52.5, lng: 13.38, zoom: 13},
+                    it: {lat: 41.87, lng: 12.49, zoom: 13}
+                };
+                if(lang in coords) {
+                    return coords[lang];
+                }
+                return coords.en;
             }
         },
         created() {
@@ -84,9 +98,10 @@
             };
         },
         mounted() {
-            let lat = this.$route.params.lat || localStorage.getItem('lat') || 55.75;
-            let lng = this.$route.params.lon || localStorage.getItem('lng') || 37.61;
-            let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
+            let defaultCoords = this.getDefaultCoords(this.$i18n.locale);
+            let lat = this.$route.params.lat || localStorage.getItem('lat') || defaultCoords.lat;
+            let lng = this.$route.params.lon || localStorage.getItem('lng') || defaultCoords.lng;
+            let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || defaultCoords.zoom;
 
             this.map = L.map('map_container', {
                 zoomControl: false
@@ -113,7 +128,6 @@
 
 <style>
     .map_parent {
-        height: calc(100% - 115px);
         height: 100%;
     }
     #map_container {
