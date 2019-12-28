@@ -69,7 +69,7 @@
 <style>
     .map_filters {
         background:white;
-        height:100px;
+        height:102px;
         display:flex;
         overflow-x: auto;
         position:absolute;
@@ -85,9 +85,7 @@
         }
     }
     @media screen and (min-width: 700px) {
-        .map_filters {
-            right:auto;
-        }
+        
     }
     @media screen and (min-width: 700px) {
         .map_filter:hover {
@@ -125,14 +123,15 @@
         padding:5px;
         cursor:pointer;
         background-repeat:no-repeat;
-        background-position: center 10px ;
-        padding-top:50px;
+        background-position: center 5px ;
+        padding-top:45px;
         position:relative;
         border-radius:8px;
         text-align: center;
         line-height: 1em;
         overflow-wrap: break-word;
-        width: 70px;
+        width: 73px;
+        font-size:13px;
     }
     .p_fraction.ico_notags:before,
     .ico_notags {
