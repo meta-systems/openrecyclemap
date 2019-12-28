@@ -24,7 +24,8 @@ function loadLocaleMessages () {
     return messages;
 }
 
-const userLanguage = getNavigatorLanguage().slice(0, 2);
+const storageLanguage = localStorage.getItem('lang');
+const userLanguage = storageLanguage || getNavigatorLanguage().slice(0, 2);
 
 export default new VueI18n({
     locale: userLanguage,
