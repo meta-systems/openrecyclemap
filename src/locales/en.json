@@ -32,11 +32,13 @@
     "batteries": "Batteries",
     "plastic_bottles": "Plastic bottles",
     "hazardous_waste": "Hazardous waste",
-    "engine_oil": "Engine oil",
     "clothes": "Clothes",
     "low_energy_bulbs": "Low energy bulbs",
     "plastic_bags": "Plastic bags",
-    "scrap_metal": "Scrap metal"
+    "scrap_metal": "Scrap metal",
+    "tyres": "Tyres",
+    "car_batteries": "Car batteries",
+    "engine_oil": "Engine oil"
   },
   "menu": {
     "map": "Map",

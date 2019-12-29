@@ -30,9 +30,6 @@
         <div :class="['map_filter ico_scrap_metal', {filter_active: filter.scrap_metal}]" @click="filter.invert('scrap_metal')">
             <span>{{ $t('fraction.scrap_metal') }}</span>
         </div>
-        <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
-            <span>{{ $t('fraction.engine_oil') }}</span>
-        </div>
         <div :class="['map_filter ico_low_energy_bulbs', {filter_active: filter.low_energy_bulbs}]" @click="filter.invert('low_energy_bulbs')">
             <span>{{ $t('fraction.low_energy_bulbs') }}</span>
         </div>
@@ -40,17 +37,21 @@
             <span>{{ $t('fraction.batteries') }}</span>
         </div>
         <div :class="['map_filter ico_tyres', {filter_active: filter.tyres}]" @click="filter.invert('tyres')">
-            <span>Покрышки</span>
+            <span>{{ $t('fraction.tyres') }}</span>
         </div>
+        <div :class="['map_filter ico_car_batteries', {filter_active: filter.car_batteries}]" @click="filter.invert('car_batteries')">
+            <span>{{ $t('fraction.car_batteries') }}</span>
+        </div>
+        <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
+            <span>{{ $t('fraction.engine_oil') }}</span>
+        </div>
+
         <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
             <span>{{ $t('fraction.anyRecycling') }}</span>
         </div>
+
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
             <span>{{ $t('fraction.wasteDisposal') }}</span>
-        </div>
-
-        <div :class="['map_filter ico_car_batteries', {filter_active: filter.car_batteries}]" @click="filter.invert('car_batteries')">
-            <span>Автомобильные аккумуляторы</span>
         </div>
 
     </div>
@@ -77,7 +78,7 @@
 <style>
     .map_filters {
         background:white;
-        height:102px;
+        height:109px;
         display:flex;
         overflow-x: auto;
         position:absolute;
@@ -114,6 +115,9 @@
     }
     .ico_waste_disposal.filter_active:before {
         background:#8D6E63;
+    }
+    .map_filter.ico_waste_disposal:hover:before {
+        border-color:#8D6E63;
     }
     .map_filter:hover:before {
         width:15px;
@@ -211,5 +215,10 @@
     .p_fraction.ico_car_batteries:before,
     .ico_car_batteries {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg height='40' viewBox='0 0 64 64' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 58h46a1 1 0 001-1V29a1 1 0 00-1-1H9a1 1 0 00-1 1v28a1 1 0 001 1zm1-28h44v26H10z'/%3E%3Cpath d='M61 20h-1v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1h-4a1 1 0 00-1 1v3a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1H15a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1H6a1 1 0 00-1 1v3a1 1 0 00-1 1v5H3a1 1 0 00-1 1v4a1 1 0 001 1h1v35a1 1 0 001 1h54a1 1 0 001-1V26h1a1 1 0 001-1v-4a1 1 0 00-1-1zm-6-8h2v2h-2zm-1 4h4v4h-4zm-6 4h-3v-4h3zm-27 0v-4h4v4zm6-4h4v4h-4zm6 0h4v4h-4zm6 0h4v4h-4zm-23 0h3v4h-3zm-9-4h2v2H7zm-1 4h4v4H6zm52 44H6V26h52zm2-36H4v-2h56zM7 8h2V6h2V4H9V2H7v2H5v2h2zM53 4h6v2h-6z'/%3E%3Cpath d='M39.88 34.53A1 1 0 0039 34h-7a1 1 0 00-.87.51l-5 9A1 1 0 0027 45h3.61l-2.56 7.68a1 1 0 001.72.96l10-12A1 1 0 0039 40h-2.13l2.96-4.45a1 1 0 00.05-1.02zm-5.71 5.91A1 1 0 0035 42h1.86l-5.23 6.29 1.32-3.97A1 1 0 0032 43h-3.3l3.89-7h4.54z'/%3E%3C/svg%3E");
+    }
+    .p_fraction.ico_all:before,
+    .ico_all {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' viewBox='0 0 40 40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.0577 27.1694C16.1456 31.3818 22.7735 31.3818 26.8614 27.1694C27.0841 26.9399 27.4578 26.9539 27.6467 27.2136L28.9954 29.0669C29.0581 29.1529 29.0507 29.2733 28.9769 29.3493C23.7206 34.7657 15.1985 34.7657 9.94221 29.3493C4.68593 23.9329 4.68593 15.1512 9.94221 9.73479C15.1985 4.31838 23.7206 4.31839 28.9769 9.73479C31.9401 12.7883 33.2328 16.9112 32.855 20.8979L34.2076 20.9088C34.5087 20.8974 34.7875 21.0697 34.9101 21.357C35.055 21.6212 35.0216 21.9544 34.8321 22.1957L31.6876 26.539C31.2951 27.0681 30.559 26.7078 30.4276 26.5275C30.3304 26.394 27.0688 21.9167 27.272 22.1957C27.0825 21.9544 27.0602 21.6326 27.194 21.3569C27.3278 21.0811 27.5954 20.8973 27.9076 20.8973L29.6024 20.8973C29.6851 20.8961 29.7659 20.8949 29.8453 20.8939C30.2343 17.7021 29.2397 14.3655 26.8614 11.9147C22.7735 7.70226 16.1456 7.70226 12.0577 11.9147C7.96977 16.1272 7.96977 22.9569 12.0577 27.1694Z' fill='black'/%3E%3Cpath d='M18.976 23.8151L17.935 21.1554H14.5833L13.5537 23.8151H12.5699L15.8759 15.4185H16.6938L19.9827 23.8151H18.976ZM17.6319 20.2803L16.6595 17.6892C16.5337 17.3613 16.404 16.959 16.2706 16.4823C16.1867 16.8484 16.0666 17.2507 15.9102 17.6892L14.9264 20.2803H17.6319ZM21.9388 23.8151H20.9894V14.9151H21.9388V23.8151ZM24.9017 23.8151H23.9522V14.9151H24.9017V23.8151Z' fill='%23343434'/%3E%3C/svg%3E");
+
     }
 </style>

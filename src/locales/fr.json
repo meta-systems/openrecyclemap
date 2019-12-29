@@ -32,11 +32,13 @@
     "batteries": "Batteries",
     "plastic_bottles": "Bouteilles en plastique",
     "hazardous_waste": "Déchets dangereux",
-    "engine_oil": "Huile moteur",
     "clothes": "Vêtements",
     "low_energy_bulbs": "Ampoules à faible consommation d'énergie",
     "plastic_bags": "Sacs en plastique",
-    "scrap_metal": "Ferraille"
+    "scrap_metal": "Ferraille",
+    "tyres": "Pneus",
+    "car_batteries": "Batteries de voiture",
+    "engine_oil": "Huile moteur"
   },
   "menu": {
     "map": "Carte",
