@@ -68,7 +68,8 @@
                     hazardous_waste: false,
                     scrap_metal: false,
                     engine_oil: false,
-                    car_batteries: false
+                    car_batteries: false,
+                    tyres: false,
                 }
             }
         },

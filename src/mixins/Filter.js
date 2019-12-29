@@ -25,6 +25,7 @@ export default class Filter {
         this.scrap_metal = false;
         this.engine_oil = false;
         this.car_batteries = false;
+        this.tyres = false;
     }
     invert(key) {
         this[key] = !this[key];

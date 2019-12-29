@@ -16,6 +16,7 @@
             <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
         </i18n>
 
+
         <h2>{{ $t('about.contributingHeader') }}</h2>
         <i18n path="about.contributing" tag="p">
             <a rel="noopener" href="https://github.com/meta-systems/openrecyclemap" target="_blank">Github</a>

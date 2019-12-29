@@ -61,7 +61,6 @@
                 layer: null,
                 filter: new Filter(),
                 labels: {
-
                     plastic: this.$t('fraction.plastic'),
                     paper: this.$t('fraction.paper'),
                     cans: this.$t('fraction.cans'),
@@ -74,9 +73,10 @@
                     clothes: this.$t('fraction.clothes'),
                     low_energy_bulbs: this.$t('fraction.low_energy_bulbs'),
                     plastic_bags: this.$t('fraction.plastic_bags'),
-                    waste_disposal: this.$t('fraction.wasteDisposal'),
                     scrap_metal: this.$t('fraction.scrap_metal'),
-                    car_batteries: this.$t('fraction.car_batteries')
+                    car_batteries: this.$t('fraction.car_batteries'),
+                    tyres: this.$t('fraction.tyres'),
+                    waste_disposal: this.$t('fraction.wasteDisposal'),
 
                 },
                 lastData: null

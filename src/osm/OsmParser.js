@@ -22,6 +22,7 @@ export default class OsmParser {
             'recycling:low_energy_bulbs',
             'recycling:scrap_metal',
             'recycling:car_batteries',
+            'recycling:tyres',
         ];
     }
     get osm_type() {
