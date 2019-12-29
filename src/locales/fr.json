@@ -1,0 +1,66 @@
+{
+  "message": {
+    "zoomIn": "Zoomer pour charger les données",
+    "username": "Vous êtes connecté en tant que",
+    "selectType": "Sélectionner un type",
+    "wasteDisposal": "Traitement des déchets",
+    "recyclingContainer": "Conteneur de recyclage",
+    "recyclingOrganization": "Organisme de recyclage",
+    "organizationName": "Nom de l'organisme",
+    "description": "Description",
+    "selected": "Sélectionné",
+    "available": "Disponible",
+    "selectFractions": "Sélectionner les catégories de recyclage",
+    "addMode": "Ajouter un nouveau point.",
+    "addModeHint": "Déplacez la carte pour choisir un emplacement de nœud correct",
+    "loadDataError": "Le serveur est temporairement indisponible. Essayez de rafraîchir une page ou revenez plus tard.",
+    "saveNodeError": "Erreur ! Merci de réessayer plus tard.",
+    "saveNodeSuccess": "Merci d'ajouter une nouvelle donnée ! Vos données apparaîtront bientôt sur la carte.",
+    "needAccount": "Pour ajouter une nouvelle donnée à la carte, vous devez vous connecter avec un compte <b>OpenStreetMap</b>.",
+    "aboutOsm": "OpenStreetMap est un projet mondial de création d'une carte open source.",
+    "signUp": "Si vous n'avez pas encore de compte, vous pouvez facilement vous inscrire en suivant le lien ci-dessous.",
+    "devBy": "Développé par"
+  },
+  "fraction": {
+    "wasteDisposal": "Traitement des déchets",
+    "anyRecycling": "Tout recyclage",
+    "plastic": "Plastique",
+    "paper": "Papier",
+    "cans": "Canettes",
+    "glass": "Verre",
+    "glass_bottles": "Bouteilles en verre",
+    "batteries": "Batteries",
+    "plastic_bottles": "Bouteilles en plastique",
+    "hazardous_waste": "Déchets dangereux",
+    "engine_oil": "Huile moteur",
+    "clothes": "Vêtements",
+    "low_energy_bulbs": "Ampoules à faible consommation d'énergie",
+    "plastic_bags": "Sacs en plastique",
+    "scrap_metal": "Ferraille"
+  },
+  "menu": {
+    "map": "Carte",
+    "user": "Utilisateur",
+    "about": "À propos",
+    "add": "Ajouter"
+  },
+  "button": {
+    "toMap": "Aller à la carte",
+    "logout": "Se déconnecter",
+    "login": "Se connecter avec OSM",
+    "next": "Prochain",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "edit": "Éditer",
+    "josm": "Éditer avec JOSM",
+    "osmLink": "Montrer dans OSM",
+    "ok": "OK"
+  },
+  "about": {
+    "app": "{0} est une application pour voir et ajouter des lieux qui acceptent les déchets pour recyclage.",
+    "dataHeader": "Données",
+    "data": "Cette application utilise les données issues d'{0}. OSM est un projet de carte open-source créée par des milliers de contributeurs tout autour du globe. Les données sont librement accessibles et mises sous licence ODbl.",
+    "contributingHeader": "Comment contribuer ?",
+    "contributing": "Le projet est publié sur {0}. Vous pouvez voir et discuter des attributs OSM que l'application utilise. Vous pouvez poster une anomalie si le rendu de l'application est incorrect. Vous pouvez aussi ajouter des traductions dans votre propre langue. Actuellement, l'application est traduite en Anglais, Russe et Français."
+  }
+}

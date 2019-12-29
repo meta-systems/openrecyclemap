@@ -1,16 +1,18 @@
 <template>
     <div class="login-container">
+        <v-select :items="languages" v-model="$i18n.locale" @change="changeLang" solo label="Language" class="language-select"></v-select>
+
         <div v-if="authenticated">
-            <p>Вы авторизованы как <b>{{ username }}</b>.</p>
-            <v-btn @click="toMap" color="primary">Перейти к карте</v-btn>
+            <p>{{ $t('message.username') }} <b>{{ username }}</b>.</p>
+            <v-btn @click="toMap" color="primary">{{ $t('button.toMap') }}</v-btn>
         </div>
         <div v-if="authenticated === false">
-            <p>Для того, чтобы вносить информацию о пунктах приема отходов, вам необходимо войти через аккаунт <b>OpenStreetMap</b>.</p>
-            <p>OpenStreetMap - это глобальный проект по созданию открытой карты.</p>
-            <p>Если у вас ещё нет аккаунта, вы можете зарегистрироваться. Это совсем просто. Перейдите по ссылке ниже.</p>
+            <p v-html="$t('message.needAccount')"></p>
+            <p>{{ $t('message.aboutOsm') }}</p>
+            <p>{{ $t('message.signUp') }}</p>
         </div>
-        <v-btn @click="logout" color="primary" v-if="authenticated" flat>Выход</v-btn>
-        <v-btn @click="authenticate" color="primary" v-if="!authenticated">Войти через OSM</v-btn>
+        <v-btn @click="logout" color="primary" v-if="authenticated" flat>{{ $t('button.logout') }}</v-btn>
+        <v-btn @click="authenticate" color="primary" v-if="!authenticated">{{ $t('button.login') }}</v-btn>
     </div>
 </template>
 
@@ -19,9 +21,22 @@
 
     export default {
         mixins: [oauthMixin],
+        data: function() {
+            return {
+                languages: [
+                    {text: 'English', value: 'en'},
+                    {text: 'Русский', value: 'ru'},
+                    {text: 'Français', value: 'fr'},
+                    {text: 'Português', value: 'pt'}
+                ]
+            };
+        },
         methods: {
             toMap: function () {
                 this.$router.push({path: '/map'});
+            },
+            changeLang: function () {
+                localStorage.setItem('lang', this.$i18n.locale);
             }
         },
         created() {
@@ -33,5 +48,8 @@
 <style>
     .login-container {
         padding: 15px;
+    }
+    .language-select {
+        max-width: 400px;
     }
 </style>

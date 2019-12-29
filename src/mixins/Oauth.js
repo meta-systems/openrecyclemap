@@ -145,11 +145,12 @@ export default {
         },
         authInit: function () {
             this.auth = osmAuth({
-                oauth_consumer_key: 'MN6LW9gpyK9RKMHxZ2AQ2BHvdDL1ZGVEebLuZ8fo',
-                oauth_secret: 'FujOIM84AK1J6JtHoBBdENS2MIWz3xOpL2TqBpxa',
+                oauth_consumer_key: process.env.VUE_APP_OSM_CONSUMER_KEY,
+                oauth_secret: process.env.VUE_APP_OSM_SECRET,
                 auto: true,
                 singlepage: true,
-                landing: 'land'
+                landing: 'land',
+                url: process.env.VUE_APP_OSM_API_URL
             });
             this.authenticated = this.auth.authenticated();
             if(this.authenticated) {

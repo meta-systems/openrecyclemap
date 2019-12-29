@@ -22,6 +22,9 @@ export default class Filter {
         this.low_energy_bulbs = false;
         this.plastic_bottles = false;
         this.hazardous_waste = false;
+        this.scrap_metal = false;
+        this.engine_oil = false;
+        this.car_batteries = false;
         this.tyres = false;
     }
     invert(key) {

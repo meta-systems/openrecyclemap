@@ -1,10 +1,12 @@
 <template>
     <div :class="['map_root text-center', { add_mode: add_mode }]" >
         <div class="map_cross" v-if="add_mode"><div class="map_cross2"></div></div>
-        <div class="add_mode_message" v-if="set_coord_mode"><div>Режим добавления новой точки.</div> Потяните карту чтобы выбрать правильное расположение точки</div>
+        <div class="add_mode_message" v-if="set_coord_mode">
+            <div>{{ $t('message.addMode') }}</div> {{ $t('message.addModeHint') }}
+        </div>
         <div class="add_mode_steps" v-if="add_mode">
-            <div class="btn btn_gray" @click="disableAddMode">Отмена</div>
-            <div class="btn btn_green btn_add_next" @click="goNext">Далее</div>
+            <div class="btn btn_gray" @click="disableAddMode">{{ $t('button.cancel') }}</div>
+            <div class="btn btn_green btn_add_next" @click="goNext">{{ $t('button.next') }}</div>
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
@@ -20,10 +22,10 @@
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top multi-line>
             {{ snackbar_text }}
-            <v-btn color="pink" @click="snackbar = false" flat>Ок</v-btn>
+            <v-btn color="pink" @click="snackbar = false" flat>{{ $t('button.ok') }}</v-btn>
         </v-snackbar>
         <v-snackbar v-model="zoomMessage" :timeout="0" top>
-            Для загрузки данных приблизьте карту
+            {{ $t('message.zoomIn') }}
         </v-snackbar>
     </div>
 </template>
@@ -59,19 +61,23 @@
                 layer: null,
                 filter: new Filter(),
                 labels: {
-                    plastic: 'Пластик',
-                    paper: 'Бумага',
-                    cans: 'Металл',
-                    glass: 'Стекло',
-                    glass_bottles: 'Стеклянные бутылки',
-                    batteries: 'Батарейки',
-                    plastic_bottles: 'Пластиковые бутылки',
-                    hazardous_waste: 'Опасные отходы',
-                    clothes: 'Одежда',
-                    low_energy_bulbs: 'Лампочки',
-                    plastic_bags: 'Пакеты',
-                    waste_disposal: 'Несортированный мусор',
-                    tyres: 'Покрышки'
+                    plastic: this.$t('fraction.plastic'),
+                    paper: this.$t('fraction.paper'),
+                    cans: this.$t('fraction.cans'),
+                    glass: this.$t('fraction.glass'),
+                    glass_bottles: this.$t('fraction.glass_bottles'),
+                    batteries: this.$t('fraction.batteries'),
+                    plastic_bottles: this.$t('fraction.plastic_bottles'),
+                    hazardous_waste: this.$t('fraction.hazardous_waste'),
+                    engine_oil: this.$t('fraction.engine_oil'),
+                    clothes: this.$t('fraction.clothes'),
+                    low_energy_bulbs: this.$t('fraction.low_energy_bulbs'),
+                    plastic_bags: this.$t('fraction.plastic_bags'),
+                    scrap_metal: this.$t('fraction.scrap_metal'),
+                    car_batteries: this.$t('fraction.car_batteries'),
+                    tyres: this.$t('fraction.tyres'),
+                    waste_disposal: this.$t('fraction.wasteDisposal'),
+
                 },
                 lastData: null
             };
@@ -173,7 +179,7 @@
                 this.fetchAmenity(this.map.getCenter(),
                     (data) => this.displayData(data, this.filter, to_select),
                     () => {
-                        this.snackbar_text = 'Сервер временно недоступен. Попробуйте обновить страницу или зайти позже.';
+                        this.snackbar_text = this.$t('message.loadDataError');
                         this.snackbar = true;
                         this.loading = false;
                     }
@@ -207,11 +213,11 @@
                 let nposition = this.marker ? this.marker.getLatLng() : null;
                 this.disableAddMode();
                 this.addNodeSuccess = function () {
-                    this.snackbar_text = 'Спасибо за добавление информации! Ваши данные появятся на карте в течение получаса.';
+                    this.snackbar_text = this.$t('message.saveNodeSuccess');
                     this.snackbar = true;
                 };
                 this.addNodeFail = function () {
-                    this.snackbar_text = 'Ошибка! Попробуйте позже.';
+                    this.snackbar_text = this.$t('message.saveNodeError');
                     this.snackbar = true;
                 };
                 if(event.id) {
@@ -370,14 +376,9 @@
         z-index: 1;
     }
     .orm_map_add {
-        bottom:100px;
+        top:80px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
-    }
-    @media screen and (max-width: 900px) {
-        .orm_map_add {
-            bottom:210px;
-        }
     }
     .orm_control {
         background-repeat: no-repeat;
@@ -466,7 +467,7 @@
     }
     @media screen and (max-width: 320px) {
         .add_mode_message {
-            font-size:4vw;   
+            font-size:4vw;
         }
     }
 

@@ -11,6 +11,7 @@ export default class OsmParser {
             'recycling:plastic',
             'recycling:plastic_bottles',
             'recycling:hazardous_waste',
+            'recycling:engine_oil',
             'recycling:paper',
             'recycling:cans',
             'recycling:glass',
@@ -19,7 +20,9 @@ export default class OsmParser {
             'recycling:clothes',
             'recycling:batteries',
             'recycling:low_energy_bulbs',
-            'recycling:tyres'
+            'recycling:scrap_metal',
+            'recycling:car_batteries',
+            'recycling:tyres',
         ];
     }
     get osm_type() {

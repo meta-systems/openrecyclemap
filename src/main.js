@@ -5,6 +5,7 @@ import App from './App.vue'
 import router from './router'
 import colors from 'vuetify/lib/util/colors'
 import VueAnalytics from 'vue-analytics'
+import i18n from './i18n'
 
 Vue.use(Vuetify, {
     iconfont: 'md',
@@ -26,6 +27,7 @@ Vue.config.productionTip = false;
 import 'vuetify/dist/vuetify.min.css'
 
 new Vue({
+    i18n,
     router: router,
     render: h => h(App)
 }).$mount('#app');
