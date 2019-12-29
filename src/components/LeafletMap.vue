@@ -11,9 +11,9 @@
 </template>
 
 <script>
-    import layersMixin from '../mixins/Layers'
     import 'leaflet/dist/leaflet.css'
     import L from 'leaflet'
+    import layersMixin from '../mixins/Layers'
     import 'mapbox-gl/dist/mapbox-gl.css'
     import mapboxgl from 'mapbox-gl'
     import 'mapbox-gl-leaflet'
@@ -73,6 +73,20 @@
             },
             saveLayer: function (layer) {
                 localStorage.setItem('layer', layer);
+            },
+            getDefaultCoords: function (lang) {
+                let coords = {
+                    en: {lat: 51.5, lng: -0.1, zoom: 13},
+                    ru: {lat: 55.75, lng: 37.61, zoom: 13},
+                    fr: {lat: 48.84, lng: 2.35, zoom: 13},
+                    pt: {lat: 38.72, lng: -9.14, zoom: 14},
+                    de: {lat: 52.5, lng: 13.38, zoom: 13},
+                    it: {lat: 41.87, lng: 12.49, zoom: 13}
+                };
+                if(lang in coords) {
+                    return coords[lang];
+                }
+                return coords.en;
             }
         },
         created() {
@@ -84,9 +98,10 @@
             };
         },
         mounted() {
-            let lat = this.$route.params.lat || localStorage.getItem('lat') || 55.75;
-            let lng = this.$route.params.lon || localStorage.getItem('lng') || 37.61;
-            let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || 13;
+            let defaultCoords = this.getDefaultCoords(this.$i18n.locale);
+            let lat = this.$route.params.lat || localStorage.getItem('lat') || defaultCoords.lat;
+            let lng = this.$route.params.lon || localStorage.getItem('lng') || defaultCoords.lng;
+            let zoom = this.$route.params.zoom || localStorage.getItem('zoom') || defaultCoords.zoom;
 
             this.map = L.map('map_container', {
                 zoomControl: false
@@ -113,7 +128,6 @@
 
 <style>
     .map_parent {
-        height: calc(100% - 115px);
         height: 100%;
     }
     #map_container {
@@ -133,7 +147,7 @@
         top:170px;
     }
     .orm_zoom {
-        top:80px;
+        bottom:150px;
         right:20px;
         height:80px !important;
     }
@@ -151,13 +165,8 @@
         bottom:80px;
     }
     .orm_position {
-        bottom:35px;
+            top:140px;
         right:20px;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='24.64' cy='25.08' r='9.53' stroke='%23000' stroke-width='2.38'/%3E%3Cpath fill='%23000' d='M23.45 9.6h2.38v5.95h-2.38zM23.45 34.61h2.38v5.95h-2.38zM40.12 23.88v2.38h-5.95v-2.38zM15.12 23.9v2.37H9.17V23.9z'/%3E%3Ccircle cx='24.64' cy='25.08' r='4.76' fill='%23000'/%3E%3C/svg%3E");
-    }
-    @media screen and (max-width: 900px) {
-        .orm_position {
-            bottom:150px;
-        }
     }
 </style>
