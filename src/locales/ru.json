@@ -32,11 +32,13 @@
     "batteries": "Батарейки",
     "plastic_bottles": "Пластиковые бутылки",
     "hazardous_waste": "Опасные отходы",
-    "engine_oil": "Машинное масло",
     "clothes": "Одежда",
     "low_energy_bulbs": "Лампочки",
     "plastic_bags": "Пакеты",
-    "scrap_metal": "Металлолом"
+    "scrap_metal": "Металлолом",
+    "tyres": "Шины",
+    "car_batteries": "Автомобильные аккумуляторы",
+    "engine_oil": "Машинное масло"
   },
   "menu": {
     "map": "Карта",

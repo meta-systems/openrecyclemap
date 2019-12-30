@@ -35,9 +35,11 @@ The table below describes the tags that the app currently supports.
 | Clothes         | recycling:clothes         |      |
 | Hazardous waste | recycling:hazardous_waste |      |
 | Scrap metal     | recycling:scrap_metal     |      |
-| Engine oil      | recycling:engine_oil      |      |
 | Low energy bulbs| recycling:low_energy_bulbs|      |
 | Batteries       | recycling:batteries       |      |
+| Tyres           | recycling:tyres           |      |
+| Car batteries   | recycling:car_batteries   |      |
+| Engine oil      | recycling:engine_oil      |      |
 
 More information about tags you can get on [OSM Wiki](https://wiki.openstreetmap.org/wiki/Tag:amenity%3Drecycling).
 

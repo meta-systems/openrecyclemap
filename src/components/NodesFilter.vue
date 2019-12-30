@@ -1,5 +1,8 @@
 <template>
     <div class="map_filters">
+        <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
+            <span>{{ $t('fraction.anyRecycling') }}</span>
+        </div>
         <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.invert('plastic')">
             <span>{{ $t('fraction.plastic') }}</span>
         </div>
@@ -45,15 +48,9 @@
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
             <span>{{ $t('fraction.engine_oil') }}</span>
         </div>
-
-        <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
-            <span>{{ $t('fraction.anyRecycling') }}</span>
-        </div>
-
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
             <span>{{ $t('fraction.wasteDisposal') }}</span>
         </div>
-
     </div>
 </template>
 
