@@ -56,13 +56,17 @@
     "edit": "Edit",
     "josm": "Edit with JOSM",
     "osmLink": "Show in OSM",
-    "ok": "OK"
+    "ok": "OK",
+    "seeMore": "See more"
   },
   "about": {
     "app": "{0} is an app for viewing and adding places that accepts waste for recycling.",
     "dataHeader": "Data",
     "data": "This app uses an open data from {0}. OSM is a project of creating an open source map by thousands volunteers all over the globe. The data is free to use and it has ODbL license.",
     "contributingHeader": "How to contribute",
-    "contributing": "The project is published on {0}. You can see and discuss the list of OSM tags that the app uses. You can post an issue if the app's work is incorrect. Also you can add translations to your own language. Currently the app supports English, Russian and French."
+    "contributing": "The project is published on {0}. You can see and discuss the list of OSM tags that the app uses. You can post an issue if the app's work is incorrect. Also you can add translations to your own language.",
+    "contact": "Also you can discuss the project and contact us in {0}.",
+    "androidHeader": "Android",
+    "android": "For android you can install the app from {0}."
   }
 }
