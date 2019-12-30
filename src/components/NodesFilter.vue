@@ -21,14 +21,8 @@
         <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.invert('cans')">
             <span>{{ $t('fraction.cans') }}</span>
         </div>
-        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.invert('plastic_bags')">
-            <span>{{ $t('fraction.plastic_bags') }}</span>
-        </div>
         <div :class="['map_filter ico_clothes', {filter_active: filter.clothes}]" @click="filter.invert('clothes')">
             <span>{{ $t('fraction.clothes') }}</span>
-        </div>
-        <div :class="['map_filter ico_hazardous_waste', {filter_active: filter.hazardous_waste}]" @click="filter.invert('hazardous_waste')">
-            <span>{{ $t('fraction.hazardous_waste') }}</span>
         </div>
         <div :class="['map_filter ico_scrap_metal', {filter_active: filter.scrap_metal}]" @click="filter.invert('scrap_metal')">
             <span>{{ $t('fraction.scrap_metal') }}</span>
@@ -42,11 +36,20 @@
         <div :class="['map_filter ico_tyres', {filter_active: filter.tyres}]" @click="filter.invert('tyres')">
             <span>{{ $t('fraction.tyres') }}</span>
         </div>
-        <div :class="['map_filter ico_car_batteries', {filter_active: filter.car_batteries}]" @click="filter.invert('car_batteries')">
+        <div :class="['map_filter ico_plastic_bags', {filter_active: filter.plastic_bags}]" @click="filter.invert('plastic_bags')" v-if="showAll">
+            <span>{{ $t('fraction.plastic_bags') }}</span>
+        </div>
+        <div :class="['map_filter ico_hazardous_waste', {filter_active: filter.hazardous_waste}]" @click="filter.invert('hazardous_waste')" v-if="showAll">
+            <span>{{ $t('fraction.hazardous_waste') }}</span>
+        </div>
+        <div :class="['map_filter ico_car_batteries', {filter_active: filter.car_batteries}]" @click="filter.invert('car_batteries')" v-if="showAll">
             <span>{{ $t('fraction.car_batteries') }}</span>
         </div>
-        <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')">
+        <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')" v-if="showAll">
             <span>{{ $t('fraction.engine_oil') }}</span>
+        </div>
+        <div class="map_filter" @click="showAll = !showAll">
+            <span>{{ $t('button.seeMore') }}</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
             <span>{{ $t('fraction.wasteDisposal') }}</span>
@@ -59,7 +62,9 @@
         name: "nodes-filter",
         props: ['filter'],
         data: function () {
-            return {}
+            return {
+                showAll: false
+            }
         },
         watch: {
             filter: {

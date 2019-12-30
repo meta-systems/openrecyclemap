@@ -56,7 +56,8 @@
     "edit": "Edit",
     "josm": "Edit with JOSM",
     "osmLink": "Show in OSM",
-    "ok": "OK"
+    "ok": "OK",
+    "seeMore": "See more"
   },
   "about": {
     "app": "{0} is an app for viewing and adding places that accepts waste for recycling.",
