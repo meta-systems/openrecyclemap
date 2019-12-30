@@ -112,6 +112,7 @@
     .about-container {
         padding: 15px;
         padding-bottom:130px;
+        max-width: 800px;
     }
     .orm_logo {
         width:60px;
