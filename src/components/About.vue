@@ -21,6 +21,14 @@
         <i18n path="about.contributing" tag="p">
             <a rel="noopener" href="https://github.com/meta-systems/openrecyclemap" target="_blank">Github</a>
         </i18n>
+        <i18n path="about.contact" tag="p">
+            <a rel="noopener" href="tg://resolve?domain=openrecyclemap" target="_blank">Telegram</a>
+        </i18n>
+
+        <h2>{{ $t('about.androidHeader') }}</h2>
+        <i18n path="about.android" tag="p">
+            <a rel="noopener" href="https://play.google.com/store/apps/details?id=org.openrecyclemap" target="_blank">Google Play</a>
+        </i18n>
 
         <div class="dev_box">
             {{ $t('message.devBy') }} <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>

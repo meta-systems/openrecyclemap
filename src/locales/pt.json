@@ -61,6 +61,6 @@
     "dataHeader": "Dados",
     "data": "Esta app usa dados abertos de {0}. OSM é um projeto para criar um mapa de fonte aberta por milhares de voluntários por todo o mundo. Os dados são livres para uso e têm uma licensa ODbL.",
     "contributingHeader": "Como contribuir",
-    "contributing": " Este projeto é publicado em {0}. Poderá ver e discutir a lista de OSM usados por esta app. Também pode reportar um problema caso encontre um erro na app. Pode ainda adicionar a tradução desta app para a sua língua. Atualmente a app está disponível em Inglês, Russo e Francês."
+    "contributing": " Este projeto é publicado em {0}. Poderá ver e discutir a lista de OSM usados por esta app. Também pode reportar um problema caso encontre um erro na app. Pode ainda adicionar a tradução desta app para a sua língua."
   }
 }
