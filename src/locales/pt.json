@@ -25,18 +25,23 @@
     "wasteDisposal": "Gestão de resíduos",
     "anyRecycling": "Toda a reciclagem",
     "plastic": "Plástico",
-    "paper": "Papel",
-    "cans": "Metal",
+    "plastic_bottles": "Garrafas de plástico",
+    "plastic_packaging": "Embalagens plásticas",
+    "plastic_bags": "Sacos de plástico",
     "glass": "Vidro",
     "glass_bottles": "Garrafas de vidro",
+    "paper": "Papel",
+    "cans": "Latas de metal",
     "batteries": "Baterias",
-    "plastic_bottles": "Garrafas de plástico",
     "hazardous_waste": "Resíduos perigosos",
     "engine_oil": "Óleo de motores",
-    "clothes": "Roupa",
+    "tyres": "Pneus",
+    "car_batteries": "Baterias de carro",
+    "clothes": "Roupas",
     "low_energy_bulbs": "Lâmpadas de baixo consumo",
-    "plastic_bags": "Sacos de plástico",
     "scrap_metal": "Sucata"
+
+    
   },
   "menu": {
     "map": "Mapa",
