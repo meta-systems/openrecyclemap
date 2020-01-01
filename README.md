@@ -1,4 +1,10 @@
-# [openrecyclemap.org](https://openrecyclemap.org/)
+# OpenRecycleMap - a waste sorting app
+
+![OpenRecycleMap](https://raw.githubusercontent.com/meta-systems/openrecyclemap/master/public/android-chrome-144x144.png)
+
+[openrecyclemap.org](https://openrecyclemap.org/)
+
+OpenRecycleMap is a project that helps organize separate waste collection. The project is based on data from OpenStreetMap, an open map that anyone can edit.
 
 ## Installation
 
