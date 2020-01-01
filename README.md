@@ -8,7 +8,7 @@ OpenRecycleMap is a project that helps organize separate waste collection. The p
 
 ## Translations
 
-You can offer translation into your language based on the [English language file](https://github.com/meta-systems/openrecyclemap/blob/master/src/locales/en.json)
+You can offer translation into your language based on the [English language file](https://github.com/meta-systems/openrecyclemap/blob/master/src/locales/en.json).  
 All languages are presented [here](https://github.com/meta-systems/openrecyclemap/tree/master/src/locales).
 
 If you are not a programmer, you can offer translations in Google Docs: [interface translation](https://docs.google.com/spreadsheets/d/1wcWLC9N_1PCuEOGHTzIwC4OfSGk7m-iqQ3kwTK41NKU/edit), [fraction translation](https://docs.google.com/spreadsheets/d/1y_jrYFILxpS1ch8Mr0vU0LQfXBjsSJi20pbICOHu2tM/edit).
