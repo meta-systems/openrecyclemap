@@ -168,7 +168,7 @@
         padding:10px 15px;
     }
     .tarea_p {
-        padding-bottom:10px;
+        padding-bottom:20px;
     }
     .tags_not_selected {
         color:#777;
@@ -223,7 +223,7 @@
         line-height:30px;
         color:#ee8a8a;
     }
-    .f_list_add .p_fraction::before {
+    .tags_box .p_fraction::before {
         background-repeat: no-repeat;
         background-position: center;
     }
