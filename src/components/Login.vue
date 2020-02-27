@@ -27,6 +27,8 @@
                     {text: 'English', value: 'en'},
                     {text: 'Русский', value: 'ru'},
                     {text: 'Français', value: 'fr'},
+                    {text: 'Français', value: 'fr'},
+                    {text: 'Italiano', value: 'it'},
                     {text: 'Português', value: 'pt'}
                 ]
             };

@@ -33,7 +33,10 @@
         </div>
         <div v-if="!waste_disposal" class="description_box">
             <div class="box_title">{{ $t('message.description') }}</div>
-            <v-textarea :label="$t('message.description')" rows="2" solo v-model="description"></v-textarea>
+            <!-- <v-textarea :label="$t('message.description')" rows="2" solo v-model="description"></v-textarea> -->
+            <div class="tarea_p">
+                <textarea class="tarea" rows="2" v-model="description"></textarea>
+            </div>
         </div>
         <div class="add_mode_steps">
             <div class="btn btn_gray" @click="cancelAddMode">{{ $t('button.cancel') }}</div>
@@ -159,6 +162,14 @@
 </script>
 
 <style>
+    .tarea {
+        box-shadow: 0 3px 1px -2px rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12);
+        width:100%;
+        padding:10px 15px;
+    }
+    .tarea_p {
+        padding-bottom:20px;
+    }
     .tags_not_selected {
         color:#777;
         font-style: italic;
@@ -211,6 +222,10 @@
         line-height:30px;
         line-height:30px;
         color:#ee8a8a;
+    }
+    .tags_box .p_fraction::before {
+        background-repeat: no-repeat;
+        background-position: center;
     }
     .f_list_add .p_fraction:hover {
         background-color:#eee !important;

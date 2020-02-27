@@ -1,0 +1,70 @@
+{
+  "message": {
+    "zoomIn": "Ingrandisci per caricare i dati",
+    "username": "Sei collegato come",
+    "selectType": "Seleziona un tipo",
+    "wasteDisposal": "Smaltimento dei rifiuti",
+    "recyclingContainer": "Contenitore per il riciclo",
+    "recyclingOrganization": "Organismo di riciclaggio",
+    "organizationName": "Nome dell'organismo",
+    "description": "Descrizione",
+    "selected": "Selezionato",
+    "available": "Disponibile",
+    "selectFractions": "Select recycling fractions",
+    "addMode": "Aggiungi un nuovo punto.",
+    "addModeHint": "Sposta la mappa per scegliere la corretta posizione del punto.",
+    "loadDataError": "Il server è temporaneamente indisponibile. Prova ad aggiornare la pagina o torna più tardi.",
+    "saveNodeError": "Errore! Si prega di riprovare più tardi.",
+    "saveNodeSuccess": "Grazie per aver aggiunto nuovi dati! I vostri dati appariranno presto sulla mappa.",
+"needAccount": "To add a new data to the map, you need to log in with <b>OpenStreetMap</b>.",
+    "aboutOsm": "OpenStreetMap è un progetto globale di creazione di una mappa open source.",
+    "signUp": "Se non hai ancora un account, puoi facilmente iscriverti tramite il link sottostante.",
+    "devBy": "Sviluppato da"
+  },
+  "fraction": {
+    "wasteDisposal": "Smaltimento dei rifiuti",
+    "anyRecycling": "Qualsiasi riciclaggio",
+    "paper": "Carta",
+    "cans": "Lattine",
+    "glass": "Vetro",
+    "glass_bottles": "Bottiglie di vetro",
+    "batteries": "Batterie",
+    "plastic": "Plastica",
+    "plastic_bags": "Sacchetti di plastica",
+    "plastic_bottles": "Bottiglie di plastica",
+    "plastic_packaging": "Confezione di plastica",
+    "hazardous_waste": "Rifiuti pericolosi",
+    "engine_oil": "Olio motore",
+    "tyres": "Pneumatici",
+    "clothes": "Vestiti",
+    "low_energy_bulbs": "Lampadine a basso consumo",
+    "fluorescent_tubes": "Tubi fluorescenti",
+    "car_batteries": "Batterie per auto",
+    "scrap_metal": "Rottami metallici"
+  },
+  "menu": {
+    "map": "Mappa",
+    "user": "Utente",
+    "about": "A proposito",
+    "add": "Aggiungi"
+  },
+  "button": {
+    "toMap": "Vai alla mappa",
+    "logout": "Logout",
+    "login": "Login con OSM",
+    "next": "Avanti",
+    "cancel": "Annulla",
+    "save": "Salva",
+    "edit": "Modifica",
+    "josm": "Modifica con JOSM",
+    "osmLink": "Mostra in OSM",
+    "ok": "OK"
+  },
+  "about": {
+    "app": "{0} è una app per visualizzare e aggiungere posti che accettano rifiuti da riciclare.",
+    "dataHeader": "Dati",
+    "data": "Questa app usa dati proventienti da {0}. OSM è un progetto di creazione di una mappa open source da parte di migliaia di volontari in tutto il mondo. I dati sono gratuiti e hanno la licenza ODbL.",
+    "contributingHeader": "Come contribuire",
+    "contributing": "Il progetto è pubblicato su {0}. Puoi visualizzare e discutere dell'elenco dei tag OSM che l'applicazione utilizza. È possibile segnalare un problema se il funzionamento dell'applicazione non è corretto. Inoltre è possibile aggiungere traduzioni nella propria lingua."
+  }
+}
