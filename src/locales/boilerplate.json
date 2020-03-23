@@ -1,0 +1,73 @@
+{
+  "message": {
+    "zoomIn": "",
+    "username": "",
+    "selectType": "",
+    "wasteDisposal": "",
+    "recyclingContainer": "",
+    "recyclingOrganization": "",
+    "organizationName": "",
+    "description": "",
+    "selected": "",
+    "available": "",
+    "selectFractions": "",
+    "addMode": "",
+    "addModeHint": "",
+    "loadDataError": "",
+    "saveNodeError": "",
+    "saveNodeSuccess": "",
+    "needAccount": " <b>OpenStreetMap</b>.",
+    "aboutOsm": "",
+    "signUp": "",
+    "devBy": ""
+  },
+  "fraction": {
+    "wasteDisposal": "",
+    "anyRecycling": "",
+    "paper": "",
+    "cans": "",
+    "glass": "",
+    "glass_bottles": "",
+    "batteries": "",
+    "plastic": "",
+    "plastic_bottles": "",
+    "plastic_packaging": "",
+    "plastic_bags": "",
+    "hazardous_waste": "",
+    "clothes": "",
+    "low_energy_bulbs": "",
+    "scrap_metal": "",
+    "tyres": "",
+    "car_batteries": "",
+    "engine_oil": ""
+  },
+  "menu": {
+    "map": "",
+    "user": "",
+    "about": "",
+    "add": ""
+  },
+  "button": {
+    "toMap": "",
+    "logout": "",
+    "login": "",
+    "next": "",
+    "cancel": "",
+    "save": "",
+    "edit": "",
+    "josm": "",
+    "osmLink": "",
+    "ok": "",
+    "seeMore": ""
+  },
+  "about": {
+    "app": "{0} ",
+    "dataHeader": "Data",
+    "data": "This app uses an open data from {0}. OSM is a project of creating an open source map by thousands volunteers all over the globe. The data is free to use and it has ODbL license.",
+    "contributingHeader": "How to contribute",
+    "contributing": "The project is published on {0}. You can see and discuss the list of OSM tags that the app uses. You can post an issue if the app's work is incorrect. Also you can add translations to your own language.",
+    "contact": "Also you can discuss the project and contact us in {0}.",
+    "androidHeader": "Android",
+    "android": "For android you can install the app from {0}."
+  }
+}
