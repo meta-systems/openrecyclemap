@@ -1,7 +1,12 @@
 <template>
     <div class="map_parent">
-        <div class="orm_control orm_layers" @click="changeLayers"></div>
-        <div class="orm_control orm_position" @click="showPosition"></div> <!-- v-if="add_mode" -->
+
+        <div class="control_top">
+            <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
+            <div class="orm_control orm_layers" @click="changeLayers"></div>
+            <div class="orm_control orm_position" @click="showPosition"></div>
+        </div>
+
         <div class="orm_control orm_zoom">
             <div class="zoom_btn" @click="zoomPlus">+</div>
             <div class="zoom_btn" @click="zoomMinus">−</div>
@@ -127,6 +132,37 @@
 </script>
 
 <style>
+    .control_top .orm_control {
+        margin-bottom:10px;
+    }
+    .orm_control {
+        background-repeat: no-repeat;
+        background-size:contain;
+        z-index: 1;
+        /*position:absolute;*/
+        background-position: center;
+        background-color:white;
+        border-radius:30px;
+        height:40px;
+        width:40px;
+        opacity:0.7;
+        cursor:pointer;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+        user-select: none;
+        display:block;
+    }
+    .add_mode .orm_map_add {
+        display:none;
+    }
+    .add_mode .control_top {
+        top:110px;
+    }
+    .control_top {
+        position: absolute;
+        top:30px;
+        right:20px;
+        z-index: 1;
+    }
     .map_parent {
         height: 100%;
     }
@@ -144,12 +180,13 @@
     }
 
     .add_mode .orm_zoom {
-        top:170px;
+        /*top:170px;*/
     }
     .orm_zoom {
         bottom:150px;
         right:20px;
         height:80px !important;
+        position: absolute;
     }
     .zoom_btn {
         line-height:40px;
@@ -162,7 +199,7 @@
         background:#eee;
     }
     .add_mode .orm_position {
-        bottom:80px;
+        /*bottom:80px;*/
     }
     .orm_position {
             top:140px;
