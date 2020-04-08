@@ -3,10 +3,10 @@
 
         <div class="control_top">
             <div class="layers_popup" v-if="layersPopup" v-click-outside="closeLayers">
-                <div class="btn layer_btn" @click="setLayer('Mapbox')">Mapbox</div>
-                <div class="btn layer_btn" @click="setLayer('Mapnik')">Mapnik</div>
-                <div class="btn layer_btn" @click="setLayer('Mapbox sat')">Mapbox sat</div>
-                <div class="btn layer_btn" @click="setLayer('ESRI sat')">ESRI sat</div>
+                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapbox'}" @click="setLayer('Mapbox')">Mapbox</div>
+                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapnik'}" @click="setLayer('Mapnik')">Mapnik</div>
+                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapbox sat'}" @click="setLayer('Mapbox sat')">Mapbox sat</div>
+                <div class="btn layer_btn" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
             </div>
             <router-link class="orm_control orm_info" to="/about"></router-link>
             <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
@@ -51,7 +51,8 @@
                 map: null,
                 baseLayers: [],
                 locateControl: null,
-                layersPopup:false
+                layersPopup: false,
+                activeLayer: null
             };
         },
         methods: {
@@ -100,6 +101,7 @@
                 localStorage.setItem('zoom', this.map.getZoom());
             },
             saveLayer: function (layer) {
+                this.activeLayer = layer;
                 localStorage.setItem('layer', layer);
             },
             getDefaultCoords: function (lang) {
@@ -137,6 +139,7 @@
 
             let defLayer = localStorage.getItem('layer') || 'Mapbox';
             this.baseLayers[defLayer].addTo(this.map);
+            this.activeLayer = defLayer;
 
             this.locateControl = L.control.locate({
                 showPopup: false
