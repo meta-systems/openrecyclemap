@@ -3,7 +3,7 @@
         <v-content>
             <router-view></router-view>
         </v-content>
-        <v-bottom-nav color="primary" :value="true" fixed dark>
+        <!-- <v-bottom-nav color="primary" :value="true" fixed dark>
             <v-btn :to="{path: '/map'}" dark>
                 <span>{{ $t('menu.map') }}</span>
                 <v-icon>map</v-icon>
@@ -20,7 +20,7 @@
                 <span>{{ $t('menu.add') }}</span>
                 <v-icon>add_circle</v-icon>
             </v-btn>
-        </v-bottom-nav>
+        </v-bottom-nav> -->
     </v-app>
 </template>
 
@@ -60,6 +60,9 @@
 </script>
 
 <style>
+    html,body {
+        height: 100%;
+    }
     .v-item-group.v-bottom-nav--fixed {
         z-index: 11;
     }

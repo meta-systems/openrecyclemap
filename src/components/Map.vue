@@ -11,7 +11,6 @@
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
         <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
-        <!-- <router-link v-if="!add_mode" class="orm_control orm_map_add" to="/map/add"></router-link> -->
         <leaflet-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
@@ -362,7 +361,7 @@
     .map_root {
         height: 100%;
         overflow: hidden;
-        height: calc(100% - 56px);
+        /*height: calc(100% - 56px);*/
         position:relative;
     }
     .leaflet-top.leaflet-right {
@@ -375,11 +374,6 @@
         left:15px;
         z-index: 1;
     }
-    .orm_map_add {
-        top:80px;
-        right:20px;
-        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
-    }
     .leaflet-control-locate {
         display: none;
     }
@@ -390,6 +384,7 @@
         cursor:pointer;
         display:inline-block;
         line-height:1.3em;
+        user-select: none;
     }
     .p_link {
         color:black;
@@ -439,7 +434,6 @@
         padding:15px 15px;
         display:flex;
         position: fixed;
-        bottom:56px;
     }
     .add_mode_message div {
         font-weight: bold;

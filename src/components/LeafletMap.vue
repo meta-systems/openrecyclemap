@@ -2,8 +2,15 @@
     <div class="map_parent">
 
         <div class="control_top">
-            <router-link class="orm_control orm_map_add" to="/map/add"></router-link>
-            <div class="orm_control orm_layers" @click="changeLayers"></div>
+            <div class="layers_popup popup_activator" v-if="layersPopup" v-click-outside="closeLayers">
+                <div class="btn layer_btn" @click="setLayer('Mapbox')">Mapbox</div>
+                <div class="btn layer_btn" @click="setLayer('Mapnik')">Mapnik</div>
+                <div class="btn layer_btn" @click="setLayer('Mapbox sat')">Mapbox sat</div>
+                <div class="btn layer_btn" @click="setLayer('ESRI sat')">ESRI sat</div>
+            </div>
+            <router-link class="orm_control orm_info" to="/about"></router-link>
+            <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
+            <div class="orm_control orm_layers" @click="layersPopup = !layersPopup"></div>
             <div class="orm_control orm_position" @click="showPosition"></div>
         </div>
 
@@ -40,11 +47,17 @@
             return {
                 map: null,
                 baseLayers: [],
-                locateControl: null
+                locateControl: null,
+                layersPopup:false
             };
         },
         methods: {
-            changeLayers: function () {
+            closeLayers: function () {
+                alert('ssss'); 
+                this.layersPopup = false; //FIXME - не работает
+            },
+            setLayer: function (arg) {
+                
                 let nextkey = Object.keys(this.baseLayers)[0];
                 let removed = false;
                 for (let key in this.baseLayers) {
@@ -57,8 +70,25 @@
                         removed = true;
                     }
                 }
-                this.map.addLayer(this.baseLayers[nextkey]);
-                this.saveLayer(nextkey);
+                
+                this.map.addLayer(this.baseLayers[arg]);
+                // this.saveLayer(nextkey);
+            },
+            changeLayers: function () {
+                // let nextkey = Object.keys(this.baseLayers)[0];
+                // let removed = false;
+                // for (let key in this.baseLayers) {
+                //     if(removed) {
+                //         nextkey = key;
+                //         break;
+                //     }
+                //     if(this.map.hasLayer(this.baseLayers[key])) {
+                //         this.map.removeLayer(this.baseLayers[key]);
+                //         removed = true;
+                //     }
+                // }
+                // this.map.addLayer(this.baseLayers[nextkey]);
+                // this.saveLayer(nextkey);
             },
             zoomPlus: function () {
                 this.map.zoomIn();
@@ -132,8 +162,29 @@
 </script>
 
 <style>
+    .layer_btn:hover {
+        background:#ccc;
+    }
+    .layer_btn {
+        background:#ddd;
+        color:black;
+        margin-bottom:20px;
+        white-space: nowrap;
+    }
+    .layers_popup {
+        background:white;
+        padding:30px;
+        padding-bottom:10px;
+        position: absolute;
+        top:110px;
+        right:-10px; 
+        border-radius:8px;
+        display: flex;
+        flex-direction: column;
+        z-index: 2;
+    }
     .control_top .orm_control {
-        margin-bottom:10px;
+        margin-bottom:20px;
     }
     .orm_control {
         background-repeat: no-repeat;
@@ -151,6 +202,12 @@
         user-select: none;
         display:block;
     }
+    .orm_info {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='41' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.61 9.65a1.65 1.65 0 11-3.3 0 1.65 1.65 0 013.3 0zM20.96 31.14c-.69 0-1.24-.55-1.24-1.24V17.1h-1.65a1.24 1.24 0 010-2.49h2.89c.68 0 1.24.56 1.24 1.24V29.9c0 .69-.56 1.24-1.24 1.24z' fill='%23000'/%3E%3Cpath d='M24.68 31.14h-7.44a1.24 1.24 0 010-2.48h7.44a1.24 1.24 0 010 2.48z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .orm_map_add {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
+    }
     .add_mode .orm_map_add {
         display:none;
     }
@@ -159,8 +216,8 @@
     }
     .control_top {
         position: absolute;
-        top:30px;
-        right:20px;
+        top:25px;
+        right:25px;
         z-index: 1;
     }
     .map_parent {
@@ -170,12 +227,9 @@
         height: 100%;
         z-index: 0;
     }
-    .add_mode .orm_layers {
-        top:110px;
-    }
     .orm_layers {
-        top:21px;
-        right:20px;
+        z-index: 3;
+        position: relative;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.47 21.38L9.23 27.52C8 28.09 8 29 9.23 29.58l13.24 6.13c1.23.57 3.22.57 4.45 0l13.24-6.13c1.23-.57 1.23-1.5 0-2.06l-13.24-6.14a6.02 6.02 0 0 0-4.45 0z' fill='%23B3B3B3'/%3E%3Cpath d='M22.47 13.03L9.23 19.16c-1.23.57-1.23 1.5 0 2.06l13.24 6.14c1.23.56 3.22.56 4.45 0l13.24-6.14c1.23-.57 1.23-1.49 0-2.06l-13.24-6.13a6.02 6.02 0 0 0-4.45 0z' fill='%239C9C9C' fill-opacity='.55'/%3E%3C/svg%3E");
     }
 
