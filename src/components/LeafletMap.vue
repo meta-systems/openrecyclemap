@@ -14,9 +14,12 @@
             <div class="orm_control orm_position" @click="showPosition"></div>
         </div>
 
-        <div class="orm_control orm_zoom">
-            <div class="zoom_btn" @click="zoomPlus">+</div>
-            <div class="zoom_btn" @click="zoomMinus">−</div>
+        <div class="control_bottom">
+            
+            <div class="orm_control orm_zoom">
+                <div class="zoom_btn" @click="zoomPlus">+</div>
+                <div class="zoom_btn" @click="zoomMinus">−</div>
+            </div>
         </div>
         <div id="map_container"></div>
     </div>
@@ -176,8 +179,8 @@
         padding:30px;
         padding-bottom:10px;
         position: absolute;
-        top:110px;
-        right:-10px; 
+        top:0px;
+        right:60px; 
         border-radius:8px;
         display: flex;
         flex-direction: column;
