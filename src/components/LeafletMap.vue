@@ -2,7 +2,7 @@
     <div class="map_parent">
 
         <div class="control_top">
-            <div class="layers_popup popup_activator" v-if="layersPopup" v-click-outside="closeLayers">
+            <div class="layers_popup" v-if="layersPopup" v-click-outside="closeLayers">
                 <div class="btn layer_btn" @click="setLayer('Mapbox')">Mapbox</div>
                 <div class="btn layer_btn" @click="setLayer('Mapnik')">Mapnik</div>
                 <div class="btn layer_btn" @click="setLayer('Mapbox sat')">Mapbox sat</div>
@@ -10,7 +10,7 @@
             </div>
             <router-link class="orm_control orm_info" to="/about"></router-link>
             <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
-            <div class="orm_control orm_layers" @click="layersPopup = !layersPopup"></div>
+            <div class="orm_control orm_layers popup_activator" @click="layersPopup = !layersPopup"></div>
             <div class="orm_control orm_position" @click="showPosition"></div>
         </div>
 
@@ -53,11 +53,18 @@
         },
         methods: {
             closeLayers: function () {
-                alert('ssss'); 
-                this.layersPopup = false; //FIXME - не работает
+                this.layersPopup = false;
             },
-            setLayer: function (arg) {
-                
+            setLayer: function (layer) {
+                for (let key in this.baseLayers) {
+                    if(this.map.hasLayer(this.baseLayers[key])) {
+                        this.map.removeLayer(this.baseLayers[key]);
+                    }
+                }
+                this.map.addLayer(this.baseLayers[layer]);
+                this.saveLayer(layer);
+            },
+            changeLayers: function () {
                 let nextkey = Object.keys(this.baseLayers)[0];
                 let removed = false;
                 for (let key in this.baseLayers) {
@@ -70,25 +77,8 @@
                         removed = true;
                     }
                 }
-                
-                this.map.addLayer(this.baseLayers[arg]);
-                // this.saveLayer(nextkey);
-            },
-            changeLayers: function () {
-                // let nextkey = Object.keys(this.baseLayers)[0];
-                // let removed = false;
-                // for (let key in this.baseLayers) {
-                //     if(removed) {
-                //         nextkey = key;
-                //         break;
-                //     }
-                //     if(this.map.hasLayer(this.baseLayers[key])) {
-                //         this.map.removeLayer(this.baseLayers[key]);
-                //         removed = true;
-                //     }
-                // }
-                // this.map.addLayer(this.baseLayers[nextkey]);
-                // this.saveLayer(nextkey);
+                this.map.addLayer(this.baseLayers[nextkey]);
+                this.saveLayer(nextkey);
             },
             zoomPlus: function () {
                 this.map.zoomIn();
