@@ -9,13 +9,13 @@
                 <div class="btn layer_btn" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
             </div>
             <router-link class="orm_control orm_info" to="/about"></router-link>
-            <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
             <div class="orm_control orm_layers popup_activator" @click="layersPopup = !layersPopup"></div>
-            <div class="orm_control orm_position" @click="showPosition"></div>
+            <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
+            
         </div>
 
         <div class="control_bottom">
-            
+            <div class="orm_control orm_position" @click="showPosition"></div>
             <div class="orm_control orm_zoom">
                 <div class="zoom_btn" @click="zoomPlus">+</div>
                 <div class="zoom_btn" @click="zoomMinus">−</div>
@@ -158,6 +158,7 @@
 </script>
 
 <style>
+
     .layer_btn:hover {
         background:#ccc;
     }
@@ -178,6 +179,15 @@
         display: flex;
         flex-direction: column;
         z-index: 2;
+    }
+    .control_bottom {
+        position: absolute;
+        bottom:150px;
+        right:25px;
+        z-index: 1;
+    }
+    .add_mode .control_bottom {
+        bottom:90px;
     }
     .control_top .orm_control {
         margin-bottom:20px;
@@ -228,15 +238,9 @@
         position: relative;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='50' height='50' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.47 21.38L9.23 27.52C8 28.09 8 29 9.23 29.58l13.24 6.13c1.23.57 3.22.57 4.45 0l13.24-6.13c1.23-.57 1.23-1.5 0-2.06l-13.24-6.14a6.02 6.02 0 0 0-4.45 0z' fill='%23B3B3B3'/%3E%3Cpath d='M22.47 13.03L9.23 19.16c-1.23.57-1.23 1.5 0 2.06l13.24 6.14c1.23.56 3.22.56 4.45 0l13.24-6.14c1.23-.57 1.23-1.49 0-2.06l-13.24-6.13a6.02 6.02 0 0 0-4.45 0z' fill='%239C9C9C' fill-opacity='.55'/%3E%3C/svg%3E");
     }
-
-    .add_mode .orm_zoom {
-        /*top:170px;*/
-    }
     .orm_zoom {
-        bottom:150px;
-        right:20px;
         height:80px !important;
-        position: absolute;
+        margin-top:15px;
     }
     .zoom_btn {
         line-height:40px;

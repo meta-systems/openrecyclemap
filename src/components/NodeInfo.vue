@@ -6,7 +6,7 @@
             <span v-for="item in fractions" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
         </div>
         <table v-if="info">
-            <tr v-for="(item, key) in all_tags" ><td>{{ key }}</td><td>{{ item }}</td></tr>
+            <tr v-for="(item, key) in all_tags" class="node_info_tr"><td>{{ key }}</td><td>{{ item }}</td></tr>
         </table>
 
         <div v-if="description" class="f_description">{{ description }}</div>
@@ -72,8 +72,11 @@
 </script>
 
 <style>
+    .node_info_tr:hover {
+        background:#f6f6f6;
+    }
     .node_info {
-        max-height: 100%;
+        max-height: 95vh;
         overflow: auto;
         background:white;
         border-radius:15px;

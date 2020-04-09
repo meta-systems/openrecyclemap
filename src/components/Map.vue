@@ -416,10 +416,11 @@
         color:white;
     }
     .btn_gray:hover {
-        background:#eee;
+        background:#ddd;
     }
     .btn_gray {
         box-shadow: inset 0 0 0 2px #eee;
+        background:#eee;
     }
     .add_mode_message,
     .add_mode_steps {
