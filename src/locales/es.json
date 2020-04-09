@@ -1,0 +1,73 @@
+{
+  "message": {
+    "zoomIn": "Acercar para cargar los datos",
+    "username": "Has iniciado sesión cómo",
+    "selectType": "Seleccionar un tipo",
+    "wasteDisposal": "Contenedor de resíduos",
+    "recyclingContainer": "Contenedor de reciclaje",
+    "recyclingOrganization": "Organismo de reciclaje",
+    "organizationName": "Nombre del organismo",
+    "description": "Descripción",
+    "selected": "Seleccionado",
+    "available": "Disponible",
+    "selectFractions": "Seleccionar categorías de reciclaje",
+    "addMode": "Añadir un nuevo nodo",
+    "addModeHint": "Mueva el mapa para elegir una ubicación correcta para el nodo",
+    "loadDataError": "El servidor no está disponible temporalmente. Intenta actualizar la página o intentelo más tarde.",
+    "saveNodeError": "¡Error! Por favor intentelo más tarde.",
+    "saveNodeSuccess": "¡Gracias por agregar nuevos datos! Sus datos pronto aparecerán en el mapa.",
+    "needAccount": "Para agregar nuevos datos al mapa, debe iniciar sesión con <b>OpenStreetMap</b>.",
+    "aboutOsm": "OpenStreetMap es un proyecto global de creación de un mapa de código abierto.",
+    "signUp": "Si aún no tiene una cuenta, puede registrarse fácilmente en el siguiente enlace.",
+    "devBy": "Desarrollado por"
+  },
+  "fraction": {
+    "wasteDisposal": "Contenedor de residuos",
+    "anyRecycling": "Cualquier reciclaje",
+    "paper": "Papel",
+    "cans": "Latas",
+    "glass": "Vidrio",
+    "glass_bottles": "Botellas de vidrio",
+    "batteries": "Baterías",
+    "plastic": "Plásticos",
+    "plastic_bottles": "Botellas de plástico",
+    "plastic_packaging": "Embases de plástico",
+    "plastic_bags": "Sacos de plástico",
+    "hazardous_waste": "Resíduos peligrosos",
+    "clothes": "Ropa",
+    "low_energy_bulbs": "Bombillas de bajo consumo",
+    "scrap_metal": "Chatarra",
+    "tyres": "Neumáticos",
+    "car_batteries": "Baterías de coche",
+    "engine_oil": "Aceite de motor"
+  },
+  "menu": {
+    "map": "Mapa",
+    "user": "Usuario",
+    "about": "Acerca de",
+    "add": "Añadir"
+  },
+  "button": {
+    "toMap": "Ir al mapa",
+    "logout": "Cerrar sesión",
+    "login": "Logarse con OSM",
+    "next": "Siguiente",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "josm": "Editar con JOSM",
+    "osmLink": "Mostrar en OSM",
+    "ok": "Ok",
+    "seeMore": "Ver más"
+  },
+  "about": {
+    "app": "{0} es una aplicación para ver y agregar lugares que aceptan desechos para reciclar. ",
+    "dataHeader": "Datos",
+    "data": "Esta aplicación utiliza datos abiertos de {0}. OSM es un proyecto de creación de un mapa de código abierto por miles de voluntarios en todo el mundo. Los datos son de uso gratuito y tienen licencia ODbL.",
+    "contributingHeader": "¿Cómo contribuir?",
+    "contributing": "El proyecto se publica el {0}. Puede ver y discutir la lista de etiquetas OSM que usa la aplicación. Puede publicar un problema si el trabajo de la aplicación es incorrecto. También puede agregar traducciones a su propio idioma.",
+    "contact": "También puede discutir el proyecto y contactarnos en {0}.",
+    "androidHeader": "Android",
+    "android": "Para Android, puede instalar la aplicación desde {0}.""
+  }
+}
