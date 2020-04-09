@@ -61,6 +61,7 @@
             return {
                 languages: [
                     {text: 'English', value: 'en'},
+                    {text: 'Español', value: 'es'},
                     {text: 'Русский', value: 'ru'},
                     {text: 'Français', value: 'fr'},
                     {text: 'Français', value: 'fr'},

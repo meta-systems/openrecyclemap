@@ -64,10 +64,10 @@
     "app": "{0} es una aplicación para ver y agregar lugares que aceptan desechos para reciclar. ",
     "dataHeader": "Datos",
     "data": "Esta aplicación utiliza datos abiertos de {0}. OSM es un proyecto de creación de un mapa de código abierto por miles de voluntarios en todo el mundo. Los datos son de uso gratuito y tienen licencia ODbL.",
-    "contributingHeader": "¿Cómo contribuir?",
+    "contributingHeader": "Cómo contribuir?",
     "contributing": "El proyecto se publica el {0}. Puede ver y discutir la lista de etiquetas OSM que usa la aplicación. Puede publicar un problema si el trabajo de la aplicación es incorrecto. También puede agregar traducciones a su propio idioma.",
     "contact": "También puede discutir el proyecto y contactarnos en {0}.",
     "androidHeader": "Android",
-    "android": "Para Android, puede instalar la aplicación desde {0}.""
+    "android": "Para Android, puede instalar la aplicación desde {0}."
   }
 }
