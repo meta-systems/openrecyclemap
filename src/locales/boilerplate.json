@@ -16,7 +16,7 @@
     "loadDataError": "",
     "saveNodeError": "",
     "saveNodeSuccess": "",
-    "needAccount": " <b>OpenStreetMap</b>.",
+    "needAccount": "",
     "aboutOsm": "",
     "signUp": "",
     "devBy": ""
@@ -61,13 +61,13 @@
     "seeMore": ""
   },
   "about": {
-    "app": "{0} ",
-    "dataHeader": "Data",
-    "data": "This app uses an open data from {0}. OSM is a project of creating an open source map by thousands volunteers all over the globe. The data is free to use and it has ODbL license.",
-    "contributingHeader": "How to contribute",
-    "contributing": "The project is published on {0}. You can see and discuss the list of OSM tags that the app uses. You can post an issue if the app's work is incorrect. Also you can add translations to your own language.",
-    "contact": "Also you can discuss the project and contact us in {0}.",
+    "app": "",
+    "dataHeader": "",
+    "data": "",
+    "contributingHeader": "",
+    "contributing": "",
+    "contact": "",
     "androidHeader": "Android",
-    "android": "For android you can install the app from {0}."
+    "android": ""
   }
 }
