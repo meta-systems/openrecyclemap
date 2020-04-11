@@ -9,7 +9,7 @@
                 <div class="layer_btn layer_btn_last" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
             </div>
             <router-link class="orm_control orm_info" to="/about"></router-link>
-            <div class="orm_control orm_layers popup_activator" @click="layersPopup = !layersPopup"></div>
+            <div class="orm_control orm_layers popup_activator" :class="{control_active: layersPopup}"  @click="layersPopup = !layersPopup"></div>
             <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
             
         </div>
@@ -176,7 +176,6 @@
         padding:10px 30px;
         cursor: pointer;
         user-select: none;
-
     }
     .layers_popup {
         border-radius: 30px;
@@ -206,8 +205,9 @@
     .orm_control:active {
         transform: scale(.95);
     }
+    .control_active,
     .orm_control:hover {
-        opacity:1;
+        opacity:1 !important;
     }
     .orm_control {
         background-repeat: no-repeat;
