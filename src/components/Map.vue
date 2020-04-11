@@ -21,7 +21,7 @@
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top multi-line>
             {{ snackbar_text }}
-            <v-btn color="pink" @click="snackbar = false" flat>{{ $t('button.ok') }}</v-btn>
+            <v-btn color="pink" @click="snackbar = false" flat>Ok</v-btn>
         </v-snackbar>
         <v-snackbar v-model="zoomMessage" :timeout="0" top>
             {{ $t('message.zoomIn') }}

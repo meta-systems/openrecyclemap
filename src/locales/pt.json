@@ -58,8 +58,7 @@
     "save": "Guardar",
     "edit": "Editar",
     "josm": "Editar com JOSM",
-    "osmLink": "Mostrar em OSM",
-    "ok": "OK"
+    "osmLink": "Mostrar em OSM"
   },
   "about": {
     "app": "{0} é uma app para visualizar e adicionar locais de reciclagem.",

@@ -8,14 +8,14 @@
                 <div class="layer_btn" :class="{active: activeLayer === 'Mapbox sat'}" @click="setLayer('Mapbox sat')">Mapbox sat</div>
                 <div class="layer_btn layer_btn_last" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
             </div>
-            <router-link class="orm_control orm_info" to="/about"></router-link>
-            <div class="orm_control orm_layers popup_activator" :class="{control_active: layersPopup}"  @click="layersPopup = !layersPopup"></div>
-            <router-link class="orm_control orm_map_add" to="/map/add" title="Add new point"></router-link>
+            <router-link class="orm_control orm_info" to="/about" :title="$t('menu.about')"></router-link>
+            <div class="orm_control orm_layers popup_activator" :title="$t('menu.map_view')" :class="{control_active: layersPopup}"  @click="layersPopup = !layersPopup"></div>
+            <router-link class="orm_control orm_map_add" to="/map/add" :title="$t('menu.add')"></router-link>
             
         </div>
 
         <div class="control_bottom">
-            <div class="orm_control orm_position" @click="showPosition"></div>
+            <div class="orm_control orm_position" @click="showPosition" :title="$t('menu.my_location')"></div>
             <div class="orm_control orm_zoom">
                 <div class="zoom_btn" @click="zoomPlus">+</div>
                 <div class="zoom_btn" @click="zoomMinus">−</div>
@@ -202,12 +202,13 @@
     .control_top .orm_control {
         margin-bottom:20px;
     }
-    .orm_control:active {
-        transform: scale(.95);
-    }
     .control_active,
     .orm_control:hover {
         opacity:1 !important;
+    }
+    .orm_control:active {
+        transform: scale(.95);
+        opacity:0.7 !important;
     }
     .orm_control {
         background-repeat: no-repeat;

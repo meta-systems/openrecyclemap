@@ -1,7 +1,7 @@
 <template>
     <div class="about-container">
         <router-link class="orm_logo" aria-label="Map" to="/map"></router-link>
-        <router-link class="map_icon orm_control" aria-label="Map" to="/map"></router-link>
+        <router-link class="map_icon orm_control" aria-label="Map" to="/map" :title="$t('menu.map')"></router-link>
         <i18n path="about.app" tag="p">
             <b>OpenRecycleMap</b>
         </i18n>
@@ -19,13 +19,13 @@
         </div>
         <v-btn @click="logout" color="primary" v-if="authenticated" flat>{{ $t('button.logout') }}</v-btn>
         <v-btn @click="authenticate" color="primary" v-if="!authenticated">{{ $t('button.login') }}</v-btn>
-
+<!-- 
         <div class="main_box">
-            <!-- <router-link class="box_item ico_account" to="/login">{{ $t('menu.user') }}</router-link> -->
+            <router-link class="box_item ico_account" to="/login">{{ $t('menu.user') }}</router-link> 
             <router-link class="box_item ico_add" to="/map/add">{{ $t('menu.add') }}</router-link>
             <router-link class="box_item ico_map" to="/map">{{ $t('menu.map') }}</router-link>
         </div>
-
+-->
         <h2>{{ $t('about.dataHeader') }}</h2>
         <i18n path="about.data" tag="p">
             <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>

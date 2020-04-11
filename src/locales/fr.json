@@ -57,8 +57,7 @@
     "save": "Enregistrer",
     "edit": "Éditer",
     "josm": "Éditer avec JOSM",
-    "osmLink": "Montrer dans OSM",
-    "ok": "OK"
+    "osmLink": "Montrer dans OSM"
   },
   "about": {
     "app": "{0} est une application pour voir et ajouter des lieux qui acceptent les déchets pour recyclage.",

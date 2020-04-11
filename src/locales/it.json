@@ -57,8 +57,7 @@
     "save": "Salva",
     "edit": "Modifica",
     "josm": "Modifica con JOSM",
-    "osmLink": "Mostra in OSM",
-    "ok": "OK"
+    "osmLink": "Mostra in OSM"
   },
   "about": {
     "app": "{0} è una app per visualizzare e aggiungere posti che accettano rifiuti da riciclare.",

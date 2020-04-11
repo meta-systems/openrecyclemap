@@ -44,6 +44,8 @@
   },
   "menu": {
     "map": "Map",
+    "map_view": "Map View",
+    "my_location": "Show Your Location",
     "user": "User",
     "about": "About",
     "add": "Add"
