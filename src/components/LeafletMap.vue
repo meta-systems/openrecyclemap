@@ -3,10 +3,10 @@
 
         <div class="control_top">
             <div class="layers_popup" v-if="layersPopup" v-click-outside="closeLayers">
-                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapbox'}" @click="setLayer('Mapbox')">Mapbox</div>
-                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapnik'}" @click="setLayer('Mapnik')">Mapnik</div>
-                <div class="btn layer_btn" :class="{active: activeLayer === 'Mapbox sat'}" @click="setLayer('Mapbox sat')">Mapbox sat</div>
-                <div class="btn layer_btn" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
+                <div class="layer_btn" :class="{active: activeLayer === 'Mapbox'}" @click="setLayer('Mapbox')">Mapbox</div>
+                <div class="layer_btn" :class="{active: activeLayer === 'Mapnik'}" @click="setLayer('Mapnik')">Mapnik</div>
+                <div class="layer_btn" :class="{active: activeLayer === 'Mapbox sat'}" @click="setLayer('Mapbox sat')">Mapbox sat</div>
+                <div class="layer_btn layer_btn_last" :class="{active: activeLayer === 'ESRI sat'}" @click="setLayer('ESRI sat')">ESRI sat</div>
             </div>
             <router-link class="orm_control orm_info" to="/about"></router-link>
             <div class="orm_control orm_layers popup_activator" @click="layersPopup = !layersPopup"></div>
@@ -158,20 +158,30 @@
 </script>
 
 <style>
-
+    .layer_btn_last {
+        border: none !important;
+    }
     .layer_btn:hover {
-        background:#ccc;
+        background:#eee;
+    }
+    .layer_btn.active {
+        background:#1b5e20;
+        color: white;
+        font-weight: 500;
     }
     .layer_btn {
-        background:#ddd;
         color:black;
-        margin-bottom:20px;
         white-space: nowrap;
+        border-bottom:1px solid #ddd;
+        padding:10px 30px;
+        cursor: pointer;
+        user-select: none;
+
     }
     .layers_popup {
+        border-radius: 30px;
+        overflow: hidden;
         background:white;
-        padding:30px;
-        padding-bottom:10px;
         position: absolute;
         top:0px;
         right:60px; 
@@ -179,6 +189,7 @@
         display: flex;
         flex-direction: column;
         z-index: 2;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
     }
     .control_bottom {
         position: absolute;
@@ -191,6 +202,12 @@
     }
     .control_top .orm_control {
         margin-bottom:20px;
+    }
+    .orm_control:active {
+        transform: scale(.95);
+    }
+    .orm_control:hover {
+        opacity:1;
     }
     .orm_control {
         background-repeat: no-repeat;
