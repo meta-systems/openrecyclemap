@@ -1,54 +1,64 @@
 <template>
     <div class="about-container">
-        <router-link class="orm_logo" aria-label="Map" to="/map"></router-link>
-        <router-link class="map_icon orm_control" aria-label="Map" to="/map" :title="$t('menu.map')"></router-link>
-        <i18n path="about.app" tag="p">
-            <b>OpenRecycleMap</b>
-        </i18n>
-
-        <v-select :items="languages" v-model="$i18n.locale" @change="changeLang" solo label="Language" class="language-select"></v-select>
-
-        <div v-if="authenticated">
-            <p>{{ $t('message.username') }} <b>{{ username }}</b>.</p>
-            <v-btn @click="toMap" color="primary">{{ $t('button.toMap') }}</v-btn>
+        <div class="page_header">
+            <router-link class="orm_logo" aria-label="Map" to="/map"></router-link>
+            <div class="account_box">
+                <div v-if="authenticated">
+                    {{ $t('message.username') }} 
+                    <div class="user_line"><b>{{ username }}</b> <span class="link" @click="logout" color="primary" v-if="authenticated" :title="$t('button.logout')">×</span></div>
+                    <!-- <v-btn @click="toMap" color="primary">{{ $t('button.toMap') }}</v-btn> -->
+                </div>
+                
+                <div class="link" @click="authenticate" color="primary" v-if="!authenticated">{{ $t('button.login') }}</div>
+            </div>
+            <router-link class="map_icon orm_control" aria-label="Map" to="/map" :title="$t('menu.map')"></router-link>
         </div>
-        <div v-if="authenticated === false">
-            <p v-html="$t('message.needAccount')"></p>
-            <p>{{ $t('message.aboutOsm') }}</p>
-            <p>{{ $t('message.signUp') }}</p>
+        <div class="page_content">
+            
+            <div class="about_top">    
+                <i18n path="about.app" tag="div" class="about_app">
+                    <b>OpenRecycleMap</b>
+                </i18n>
+                <v-select :items="languages" v-model="$i18n.locale" @change="changeLang" solo label="Language" class="language-select"></v-select>
+            </div>
+        
+            <div v-if="authenticated === false">
+                <p v-html="$t('message.needAccount')"></p>
+                <p>{{ $t('message.aboutOsm') }}</p>
+                <p>{{ $t('message.signUp') }}</p>
+            </div>
+ 
+    <!-- 
+            <div class="main_box">
+                <router-link class="box_item ico_account" to="/login">{{ $t('menu.user') }}</router-link> 
+                <router-link class="box_item ico_add" to="/map/add">{{ $t('menu.add') }}</router-link>
+                <router-link class="box_item ico_map" to="/map">{{ $t('menu.map') }}</router-link>
+            </div>
+    -->
+            <h2>{{ $t('about.dataHeader') }}</h2>
+            <i18n path="about.data" tag="p">
+                <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
+            </i18n>
+
+
+            <h2>{{ $t('about.contributingHeader') }}</h2>
+            <i18n path="about.contributing" tag="p">
+                <a rel="noopener" href="https://github.com/meta-systems/openrecyclemap" target="_blank">Github</a>
+            </i18n>
+            <i18n path="about.contact" tag="p">
+                <a rel="noopener" href="tg://resolve?domain=openrecyclemap" target="_blank">Telegram</a>
+            </i18n>
+
+            <h2>{{ $t('about.androidHeader') }}</h2>
+            <i18n path="about.android" tag="p">
+                <a rel="noopener" href="https://play.google.com/store/apps/details?id=org.openrecyclemap" target="_blank">Google Play</a>
+            </i18n>
+
+            <div class="dev_box">
+                {{ $t('message.devBy') }} <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
+            </div>
+
         </div>
-        <v-btn @click="logout" color="primary" v-if="authenticated" flat>{{ $t('button.logout') }}</v-btn>
-        <v-btn @click="authenticate" color="primary" v-if="!authenticated">{{ $t('button.login') }}</v-btn>
-<!-- 
-        <div class="main_box">
-            <router-link class="box_item ico_account" to="/login">{{ $t('menu.user') }}</router-link> 
-            <router-link class="box_item ico_add" to="/map/add">{{ $t('menu.add') }}</router-link>
-            <router-link class="box_item ico_map" to="/map">{{ $t('menu.map') }}</router-link>
-        </div>
--->
-        <h2>{{ $t('about.dataHeader') }}</h2>
-        <i18n path="about.data" tag="p">
-            <a rel="noopener" href="https://www.openstreetmap.org/" target="_blank">OpenStreetMap</a>
-        </i18n>
-
-
-        <h2>{{ $t('about.contributingHeader') }}</h2>
-        <i18n path="about.contributing" tag="p">
-            <a rel="noopener" href="https://github.com/meta-systems/openrecyclemap" target="_blank">Github</a>
-        </i18n>
-        <i18n path="about.contact" tag="p">
-            <a rel="noopener" href="tg://resolve?domain=openrecyclemap" target="_blank">Telegram</a>
-        </i18n>
-
-        <h2>{{ $t('about.androidHeader') }}</h2>
-        <i18n path="about.android" tag="p">
-            <a rel="noopener" href="https://play.google.com/store/apps/details?id=org.openrecyclemap" target="_blank">Google Play</a>
-        </i18n>
-
-        <div class="dev_box">
-            {{ $t('message.devBy') }} <a rel="noopener" href="https://msys.pro/" target="_blank">MetaSystems</a>
-        </div>
-
     </div>
 
 </template>
@@ -85,6 +95,51 @@
 </script>
 
 <style>
+    .about_top {
+        display: flex;
+        margin:10px 0;
+    }
+    .about_app {
+        margin-right:20px;
+        padding:20px;
+        background: white;
+        border-radius: 5px;
+        font-size: 16px;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
+
+
+    .user_line:hover .link {
+        display:inline;
+    }
+    .user_line .link {
+        display:none;
+    }
+    .user_line b {
+        margin-right: 10px;
+    }
+    .account_box {
+        margin-left: auto;
+    }
+    .link:hover {
+        text-decoration: underline;
+    }
+    .link {
+        text-decoration: none;
+        color:#1b5e20;
+        cursor: pointer;
+    }
+    .page_header {
+        background:white;
+        padding:15px;
+        padding-right: 90px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
+    }
+    .page_content {
+        padding:15px 5vw;
+    }
     .map_icon {
         position: absolute;
         top:25px;
@@ -96,7 +151,7 @@
     }
     .dev_box {
         position:absolute;
-        bottom:65px;
+        bottom:20px;
         right:20px;
         margin-top:30px;
         font-size:12px;
@@ -113,7 +168,7 @@
         font-weight:bold;
     }
     tr:hover {
-        background:#fff;
+        background:#eee;
     }
     td {
         padding:8px 10px;
@@ -155,12 +210,10 @@
         flex-direction: column;
     }
     .about-container {
-        padding: 15px;
         padding-bottom:130px;
         max-width: 800px;
     }
     .orm_logo {
-        margin-bottom: 15px;
         width:60px;
         height:60px;
         background-size:contain;
