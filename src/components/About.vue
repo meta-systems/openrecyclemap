@@ -97,7 +97,7 @@
 <style>
     .about_top {
         display: flex;
-        margin:10px 0;
+        margin:10px 0 25px;
     }
     .about_app {
         margin-right:20px;
