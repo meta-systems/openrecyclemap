@@ -139,6 +139,7 @@
     }
     .page_content {
         padding:15px 5vw;
+        max-width: 800px;
     }
     .map_icon {
         position: absolute;
@@ -211,7 +212,6 @@
     }
     .about-container {
         padding-bottom:130px;
-        max-width: 800px;
     }
     .orm_logo {
         width:60px;

@@ -221,6 +221,7 @@
         height:40px;
         width:40px;
         opacity:0.7;
+        opacity:1;
         cursor:pointer;
         box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.26);
         user-select: none;
