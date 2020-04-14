@@ -10,7 +10,7 @@
         </div>
         <v-progress-circular indeterminate color="primary" v-if="loading" class="main_loading"></v-progress-circular>
 
-        <router-link class="orm_logo orm_logo_map" aria-label="About" to="/about"></router-link>
+        <div class="orm_logo orm_logo_map"></div>
         <leaflet-map v-on:map-init="initMap" v-on:location-found="onMapChange" v-on:map-click="onMapClick" v-on:map-change="onMapChange"></leaflet-map>
 
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
