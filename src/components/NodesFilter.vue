@@ -48,7 +48,7 @@
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')" v-if="showAll">
             <span>{{ $t('fraction.engine_oil') }}</span>
         </div>
-        <div class="map_filter ico_dots" @click="showAll = !showAll">
+        <div v-if="!showAll" class="map_filter ico_dots" @click="showAll = !showAll">
             <span>{{ $t('button.seeMore') }}</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
@@ -131,6 +131,7 @@
         content: '';
         display:block;
         border:1px solid #2E7D32;
+        background:white;
         position:absolute;
         top:10px;
         left:5px;
@@ -149,6 +150,9 @@
         overflow-wrap: break-word;
         width: 73px;
         font-size:13px;
+    }
+    .ico_dots {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='20' r='2.5' fill='%23000'/%3E%3Ccircle cx='20' cy='20' r='2.5' fill='%23000'/%3E%3Ccircle cx='30' cy='20' r='2.5' fill='%23000'/%3E%3C/svg%3E");
     }
     .p_fraction.ico_notags:before,
     .ico_notags {
