@@ -45,11 +45,11 @@
                     eventValue: 1
                 });
                 this.auth.bootstrapToken(token, function(err, oauth) {
-                    router.replace({name: 'login'});
+                    router.replace({name: 'about'});
                 });
             }
             else {
-                router.replace({name: 'login'});
+                router.replace({name: 'about'});
             }
         }
     }
