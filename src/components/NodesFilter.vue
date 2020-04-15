@@ -48,7 +48,7 @@
         <div :class="['map_filter ico_engine_oil', {filter_active: filter.engine_oil}]" @click="filter.invert('engine_oil')" v-if="showAll">
             <span>{{ $t('fraction.engine_oil') }}</span>
         </div>
-        <div class="map_filter" @click="showAll = !showAll">
+        <div class="map_filter ico_dots" @click="showAll = !showAll">
             <span>{{ $t('button.seeMore') }}</span>
         </div>
         <div :class="['map_filter ico_waste_disposal', {filter_active: filter.waste_disposal}]" @click="filter.invert('waste_disposal')">
@@ -120,6 +120,9 @@
     }
     .map_filter.ico_waste_disposal:hover:before {
         border-color:#8D6E63;
+    }
+    .map_filter.ico_dots:before {
+        display: none !important;
     }
     .map_filter:hover:before {
         width:15px;

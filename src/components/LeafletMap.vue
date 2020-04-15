@@ -10,7 +10,7 @@
             </div>
             <router-link class="orm_control orm_info" to="/about" :title="$t('menu.about')"></router-link>
             <div class="orm_control orm_layers popup_activator" :title="$t('menu.map_view')" :class="{control_active: layersPopup}"  @click="layersPopup = !layersPopup"></div>
-            <router-link class="orm_control orm_map_add" to="/map/add" :title="$t('menu.add')"></router-link>
+            <router-link class="orm_control orm_map_add_white add_green" to="/map/add" :title="$t('menu.add')"></router-link>
             
         </div>
 
@@ -158,6 +158,12 @@
 </script>
 
 <style>
+    .add_green {
+        /* GREEN */
+        background-color:#248A00;
+        background-color:#2E7D32 !important; /* точки на карте и фильтрах */
+        background-color:#1b5e20; /* темный (текст?) */
+    }
     .layer_btn_last {
         border: none !important;
     }
@@ -165,7 +171,7 @@
         background:#eee;
     }
     .layer_btn.active {
-        background:#1b5e20;
+        background:#2E7D32;
         color: white;
         font-weight: 500;
     }
@@ -229,6 +235,9 @@
     }
     .orm_info {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='41' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M22.61 9.65a1.65 1.65 0 11-3.3 0 1.65 1.65 0 013.3 0zM20.96 31.14c-.69 0-1.24-.55-1.24-1.24V17.1h-1.65a1.24 1.24 0 010-2.49h2.89c.68 0 1.24.56 1.24 1.24V29.9c0 .69-.56 1.24-1.24 1.24z' fill='%23000'/%3E%3Cpath d='M24.68 31.14h-7.44a1.24 1.24 0 010-2.48h7.44a1.24 1.24 0 010 2.48z' fill='%23000'/%3E%3C/svg%3E");
+    }
+    .orm_map_add_white {
+        background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23ffffff'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23ffffff'/%3E%3C/svg%3E");
     }
     .orm_map_add {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='36' height='36' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Crect x='15.46' y='8.45' width='5.14' height='19.47' rx='.84' fill='%23248A00'/%3E%3Crect x='8.29' y='20.76' width='5.14' height='19.47' rx='.84' transform='rotate(-90 8.3 20.76)' fill='%23248A00'/%3E%3C/svg%3E");
