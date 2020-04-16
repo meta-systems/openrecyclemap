@@ -153,6 +153,7 @@
         overflow-wrap: break-word;
         width: 73px;
         font-size:13px;
+        user-select: none;
     }
     .ico_dots {
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg width='40' height='40' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='20' r='2.5' fill='%23000'/%3E%3Ccircle cx='20' cy='20' r='2.5' fill='%23000'/%3E%3Ccircle cx='30' cy='20' r='2.5' fill='%23000'/%3E%3C/svg%3E");
