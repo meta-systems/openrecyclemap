@@ -1,46 +1,49 @@
 <template>
     <div class="tags_window">
-        <div class="node_type">
-            <div class="box_title">{{ $t('message.selectType') }}</div>
-            <div class="node_type_choice">
-                <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >{{ $t('message.wasteDisposal') }}</div>
-                <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >{{ $t('message.recyclingContainer') }}</div>
-                <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >{{ $t('message.recyclingOrganization') }}</div>
-            </div>
-        </div>
+        <div class="tags_window_inner">
 
-        <div class="name_box" v-if="type_btn === 'org'">
-            <div class="box_title">{{ $t('message.organizationName') }}</div>
-            <v-text-field :label="$t('message.organizationName')" solo v-model="name"></v-text-field>
-        </div>
-        <div class="tags_box" v-if="!waste_disposal">
-            <div class="node_tags">
-                <div class="box_title">{{ $t('message.selected') }}</div>
-                <span
-                    v-for="(value, key) in recycling"
-                    v-if="value"
-                    :class="['p_fraction', 'ico_'+key]"
-                    @click="recycling[key] = !recycling[key]"
-                >{{ labels[key] }}</span>
+            <div class="node_type">
+                <div class="box_title">{{ $t('message.selectType') }}</div>
+                <div class="node_type_choice">
+                    <div @click="waste_disposal = true;type_btn = 'waste'" :class="['type_btn type_waste', { type_active: type_btn === 'waste' }]" >{{ $t('message.wasteDisposal') }}</div>
+                    <div @click="waste_disposal = false;type_btn = 'recycle'" :class="['type_btn type_recycle', {type_active: type_btn === 'recycle'}]" >{{ $t('message.recyclingContainer') }}</div>
+                    <div @click="waste_disposal = false;type_btn = 'org'" :class="['type_btn type_org', {type_active: type_btn === 'org'}]" >{{ $t('message.recyclingOrganization') }}</div>
+                </div>
+            </div>
 
-                <div v-if="!isRecycling" class="tags_not_selected">{{ $t('message.selectFractions') }}</div>
+            <div class="name_box" v-if="type_btn === 'org'">
+                <div class="box_title">{{ $t('message.organizationName') }}</div>
+                <v-text-field :label="$t('message.organizationName')" solo v-model="name"></v-text-field>
             </div>
-            <div class="f_list f_list_add">
-                <div class="box_title">{{ $t('message.available') }}</div>
-                <span v-for="(value, key) in recycling" v-if="!value"
-                      :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
+            <div class="tags_box" v-if="!waste_disposal">
+                <div class="node_tags">
+                    <div class="box_title">{{ $t('message.selected') }}</div>
+                    <span
+                        v-for="(value, key) in recycling"
+                        v-if="value"
+                        :class="['p_fraction', 'ico_'+key]"
+                        @click="recycling[key] = !recycling[key]"
+                    >{{ labels[key] }}</span>
+
+                    <div v-if="!isRecycling" class="tags_not_selected">{{ $t('message.selectFractions') }}</div>
+                </div>
+                <div class="f_list f_list_add">
+                    <div class="box_title">{{ $t('message.available') }}</div>
+                    <span v-for="(value, key) in recycling" v-if="!value"
+                          :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
+                </div>
             </div>
-        </div>
-        <div v-if="!waste_disposal" class="description_box">
-            <div class="box_title">{{ $t('message.description') }}</div>
-            <!-- <v-textarea :label="$t('message.description')" rows="2" solo v-model="description"></v-textarea> -->
-            <div class="tarea_p">
-                <textarea class="tarea" rows="2" v-model="description"></textarea>
+            <div v-if="!waste_disposal" class="description_box">
+                <div class="box_title">{{ $t('message.description') }}</div>
+                <!-- <v-textarea :label="$t('message.description')" rows="2" solo v-model="description"></v-textarea> -->
+                <div class="tarea_p">
+                    <textarea class="tarea" rows="2" v-model="description"></textarea>
+                </div>
             </div>
-        </div>
-        <div class="add_mode_steps">
-            <div class="btn btn_gray" @click="cancelAddMode">{{ $t('button.cancel') }}</div>
-            <div class="btn btn_green btn_add_next" @click="saveData">{{ $t('button.save') }}</div>
+            <div class="add_mode_steps">
+                <div class="btn btn_gray" @click="cancelAddMode">{{ $t('button.cancel') }}</div>
+                <div class="btn btn_green btn_add_next" @click="saveData">{{ $t('button.save') }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -178,13 +181,14 @@
         padding-top:10px;
     }
     .tags_window {
+        background:white;
+        overflow: auto;
         right:auto;
-        width:400px;
+        width:420px;
         position:absolute;
         top:0;
         left:0;
         bottom:50px;
-        background:white;
         z-index: 1;
         display:flex;
         padding:0 3%;
@@ -238,9 +242,15 @@
         background-size:contain;
         margin-right:5px;
     }
+
+    @media (max-width: 400px){
+        .p_fraction:before {
+            width:8vw;
+            height:8vw;
+            min-width: 8vw;
+        }
+    }
     .p_fraction {
-        position:relative;
-        display:block;
         background-size:contain;
         margin-bottom:5px;
         padding:5px;
@@ -253,6 +263,13 @@
         cursor:pointer;
         background:none !important;
         user-select: none;
+        
+        word-break:break-word
+    }
+    @media (max-width: 380px){
+        .p_fraction {
+            font-size:4vw;
+        }
     }
     .node_tags .p_fraction {
         background:rgba(46, 125, 50, 0.1) !important;
@@ -264,7 +281,6 @@
         display:inline-block;
         font-weight:bold;
         font-size:18px;
-        /*border-bottom:4px solid #ECB5FF;*/
     }
     .node_tags,
     .f_list_add {

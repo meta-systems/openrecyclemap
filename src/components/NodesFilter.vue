@@ -227,7 +227,7 @@
     }
     .p_fraction.ico_car_batteries:before,
     .ico_car_batteries {
-        background-size:32px;
+        background-size:76%;
         background-image: url("data:image/svg+xml;charset=utf8,%3Csvg height='40' viewBox='0 0 64 64' width='40' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M9 58h46a1 1 0 001-1V29a1 1 0 00-1-1H9a1 1 0 00-1 1v28a1 1 0 001 1zm1-28h44v26H10z'/%3E%3Cpath d='M61 20h-1v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1h-4a1 1 0 00-1 1v3a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1H15a1 1 0 00-1 1v5h-2v-5a1 1 0 00-1-1v-3a1 1 0 00-1-1H6a1 1 0 00-1 1v3a1 1 0 00-1 1v5H3a1 1 0 00-1 1v4a1 1 0 001 1h1v35a1 1 0 001 1h54a1 1 0 001-1V26h1a1 1 0 001-1v-4a1 1 0 00-1-1zm-6-8h2v2h-2zm-1 4h4v4h-4zm-6 4h-3v-4h3zm-27 0v-4h4v4zm6-4h4v4h-4zm6 0h4v4h-4zm6 0h4v4h-4zm-23 0h3v4h-3zm-9-4h2v2H7zm-1 4h4v4H6zm52 44H6V26h52zm2-36H4v-2h56zM7 8h2V6h2V4H9V2H7v2H5v2h2zM53 4h6v2h-6z'/%3E%3Cpath d='M39.88 34.53A1 1 0 0039 34h-7a1 1 0 00-.87.51l-5 9A1 1 0 0027 45h3.61l-2.56 7.68a1 1 0 001.72.96l10-12A1 1 0 0039 40h-2.13l2.96-4.45a1 1 0 00.05-1.02zm-5.71 5.91A1 1 0 0035 42h1.86l-5.23 6.29 1.32-3.97A1 1 0 0032 43h-3.3l3.89-7h4.54z'/%3E%3C/svg%3E");
     }
     .p_fraction.ico_all:before,

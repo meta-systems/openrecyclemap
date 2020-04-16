@@ -435,6 +435,7 @@
         padding:15px 15px;
         display:flex;
         position: fixed;
+        box-shadow: 0 0 6px rgba(0,0,0,.26);
     }
     .add_mode_message div {
         font-weight: bold;
