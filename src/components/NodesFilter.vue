@@ -109,7 +109,7 @@
         border-radius:15px;
         content: '';
         display:block;
-        background:#2E7D32;
+        background:#2E7D32 !important;
         position:absolute;
         top:10px;
         left:5px;
