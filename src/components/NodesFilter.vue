@@ -3,6 +3,9 @@
         <div :class="['map_filter ico_all', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
             <span>{{ $t('fraction.anyRecycling') }}</span>
         </div>
+        <!-- <div :class="['map_filter ico_notags', {filter_active: filter.recycling}]" @click="filter.invert('recycling')">
+            <span>{{ $t('fraction.no_tags') }}</span>
+        </div> FIXME -->
         <div :class="['map_filter ico_plastic', {filter_active: filter.plastic}]" @click="filter.invert('plastic')">
             <span>{{ $t('fraction.plastic') }}</span>
         </div>
@@ -15,7 +18,7 @@
         <div :class="['map_filter ico_glass', {filter_active: filter.glass}]" @click="filter.invert('glass')">
             <span>{{ $t('fraction.glass') }}</span>
         </div>
-        <div :class="['map_filter ico_paper.ico_waste_disposal.filter_active:before', {filter_active: filter.paper}]" @click="filter.invert('paper')">
+        <div :class="['map_filter ico_paper', {filter_active: filter.paper}]" @click="filter.invert('paper')">
             <span>{{ $t('fraction.paper') }}</span>
         </div>
         <div :class="['map_filter ico_cans', {filter_active: filter.cans}]" @click="filter.invert('cans')">

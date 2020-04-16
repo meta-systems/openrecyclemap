@@ -24,6 +24,7 @@
   "fraction": {
     "wasteDisposal": "Waste disposal",
     "anyRecycling": "Any recycling",
+    "no_tags": "No tags",
     "plastic": "Plastic",
     "paper": "Paper",
     "cans": "Cans",
