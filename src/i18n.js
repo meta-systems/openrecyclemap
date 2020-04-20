@@ -27,6 +27,9 @@ function loadLocaleMessages () {
 const storageLanguage = localStorage.getItem('lang');
 const userLanguage = storageLanguage || getNavigatorLanguage().slice(0, 2);
 
+/*
+ * For translations use https://poeditor.com/projects/view?id=333387
+ */
 export default new VueI18n({
     locale: userLanguage,
     fallbackLocale: 'en',
