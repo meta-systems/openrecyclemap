@@ -24,7 +24,7 @@
     "fraction": {
         "wasteDisposal": "Несортированные",
         "anyRecycling": "Все раздельные",
-        "no_tags": "",
+        "no_tags": "Без тегов",
         "plastic": "Пластик",
         "paper": "Бумага",
         "cans": "Металлические банки",
