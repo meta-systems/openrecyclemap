@@ -13,7 +13,7 @@
     "selectFractions": "Sélectionner les catégories de recyclage",
     "addMode": "Ajouter un nouveau point.",
     "addModeHint": "Déplacez la carte pour choisir un emplacement de nœud correct",
-    "loadDataError": "Le serveur est temporairement indisponible. Essayez de rafraîchir une page ou revenez plus tard.",
+    "loadDataError": "Le serveur est temporairement indisponible. Essayez de rafraîchir la page ou revenez plus tard.",
     "saveNodeError": "Erreur ! Merci de réessayer plus tard.",
     "saveNodeSuccess": "Merci d'ajouter une nouvelle donnée ! Vos données apparaîtront bientôt sur la carte.",
     "needAccount": "Pour ajouter une nouvelle donnée à la carte, vous devez vous connecter avec un compte <b>OpenStreetMap</b>.",
@@ -22,7 +22,7 @@
     "devBy": "Développé par"
   },
   "fraction": {
-    "wasteDisposal": "Traitement des déchets",
+    "wasteDisposal": "Ordures ménagères",
     "anyRecycling": "Tout recyclage",
     "plastic": "Plastique",
     "paper": "Papier",
@@ -52,7 +52,7 @@
     "toMap": "Aller à la carte",
     "logout": "Se déconnecter",
     "login": "Se connecter avec OSM",
-    "next": "Prochain",
+    "next": "Suivant",
     "cancel": "Annuler",
     "save": "Enregistrer",
     "edit": "Éditer",
@@ -62,7 +62,7 @@
   "about": {
     "app": "{0} est une application pour voir et ajouter des lieux qui acceptent les déchets pour recyclage.",
     "dataHeader": "Données",
-    "data": "Cette application utilise les données issues d'{0}. OSM est un projet de carte open-source créée par des milliers de contributeurs tout autour du globe. Les données sont librement accessibles et mises sous licence ODbl.",
+    "data": "Cette application utilise les données issues d'{0}. OSM est un projet de carte open-source créée par des milliers de contributeurs du monde entier. Les données sont librement accessibles et mises sous licence ODbl.",
     "contributingHeader": "Comment contribuer ?",
     "contributing": "Le projet est publié sur {0}. Vous pouvez voir et discuter des attributs OSM que l'application utilise. Vous pouvez poster une anomalie si le rendu de l'application est incorrect. Vous pouvez aussi ajouter des traductions dans votre propre langue."
   }
