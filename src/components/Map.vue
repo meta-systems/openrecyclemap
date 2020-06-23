@@ -254,7 +254,7 @@
                 let lat = position.lat.toFixed(5);
                 let lon = position.lng.toFixed(5);
                 if(this.$route.params.lat !== lat || this.$route.params.lon !== lon || this.$route.params.zoom != zoom) {
-                    this.$router.push({name: 'position', params: {lat: lat, lon: lon, zoom: zoom}});
+                    this.$router.replace({name: 'position', params: {lat: lat, lon: lon, zoom: zoom}});
                 }
             },
             onMapClick: function () {
