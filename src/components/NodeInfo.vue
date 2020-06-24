@@ -17,6 +17,7 @@
 
         <div class="edit_box">
             <span @click="goEdit" class="btn btn_gray">{{ $t('button.edit') }}</span>
+            <v-btn flat icon small color="secondary" @click="goDelete"><v-icon>delete</v-icon></v-btn>
         </div>
     </div>
 </template>
@@ -52,7 +53,10 @@
             },
             goEdit: function () {
                 this.$emit('edit-click');
-            }
+            },
+            goDelete: function () {
+                this.$emit('delete-click');
+            },
         },
         created() {
             if (this.selected) {

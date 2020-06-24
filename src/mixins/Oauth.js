@@ -90,6 +90,28 @@ export default {
                     }, component.onNodeCreateResponse);
                 });
         },
+        deleteNode: function (node_id, node_type, latlon) {
+            let component = this;
+            let nodeObj = new OsmBuilder(node_type, latlon);
+            this.readNode(node_id, node_type)
+                .then(function(node) {
+                    nodeObj.setExisting(node_id, node.version);
+                    return component.createChangeset('Remove a recycling container');
+                })
+                .then(function(changeset_id) {
+                    nodeObj.setChangeset(changeset_id);
+                    component.auth.xhr({
+                        method: 'DELETE',
+                        path: '/api/0.6/'+node_type+'/'+node_id,
+                        content: nodeObj.xml,
+                        options: {
+                            header: {
+                                'Content-Type': 'text/xml'
+                            }
+                        }
+                    }, component.onNodeCreateResponse);
+                });
+        },
         updateNode: function (node_id, node_type, latlon, tags) {
             let component = this;
             let nodeObj = new OsmBuilder(node_type, latlon);

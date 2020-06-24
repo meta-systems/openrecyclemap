@@ -16,7 +16,7 @@
         <fractions-form :selected="selected" :labels="labels" v-if="edit_tags" v-on:form-cancel="disableAddMode" v-on:form-save="saveData"></fractions-form>
 
         <node-info :key="selectedId" :selected="selected" :labels="labels" v-if="selectedLayer"
-                   v-on:close-info="deselectLayer" v-on:edit-click="goEdit"></node-info>
+                   v-on:close-info="deselectLayer" v-on:edit-click="goEdit" v-on:delete-click="goDelete"></node-info>
 
         <nodes-filter v-on:filter-nodes="loadData" :filter="filter" v-if="!selectedLayer && !add_mode"></nodes-filter>
         <v-snackbar v-model="snackbar" top multi-line>
@@ -301,6 +301,38 @@
                 }
                 else {
                     this.edit_tags = true;
+                }
+            },
+            goDelete: function () {
+                if(!this.selected) {
+                    return;
+                }
+                if(!this.authenticated) {
+                    this.$router.replace({path: '/login'});
+                }
+                else {
+                    if(confirm('Are you sure you want to delete a node?')) {
+                        this.addNodeSuccess = function () {
+                            this.snackbar_text = this.$t('message.saveNodeSuccess');
+                            this.snackbar = true;
+                        };
+                        this.addNodeFail = function () {
+                            this.snackbar_text = this.$t('message.saveNodeError');
+                            this.snackbar = true;
+                        };
+                        let position = this.selectedLayer ? this.selectedLayer.getLatLng() : null;
+                        if (position) {
+                            this.deleteNode(this.selected.node_id, this.selected.node_type, position);
+
+                            this.$ga.event({
+                                eventCategory: 'map_interaction',
+                                eventAction: 'remove_point',
+                                eventLabel: event.amenity,
+                                eventValue: 1
+                            });
+                            this.deselectLayer();
+                        }
+                    }
                 }
             },
             loadNode: function (params) {
