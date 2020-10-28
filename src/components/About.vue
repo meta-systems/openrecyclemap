@@ -76,7 +76,8 @@
                     {text: 'Français', value: 'fr'},
                     {text: 'Français', value: 'fr'},
                     {text: 'Italiano', value: 'it'},
-                    {text: 'Português', value: 'pt'}
+                    {text: 'Português', value: 'pt'},
+                    {text: 'Deutsche', value: 'de'}
                 ]
             };
         },
