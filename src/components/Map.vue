@@ -118,9 +118,14 @@
                 let ovData = osmtogeojson(data);
                 this.layer = L.geoJson(ovData, {
                     style: function (feature) {
-                        let color = feature.properties.amenity === 'recycling'
-                            ? '#2E7D32'
-                            : '#8D6E63';
+                        var color = feature.properties.amenity === 'recycling'
+                            ? '#ff0000' // RED - Show nodes with no factions in red (materials not specified)
+                            : '#8D6E63'; // BROWN
+                        for (let key in feature.properties) {
+                          if(key.startsWith("recycling:")){ // recycling:* - display in green
+                            color = '#2E7D32'; // GREEN
+                          }
+                        }
                         return  {
                             opacity: 1,
                             fillOpacity: 1,
