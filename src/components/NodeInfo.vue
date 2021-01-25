@@ -5,15 +5,15 @@
         <div class="f_list">
             <span v-for="item in fractions" :class="['p_fraction', 'ico_'+item]">{{ labels[item] }}</span>
         </div>
-        <table v-if="info">
+        <table v-if="info || !fractions.length">
             <tr v-for="(item, key) in all_tags" class="node_info_tr"><td>{{ key }}</td><td>{{ item }}</td></tr>
         </table>
 
         <div v-if="description" class="f_description">{{ description }}</div>
 
         <a target="_blank" class="p_link" :href="osmLink">{{ $t('button.osmLink') }}</a>
-        <a target="_blank" class="p_link" :href="josmLink" :title="$t('button.josm')">(J)</a>
-        <v-btn flat icon small color="secondary" @click="info = !info"><v-icon>info</v-icon></v-btn>
+        <a target="_blank" class="p_link" :href="josmLink" :title="$t('button.josm')">(JOSM)</a>
+        <v-btn  v-if="fractions.length" flat icon small color="secondary" @click="info = !info"><v-icon>info</v-icon></v-btn>
 
         <div class="edit_box">
             <span @click="goEdit" class="btn btn_gray">{{ $t('button.edit') }}</span>
