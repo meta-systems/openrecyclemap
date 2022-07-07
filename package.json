@@ -13,7 +13,7 @@
     "leaflet.snogylop": "^0.4.0",
     "mapbox-gl": "^1.4.0",
     "mapbox-gl-leaflet": "0.0.10",
-    "moment": "^2.20.1",
+    "moment": "^2.29.4",
     "osm-auth": "^1.0.2",
     "osmtogeojson": "^3.0.0-beta.3",
     "vue": "^2.6.11",
