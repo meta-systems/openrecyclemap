@@ -373,7 +373,7 @@
             }
         },
         watch: {
-            '$route'(to, from) {
+            '$route'(to) {
                 if(to.name === 'node') {
                     //this.loadNode(to.params);
                 }

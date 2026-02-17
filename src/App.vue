@@ -25,8 +25,6 @@
 </template>
 
 <script>
-    import moment from 'moment'
-
     export default {
         data: function () {
             return {
@@ -36,6 +34,7 @@
         methods: {
             processParams: function (route) {
                 if(route.name === 'about') {
+                    return;
                 }
             },
             fixHeight: function () {
@@ -52,7 +51,7 @@
             window.addEventListener('resize', this.fixHeight);
         },
         watch: {
-            '$route' (to, from) {
+            '$route' (to) {
                 this.processParams(to);
             }
         }

@@ -30,7 +30,6 @@
     import L from 'leaflet'
     import layersMixin from '../mixins/Layers'
     import 'mapbox-gl/dist/mapbox-gl.css'
-    import mapboxgl from 'mapbox-gl'
     import 'mapbox-gl-leaflet'
     //import 'font-awesome/css/font-awesome.min.css'
     //import 'leaflet.locatecontrol/dist/L.Control.Locate.min.css'
