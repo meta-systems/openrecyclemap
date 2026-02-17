@@ -14,7 +14,7 @@ const routes = [
     {
         name: 'root',
         path: '/',
-        redirect: to => {
+        redirect: () => {
             return { name: 'map' };
         }
     },

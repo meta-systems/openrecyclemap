@@ -36,7 +36,7 @@ export default {
         },
         createChangeset: function (changeset_name) {
             let component = this;
-            return new Promise(function(resolve, reject) {
+            return new Promise(function(resolve) {
                 component.auth.xhr({
                     method: 'PUT',
                     path: '/api/0.6/changeset/create',
@@ -58,8 +58,7 @@ export default {
             this.auth.xhr({
                 method: 'PUT',
                 path: '/api/0.6/changeset/'+changeset_id+'/close'
-            }, function (err, closed_id) {
-                console.log('Changeset #'+closed_id+' has just been closed.')
+            }, function () {
             });
         },
         onNodeCreateResponse: function(err, node_id) {
@@ -139,7 +138,7 @@ export default {
         },
         readNode: function (node_id, node_type) {
             let auth = this.auth;
-            return new Promise(function(resolve, reject) {
+            return new Promise(function(resolve) {
                 auth.xhr({
                     method: 'GET',
                     path: '/api/0.6/'+node_type+'/'+node_id

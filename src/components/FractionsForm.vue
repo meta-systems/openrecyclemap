@@ -19,8 +19,8 @@
                 <div class="node_tags">
                     <div class="box_title">{{ $t('message.selected') }}</div>
                     <span
-                        v-for="(value, key) in recycling"
-                        v-if="value"
+                        v-for="(value, key) in selectedRecycling"
+                        :key="key"
                         :class="['p_fraction', 'ico_'+key]"
                         @click="recycling[key] = !recycling[key]"
                     >{{ labels[key] }}</span>
@@ -29,7 +29,8 @@
                 </div>
                 <div class="f_list f_list_add">
                     <div class="box_title">{{ $t('message.available') }}</div>
-                    <span v-for="(value, key) in recycling" v-if="!value"
+                    <span v-for="(value, key) in availableRecycling"
+                          :key="key"
                           :class="['p_fraction', 'ico_'+key]" @click="recycling[key] = !recycling[key]">{{ labels[key] }}</span>
                 </div>
             </div>
@@ -87,6 +88,24 @@
                     }
                 }
                 return false;
+            },
+            selectedRecycling: function () {
+                let selected = {};
+                for (let key in this.recycling) {
+                    if(this.recycling.hasOwnProperty(key) && this.recycling[key]) {
+                        selected[key] = this.recycling[key];
+                    }
+                }
+                return selected;
+            },
+            availableRecycling: function () {
+                let available = {};
+                for (let key in this.recycling) {
+                    if(this.recycling.hasOwnProperty(key) && !this.recycling[key]) {
+                        available[key] = this.recycling[key];
+                    }
+                }
+                return available;
             }
         },
         methods: {

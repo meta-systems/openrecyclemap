@@ -1,4 +1,5 @@
 import OverpassQuery from '../osm/OverpassQuery'
+import L from 'leaflet'
 
 export default {
     data: function () {

@@ -1,3 +1,5 @@
+import L from 'leaflet'
+
 export default {
     methods: {
         mapboxVector: function () {
